@@ -53,6 +53,31 @@ describe("callGateway", () => {
     const body = JSON.parse((fetchMock.mock.calls[0]![1] as RequestInit).body as string);
     expect(body.model).toBe(CHAT_MODEL);
     expect(body.response_format).toEqual({ type: "json_object" });
+    expect(body.max_tokens).toBe(2000);
+  });
+
+  it("applies feature-specific max_tokens", async () => {
+    process.env["OPENAI_API_KEY"] = "key-123";
+    const fetchMock = mockFetch({
+      ok: true,
+      json: async () => ({ choices: [{ message: { content: "hello" } }] }),
+    });
+    await callGateway([{ role: "user", content: "hi" }], { feature: "cover_letter" });
+    const body = JSON.parse((fetchMock.mock.calls[0]![1] as RequestInit).body as string);
+    expect(body.max_tokens).toBe(800);
+  });
+
+  it("blocks rapid calls exceeding rate limit", async () => {
+    process.env["OPENAI_API_KEY"] = "key-123";
+    mockFetch({
+      ok: true,
+      json: async () => ({ choices: [{ message: { content: "hello" } }] }),
+    });
+    const userId = "rate-limited-user";
+    for (let i = 0; i < 15; i++) {
+      await expect(callGateway([{ role: "user", content: "hi" }], { userId })).resolves.toBe("hello");
+    }
+    await expect(callGateway([{ role: "user", content: "hi" }], { userId })).rejects.toThrow(/AI usage limit reached/);
   });
 
   it("returns an empty string when the model sends no content", async () => {
