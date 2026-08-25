@@ -1,0 +1,148 @@
+import { t as createServerFn } from "./createServerFn-BFFE07zL.js";
+import { t as createServerRpc } from "./createServerRpc-MBa5GZ-L.js";
+import { t as requireSupabaseAuth } from "./auth-middleware-ZGAJzz7F.js";
+import { d as normalizeCv, p as normalizeMatch } from "./cv-DMqvWRdG.js";
+import { CV_SCHEMA_HINT, knowledgeToText, loadKnowledge, loadProfileCv } from "./applications.server-DGFnt8Yv.js";
+import { t as targetLanguage } from "./targets-JKYgRwV1.js";
+//#region src/lib/targets.functions.ts?tss-serverfn-split
+var listRoleTargets_createServerFn_handler = createServerRpc({
+	id: "776c43e0170bd6a7612682a39d4c2440f47fb93e7ac9fdef9789b786b6812f60",
+	name: "listRoleTargets",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => listRoleTargets.__executeServer(opts));
+var listRoleTargets = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(listRoleTargets_createServerFn_handler, async ({ context }) => {
+	const { data, error } = await context.supabase.from("role_targets").select("id, title, seniority, location, industry, language, match_result, generated_cv, updated_at").eq("user_id", context.userId).order("created_at", { ascending: true });
+	if (error) throw new Error(error.message);
+	return data ?? [];
+});
+var getRoleTarget_createServerFn_handler = createServerRpc({
+	id: "fdc9c5eb05b293a732e968c11638f04bcc5163dec9cee7a04cc1f4cf675ee561",
+	name: "getRoleTarget",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => getRoleTarget.__executeServer(opts));
+var getRoleTarget = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(getRoleTarget_createServerFn_handler, async ({ data, context }) => {
+	const { data: row, error } = await context.supabase.from("role_targets").select("*").eq("id", data.id).eq("user_id", context.userId).maybeSingle();
+	if (error) throw new Error(error.message);
+	if (!row) throw new Error("Role target not found");
+	return row;
+});
+var createRoleTarget_createServerFn_handler = createServerRpc({
+	id: "2708351e23dfe26581f9f92847af43d01489c064bdf63448df8bbbed61b9b16c",
+	name: "createRoleTarget",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => createRoleTarget.__executeServer(opts));
+var createRoleTarget = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createRoleTarget_createServerFn_handler, async ({ data, context }) => {
+	const { count, error: countError } = await context.supabase.from("role_targets").select("id", {
+		count: "exact",
+		head: true
+	}).eq("user_id", context.userId);
+	if (countError) throw new Error(countError.message);
+	if ((count ?? 0) >= 5) throw new Error(`You can keep up to 5 role targets — delete one first.`);
+	const { data: row, error } = await context.supabase.from("role_targets").insert({
+		user_id: context.userId,
+		title: data.title,
+		seniority: data.seniority ?? "",
+		location: data.location ?? "",
+		industry: data.industry ?? "",
+		keywords: data.keywords ?? [],
+		sample_offers: data.sampleOffers ?? "",
+		language: targetLanguage(data.language)
+	}).select("id").single();
+	if (error) throw new Error(error.message);
+	return { id: row.id };
+});
+var updateRoleTarget_createServerFn_handler = createServerRpc({
+	id: "93ea08acf8f19745c1f9ecba03a365aeeae8d7cfb44ef65f3614ad6c8e4b3b3b",
+	name: "updateRoleTarget",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => updateRoleTarget.__executeServer(opts));
+var updateRoleTarget = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(updateRoleTarget_createServerFn_handler, async ({ data, context }) => {
+	const patch = {};
+	if (data.title !== void 0) patch["title"] = data.title;
+	if (data.seniority !== void 0) patch["seniority"] = data.seniority;
+	if (data.location !== void 0) patch["location"] = data.location;
+	if (data.industry !== void 0) patch["industry"] = data.industry;
+	if (data.keywords !== void 0) patch["keywords"] = data.keywords;
+	if (data.sampleOffers !== void 0) patch["sample_offers"] = data.sampleOffers;
+	if (data.language !== void 0) patch["language"] = targetLanguage(data.language);
+	if (data.generatedCv !== void 0) patch["generated_cv"] = normalizeCv(data.generatedCv);
+	const { error } = await context.supabase.from("role_targets").update(patch).eq("id", data.id).eq("user_id", context.userId);
+	if (error) throw new Error(error.message);
+	return { ok: true };
+});
+var deleteRoleTarget_createServerFn_handler = createServerRpc({
+	id: "48b05c8c37aa74a8eb77e39fb37a7bc7a70e4fedb4143b927034daa15c967340",
+	name: "deleteRoleTarget",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => deleteRoleTarget.__executeServer(opts));
+var deleteRoleTarget = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(deleteRoleTarget_createServerFn_handler, async ({ data, context }) => {
+	const { error } = await context.supabase.from("role_targets").delete().eq("id", data.id).eq("user_id", context.userId);
+	if (error) throw new Error(error.message);
+	return { ok: true };
+});
+var generateTargetCv_createServerFn_handler = createServerRpc({
+	id: "f0c5e5f747d222292ff6c2ac789fdbb77f634e1bbaab4a93f1688758ecf25ecd",
+	name: "generateTargetCv",
+	filename: "src/lib/targets.functions.ts"
+}, (opts) => generateTargetCv.__executeServer(opts));
+var generateTargetCv = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(generateTargetCv_createServerFn_handler, async ({ data, context }) => {
+	const { callGateway, parseJsonResponse } = await import("./ai-gateway.server-MwD_wIGi.js").then((n) => n.n);
+	const { data: row, error: loadError } = await context.supabase.from("role_targets").select("*").eq("id", data.id).eq("user_id", context.userId).maybeSingle();
+	if (loadError) throw new Error(loadError.message);
+	if (!row) throw new Error("Role target not found");
+	const target = row;
+	const language = targetLanguage(target["language"]);
+	const profile = await loadProfileCv(context.supabase, context.userId, language);
+	if (!profile.fullName && profile.experiences.length === 0) throw new Error("Add your master profile first — the AI has nothing to tailor.");
+	const knowledge = await loadKnowledge(context.supabase, context.userId);
+	const { loadDossier } = await import("./dossier.server-CI5-kSib.js");
+	const { dossierToPrompt } = await import("./dossier-zpfXRoUi.js");
+	const dossier = await loadDossier(context.supabase, context.userId);
+	const keywords = Array.isArray(target["keywords"]) ? target["keywords"] : [];
+	const parsed = parseJsonResponse(await callGateway([{
+		role: "system",
+		content: `You are an expert ATS résumé writer. Write a GENERAL-PURPOSE CV for one target role — it is not tied to a single job ad, so it must read well for any posting of that role.
+Rules:
+- First infer the requirements, tools and vocabulary that postings for this role typically ask for (use the sample ads if provided, plus your own knowledge of the role and market).
+- Never invent employers, dates, degrees or achievements. Only rephrase, reorder and emphasise what the candidate provided.
+- Use the standard terminology of that role wherever it is truthful, so keyword-based filters match.
+- Every experience bullet starts with a strong past-tense verb, is one line, and includes a metric when the candidate gave one.
+- The CV MUST fit on a single A4 page — multi-page CVs get discarded. Budget roughly: summary max 3 lines, at most 4 roles (compress older ones), 3-5 bullets for the top role and 2-3 for the rest, each bullet about 120 characters, at most 15 skills.
+- Skills must be a flat list of concrete keywords, ordered by relevance to the target role.
+- Write the whole CV in ${language === "es" ? "Spanish" : "English"}.
+Return ONLY a JSON object: { "cv": ${CV_SCHEMA_HINT}, "match": { "score": number 0-100, "matched": [string], "missing": [string], "notes": string } }
+"matched" are role keywords the CV credibly demonstrates, "missing" are keywords the role usually demands that the candidate cannot truthfully claim yet, "notes" is one short paragraph of advice on closing the gap.`
+	}, {
+		role: "user",
+		content: `TARGET ROLE: ${target["title"] || "unknown"}
+SENIORITY: ${target["seniority"] || "(not specified)"}
+LOCATION / WORK MODE: ${target["location"] || "(not specified)"}
+INDUSTRY: ${target["industry"] || "(not specified)"}
+KEYWORDS TO EMPHASISE: ${keywords.join(", ") || "(none given)"}
+
+SAMPLE JOB ADS FOR THIS ROLE (may be empty):
+${target["sample_offers"] || "(none given)"}
+
+CANDIDATE MASTER PROFILE (JSON):
+${JSON.stringify(profile)}
+
+CANDIDATE DOSSIER (living record of everything they have told us — treat as true, reuse where relevant):
+${dossierToPrompt(dossier)}
+
+RAW Q&A LOG (may repeat the dossier):
+${knowledgeToText(knowledge)}`
+	}], { json: true }));
+	const cv = normalizeCv(parsed.cv);
+	const match = normalizeMatch(parsed.match);
+	const { error } = await context.supabase.from("role_targets").update({
+		generated_cv: cv,
+		match_result: match
+	}).eq("id", data.id).eq("user_id", context.userId);
+	if (error) throw new Error(error.message);
+	return {
+		cv,
+		match
+	};
+});
+//#endregion
+export { createRoleTarget_createServerFn_handler, deleteRoleTarget_createServerFn_handler, generateTargetCv_createServerFn_handler, getRoleTarget_createServerFn_handler, listRoleTargets_createServerFn_handler, updateRoleTarget_createServerFn_handler };

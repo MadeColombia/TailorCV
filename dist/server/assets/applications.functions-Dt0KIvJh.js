@@ -1,0 +1,41 @@
+import { t as createServerFn } from "./createServerFn-BFFE07zL.js";
+import { o as createSsrRpc } from "./app-shell-bjwPVDLq.js";
+import { t as requireSupabaseAuth } from "./auth-middleware-ZGAJzz7F.js";
+//#region src/lib/applications.functions.ts
+var listApplications = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("1e9e3b335f696f04224ab187fa3131a6d38970d9a29a8de98e16b829548176a3"));
+var getApplication = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("8eeb7b9d8c0eae6b88e01fad3d05a5cc8b2c57ddd4ac41e3e3d7510463e66e3b"));
+var createApplication = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("a51d00590d791ac4be5886ae24f7b057906902639e3f02a8b939ed5aee65b542"));
+var updateApplication = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("cfef49492e68d29df6005ff48325c490872db26c4745a5439a6654810f97139a"));
+var deleteApplication = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("f2230dc746209b9f8095d9c0f0a17af8ce01170d30958f46bd3d310800d7cb66"));
+var saveChatTurn = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("94519154ab522385e7e7644e98e1ca7625755bc0542a04355f9e701ba262fe17"));
+createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("f1947d0614a6e9d384935868bfde2d1cc8670c8d445098090e7784808a85f15a"));
+/** Persist a question/answer pair so future workspaces never ask it again. */
+var rememberAnswer = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("de709bedff9f69e35429d2e675c5bc34f2f130f444f5e000c788b0be3ecbb1f2"));
+/** The living context document assembled from everything the candidate told us. */
+var getCandidateDossier = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("68bd678a8fb1d4ace3815e8a59342b72cecea5b92e4cf4bcba5cefe5c20fa9d1"));
+/** Tailor the master profile to the job offer, and score the keyword match. */
+var tailorCv = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("f0d5d6a519305f07772289a72d733572a7956c1a0359d1eea16a5c82d301d81a"));
+var generateCoverLetter = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("821817bfe49d973a00c4aa80f41f2d3651ca6f5c9a5f6b58a817623e5bb393ac"));
+/** Generate likely first-stage screening questions plus draft answers. */
+var generateInterviewPrep = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("a5a7e428b8e2ff8c035004323ec67dfddfb126d67c686acb4aba6f6121b7977f"));
+/**
+* Switch the language of an existing application and translate everything that
+* was already generated (tailored CV, cover letter, interview prep) into it.
+*/
+var changeApplicationLanguage = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("2fe0c8969df05de62f2452451d2fa62c818314df262eaa1f057ff15a5f41750a"));
+/** Move an application along the pipeline (and archive it when it closes). */
+var updateApplicationStage = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("4f2349dc672c773676d61d1bcf90b47fcede2b5de6c953075a0a2014707abe0e"));
+/** Set, reschedule or clear the interview date. */
+var setInterviewDate = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("4c490f6f748c91d57701f6f5594bc611c77b12f9ac1e710977a0272de1df0c98"));
+/** Set or clear the next-action reminder date. */
+var setNextAction = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("2bb9a50b4ea6b4d646eed435395e7dc42068c7fda6639f6bfaa8d36f102c13d4"));
+/** "I followed up" — pushes the reminder forward by the configured offset. */
+var markFollowedUp = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("6bdedbbc9510d5b21cad04c08c248d8578e37acfcc36705c4b2b1bf337794443"));
+/** Bring an archived application back into the pipeline at its previous stage. */
+var restoreApplication = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("99592cbd60bb0f62c93882c659f1a51798cc016245bb739dfb37b90d43d3ba21"));
+createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("cbb0ac25706886d19648969bbdb4118fd9fc5df125b2256ef320086558c38c2d"));
+/** Build (or rebuild) the at-a-glance offer summary from the description text. */
+var summariseOffer = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("8675400a44b570554296b267953c157f49a446677a36de298f49fa973538321b"));
+createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("79a557b17efcf41739bac21d7a010ce947032abcc802d3c003fb3457ebc26a31"));
+//#endregion
+export { updateApplication as _, generateInterviewPrep as a, listApplications as c, restoreApplication as d, saveChatTurn as f, tailorCv as g, summariseOffer as h, generateCoverLetter as i, markFollowedUp as l, setNextAction as m, createApplication as n, getApplication as o, setInterviewDate as p, deleteApplication as r, getCandidateDossier as s, changeApplicationLanguage as t, rememberAnswer as u, updateApplicationStage as v };

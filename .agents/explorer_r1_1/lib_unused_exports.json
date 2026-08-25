@@ -1,0 +1,3763 @@
+[
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ai-elements/conversation.tsx",
+    "relative": "src/components/ai-elements/conversation.tsx",
+    "unused": [
+      {
+        "name": "ConversationProps",
+        "line": 11,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ConversationContentProps",
+        "line": 23,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ConversationEmptyStateProps",
+        "line": 37,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ConversationScrollButtonProps",
+        "line": 72,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ConversationDownloadProps",
+        "line": 109,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "messagesToMarkdown",
+        "line": 124,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ConversationDownload",
+        "line": 132,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ai-elements/message.tsx",
+    "relative": "src/components/ai-elements/message.tsx",
+    "unused": [
+      {
+        "name": "MessageProps",
+        "line": 28,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageContentProps",
+        "line": 43,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageActionsProps",
+        "line": 63,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageActions",
+        "line": 65,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageActionProps",
+        "line": 75,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageAction",
+        "line": 80,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchProps",
+        "line": 136,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranch",
+        "line": 141,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchContentProps",
+        "line": 192,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchContent",
+        "line": 194,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchSelectorProps",
+        "line": 225,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchSelector",
+        "line": 227,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchPreviousProps",
+        "line": 250,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchPrevious",
+        "line": 252,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchNextProps",
+        "line": 273,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchNext",
+        "line": 275,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchPageProps",
+        "line": 296,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageBranchPage",
+        "line": 298,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageResponseProps",
+        "line": 317,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageToolbarProps",
+        "line": 339,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MessageToolbar",
+        "line": 341,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ai-elements/prompt-input.tsx",
+    "relative": "src/components/ai-elements/prompt-input.tsx",
+    "unused": [
+      {
+        "name": "AttachmentsContext",
+        "line": 181,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TextInputContext",
+        "line": 190,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputControllerProps",
+        "line": 196,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "usePromptInputController",
+        "line": 213,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "useProviderAttachments",
+        "line": 227,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputProviderProps",
+        "line": 240,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputProvider",
+        "line": 248,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "usePromptInputAttachments",
+        "line": 374,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ReferencedSourcesContext",
+        "line": 391,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "LocalReferencedSourcesContext",
+        "line": 398,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "usePromptInputReferencedSources",
+        "line": 401,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionAddAttachmentsProps",
+        "line": 411,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionAddAttachments",
+        "line": 417,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionAddScreenshotProps",
+        "line": 438,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionAddScreenshot",
+        "line": 444,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputMessage",
+        "line": 484,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputProps",
+        "line": 489,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputBodyProps",
+        "line": 943,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputBody",
+        "line": 945,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTextareaProps",
+        "line": 952,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHeaderProps",
+        "line": 1071,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHeader",
+        "line": 1076,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputFooterProps",
+        "line": 1087,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputToolsProps",
+        "line": 1103,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTools",
+        "line": 1105,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputButtonTooltip",
+        "line": 1115,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputButtonProps",
+        "line": 1123,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputButton",
+        "line": 1127,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuProps",
+        "line": 1169,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenu",
+        "line": 1170,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuTriggerProps",
+        "line": 1174,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuTrigger",
+        "line": 1176,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuContentProps",
+        "line": 1188,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuContent",
+        "line": 1191,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuItemProps",
+        "line": 1198,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputActionMenuItem",
+        "line": 1201,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSubmitProps",
+        "line": 1211,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectProps",
+        "line": 1265,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelect",
+        "line": 1267,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectTriggerProps",
+        "line": 1271,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectTrigger",
+        "line": 1275,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectContentProps",
+        "line": 1289,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectContent",
+        "line": 1293,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectItemProps",
+        "line": 1300,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectItem",
+        "line": 1302,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectValueProps",
+        "line": 1309,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputSelectValue",
+        "line": 1311,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCardProps",
+        "line": 1318,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCard",
+        "line": 1320,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCardTriggerProps",
+        "line": 1328,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCardTrigger",
+        "line": 1332,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCardContentProps",
+        "line": 1336,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputHoverCardContent",
+        "line": 1340,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabsListProps",
+        "line": 1347,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabsList",
+        "line": 1349,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabProps",
+        "line": 1354,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTab",
+        "line": 1356,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabLabelProps",
+        "line": 1361,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabLabel",
+        "line": 1363,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabBodyProps",
+        "line": 1378,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabBody",
+        "line": 1380,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabItemProps",
+        "line": 1387,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputTabItem",
+        "line": 1389,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandProps",
+        "line": 1402,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommand",
+        "line": 1404,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandInputProps",
+        "line": 1409,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandInput",
+        "line": 1411,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandListProps",
+        "line": 1418,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandList",
+        "line": 1420,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandEmptyProps",
+        "line": 1427,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandEmpty",
+        "line": 1429,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandGroupProps",
+        "line": 1436,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandGroup",
+        "line": 1438,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandItemProps",
+        "line": 1445,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandItem",
+        "line": 1447,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandSeparatorProps",
+        "line": 1454,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PromptInputCommandSeparator",
+        "line": 1458,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ai-elements/shimmer.tsx",
+    "relative": "src/components/ai-elements/shimmer.tsx",
+    "unused": [
+      {
+        "name": "TextShimmerProps",
+        "line": 26,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/application-tracker.tsx",
+    "relative": "src/components/application-tracker.tsx",
+    "unused": [
+      {
+        "name": "PIPELINE_STAGES",
+        "line": 404,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/alert-dialog.tsx",
+    "relative": "src/components/ui/alert-dialog.tsx",
+    "unused": [
+      {
+        "name": "AlertDialogPortal",
+        "line": 105,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "AlertDialogOverlay",
+        "line": 106,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/alert.tsx",
+    "relative": "src/components/ui/alert.tsx",
+    "unused": [
+      {
+        "name": "Alert",
+        "line": 49,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "AlertTitle",
+        "line": 49,
+        "col": 17,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "AlertDescription",
+        "line": 49,
+        "col": 29,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/aspect-ratio.tsx",
+    "relative": "src/components/ui/aspect-ratio.tsx",
+    "unused": [
+      {
+        "name": "AspectRatio",
+        "line": 5,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/avatar.tsx",
+    "relative": "src/components/ui/avatar.tsx",
+    "unused": [
+      {
+        "name": "Avatar",
+        "line": 47,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "AvatarImage",
+        "line": 47,
+        "col": 18,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "AvatarFallback",
+        "line": 47,
+        "col": 31,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/badge.tsx",
+    "relative": "src/components/ui/badge.tsx",
+    "unused": [
+      {
+        "name": "BadgeProps",
+        "line": 25,
+        "col": 18,
+        "kind": "InterfaceDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "badgeVariants",
+        "line": 32,
+        "col": 17,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/breadcrumb.tsx",
+    "relative": "src/components/ui/breadcrumb.tsx",
+    "unused": [
+      {
+        "name": "Breadcrumb",
+        "line": 94,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbList",
+        "line": 95,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbItem",
+        "line": 96,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbLink",
+        "line": 97,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbPage",
+        "line": 98,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbSeparator",
+        "line": 99,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "BreadcrumbEllipsis",
+        "line": 100,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/button-group.tsx",
+    "relative": "src/components/ui/button-group.tsx",
+    "unused": [
+      {
+        "name": "ButtonGroupSeparator",
+        "line": 80,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "buttonGroupVariants",
+        "line": 82,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/calendar.tsx",
+    "relative": "src/components/ui/calendar.tsx",
+    "unused": [
+      {
+        "name": "Calendar",
+        "line": 177,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CalendarDayButton",
+        "line": 177,
+        "col": 20,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/card.tsx",
+    "relative": "src/components/ui/card.tsx",
+    "unused": [
+      {
+        "name": "CardFooter",
+        "line": 55,
+        "col": 28,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CardDescription",
+        "line": 55,
+        "col": 51,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/carousel.tsx",
+    "relative": "src/components/ui/carousel.tsx",
+    "unused": [
+      {
+        "name": "CarouselApi",
+        "line": 234,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Carousel",
+        "line": 235,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CarouselContent",
+        "line": 236,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CarouselItem",
+        "line": 237,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CarouselPrevious",
+        "line": 238,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CarouselNext",
+        "line": 239,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/chart.tsx",
+    "relative": "src/components/ui/chart.tsx",
+    "unused": [
+      {
+        "name": "ChartConfig",
+        "line": 9,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartContainer",
+        "line": 325,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartTooltip",
+        "line": 326,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartTooltipContent",
+        "line": 327,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartLegend",
+        "line": 328,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartLegendContent",
+        "line": 329,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ChartStyle",
+        "line": 330,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/collapsible.tsx",
+    "relative": "src/components/ui/collapsible.tsx",
+    "unused": [
+      {
+        "name": "Collapsible",
+        "line": 11,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CollapsibleTrigger",
+        "line": 11,
+        "col": 23,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CollapsibleContent",
+        "line": 11,
+        "col": 43,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/command.tsx",
+    "relative": "src/components/ui/command.tsx",
+    "unused": [
+      {
+        "name": "CommandDialog",
+        "line": 135,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CommandShortcut",
+        "line": 141,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/context-menu.tsx",
+    "relative": "src/components/ui/context-menu.tsx",
+    "unused": [
+      {
+        "name": "ContextMenu",
+        "line": 171,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuTrigger",
+        "line": 172,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuContent",
+        "line": 173,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuItem",
+        "line": 174,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuCheckboxItem",
+        "line": 175,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuRadioItem",
+        "line": 176,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuLabel",
+        "line": 177,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuSeparator",
+        "line": 178,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuShortcut",
+        "line": 179,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuGroup",
+        "line": 180,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuPortal",
+        "line": 181,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuSub",
+        "line": 182,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuSubContent",
+        "line": 183,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuSubTrigger",
+        "line": 184,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ContextMenuRadioGroup",
+        "line": 185,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/dialog.tsx",
+    "relative": "src/components/ui/dialog.tsx",
+    "unused": [
+      {
+        "name": "DialogPortal",
+        "line": 95,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DialogOverlay",
+        "line": 96,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DialogClose",
+        "line": 98,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/drawer.tsx",
+    "relative": "src/components/ui/drawer.tsx",
+    "unused": [
+      {
+        "name": "Drawer",
+        "line": 88,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerPortal",
+        "line": 89,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerOverlay",
+        "line": 90,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerTrigger",
+        "line": 91,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerClose",
+        "line": 92,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerContent",
+        "line": 93,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerHeader",
+        "line": 94,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerFooter",
+        "line": 95,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerTitle",
+        "line": 96,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DrawerDescription",
+        "line": 97,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/dropdown-menu.tsx",
+    "relative": "src/components/ui/dropdown-menu.tsx",
+    "unused": [
+      {
+        "name": "DropdownMenuCheckboxItem",
+        "line": 176,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuRadioItem",
+        "line": 177,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuLabel",
+        "line": 178,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuSeparator",
+        "line": 179,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuShortcut",
+        "line": 180,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuGroup",
+        "line": 181,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuPortal",
+        "line": 182,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuSub",
+        "line": 183,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuSubContent",
+        "line": 184,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuSubTrigger",
+        "line": 185,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DropdownMenuRadioGroup",
+        "line": 186,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/form.tsx",
+    "relative": "src/components/ui/form.tsx",
+    "unused": [
+      {
+        "name": "useFormField",
+        "line": 163,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Form",
+        "line": 164,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormItem",
+        "line": 165,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormLabel",
+        "line": 166,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormControl",
+        "line": 167,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormDescription",
+        "line": 168,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormMessage",
+        "line": 169,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "FormField",
+        "line": 170,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/input-group.tsx",
+    "relative": "src/components/ui/input-group.tsx",
+    "unused": [
+      {
+        "name": "InputGroupText",
+        "line": 167,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "InputGroupInput",
+        "line": 168,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/input-otp.tsx",
+    "relative": "src/components/ui/input-otp.tsx",
+    "unused": [
+      {
+        "name": "InputOTP",
+        "line": 73,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "InputOTPGroup",
+        "line": 73,
+        "col": 20,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "InputOTPSlot",
+        "line": 73,
+        "col": 35,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "InputOTPSeparator",
+        "line": 73,
+        "col": 49,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/menubar.tsx",
+    "relative": "src/components/ui/menubar.tsx",
+    "unused": [
+      {
+        "name": "Menubar",
+        "line": 212,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarMenu",
+        "line": 213,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarTrigger",
+        "line": 214,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarContent",
+        "line": 215,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarItem",
+        "line": 216,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarSeparator",
+        "line": 217,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarLabel",
+        "line": 218,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarCheckboxItem",
+        "line": 219,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarRadioGroup",
+        "line": 220,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarRadioItem",
+        "line": 221,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarPortal",
+        "line": 222,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarSubContent",
+        "line": 223,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarSubTrigger",
+        "line": 224,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarGroup",
+        "line": 225,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarSub",
+        "line": 226,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "MenubarShortcut",
+        "line": 227,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/navigation-menu.tsx",
+    "relative": "src/components/ui/navigation-menu.tsx",
+    "unused": [
+      {
+        "name": "navigationMenuTriggerStyle",
+        "line": 111,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenu",
+        "line": 112,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuList",
+        "line": 113,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuItem",
+        "line": 114,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuContent",
+        "line": 115,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuTrigger",
+        "line": 116,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuLink",
+        "line": 117,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuIndicator",
+        "line": 118,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "NavigationMenuViewport",
+        "line": 119,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/pagination.tsx",
+    "relative": "src/components/ui/pagination.tsx",
+    "unused": [
+      {
+        "name": "Pagination",
+        "line": 91,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationContent",
+        "line": 92,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationLink",
+        "line": 93,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationItem",
+        "line": 94,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationPrevious",
+        "line": 95,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationNext",
+        "line": 96,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PaginationEllipsis",
+        "line": 97,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/popover.tsx",
+    "relative": "src/components/ui/popover.tsx",
+    "unused": [
+      {
+        "name": "Popover",
+        "line": 31,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PopoverTrigger",
+        "line": 31,
+        "col": 19,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PopoverContent",
+        "line": 31,
+        "col": 35,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PopoverAnchor",
+        "line": 31,
+        "col": 51,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/radio-group.tsx",
+    "relative": "src/components/ui/radio-group.tsx",
+    "unused": [
+      {
+        "name": "RadioGroup",
+        "line": 36,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "RadioGroupItem",
+        "line": 36,
+        "col": 22,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/resizable.tsx",
+    "relative": "src/components/ui/resizable.tsx",
+    "unused": [
+      {
+        "name": "ResizablePanelGroup",
+        "line": 37,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ResizablePanel",
+        "line": 37,
+        "col": 31,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ResizableHandle",
+        "line": 37,
+        "col": 47,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/scroll-area.tsx",
+    "relative": "src/components/ui/scroll-area.tsx",
+    "unused": [
+      {
+        "name": "ScrollArea",
+        "line": 44,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ScrollBar",
+        "line": 44,
+        "col": 22,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/select.tsx",
+    "relative": "src/components/ui/select.tsx",
+    "unused": [
+      {
+        "name": "SelectGroup",
+        "line": 143,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SelectLabel",
+        "line": 147,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SelectSeparator",
+        "line": 149,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SelectScrollUpButton",
+        "line": 150,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SelectScrollDownButton",
+        "line": 151,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/sheet.tsx",
+    "relative": "src/components/ui/sheet.tsx",
+    "unused": [
+      {
+        "name": "SheetPortal",
+        "line": 113,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SheetOverlay",
+        "line": 114,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SheetTrigger",
+        "line": 115,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SheetClose",
+        "line": 116,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SheetFooter",
+        "line": 119,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/sidebar.tsx",
+    "relative": "src/components/ui/sidebar.tsx",
+    "unused": [
+      {
+        "name": "Sidebar",
+        "line": 720,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarContent",
+        "line": 721,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarFooter",
+        "line": 722,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarGroup",
+        "line": 723,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarGroupAction",
+        "line": 724,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarGroupContent",
+        "line": 725,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarGroupLabel",
+        "line": 726,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarHeader",
+        "line": 727,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarInput",
+        "line": 728,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarInset",
+        "line": 729,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenu",
+        "line": 730,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuAction",
+        "line": 731,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuBadge",
+        "line": 732,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuButton",
+        "line": 733,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuItem",
+        "line": 734,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuSkeleton",
+        "line": 735,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuSub",
+        "line": 736,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuSubButton",
+        "line": 737,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarMenuSubItem",
+        "line": 738,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarProvider",
+        "line": 739,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarRail",
+        "line": 740,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarSeparator",
+        "line": 741,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "SidebarTrigger",
+        "line": 742,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "useSidebar",
+        "line": 743,
+        "col": 3,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/slider.tsx",
+    "relative": "src/components/ui/slider.tsx",
+    "unused": [
+      {
+        "name": "Slider",
+        "line": 23,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/table.tsx",
+    "relative": "src/components/ui/table.tsx",
+    "unused": [
+      {
+        "name": "Table",
+        "line": 94,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableHeader",
+        "line": 94,
+        "col": 17,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableBody",
+        "line": 94,
+        "col": 30,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableFooter",
+        "line": 94,
+        "col": 41,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableHead",
+        "line": 94,
+        "col": 54,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableRow",
+        "line": 94,
+        "col": 65,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableCell",
+        "line": 94,
+        "col": 75,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TableCaption",
+        "line": 94,
+        "col": 86,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/toggle-group.tsx",
+    "relative": "src/components/ui/toggle-group.tsx",
+    "unused": [
+      {
+        "name": "ToggleGroup",
+        "line": 57,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ToggleGroupItem",
+        "line": 57,
+        "col": 23,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/components/ui/toggle.tsx",
+    "relative": "src/components/ui/toggle.tsx",
+    "unused": [
+      {
+        "name": "Toggle",
+        "line": 42,
+        "col": 10,
+        "kind": "ExportSpecifier",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/integrations/supabase/client.server.ts",
+    "relative": "src/integrations/supabase/client.server.ts",
+    "unused": [
+      {
+        "name": "supabaseAdmin",
+        "line": 64,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/integrations/supabase/types.ts",
+    "relative": "src/integrations/supabase/types.ts",
+    "unused": [
+      {
+        "name": "Json",
+        "line": 1,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Tables",
+        "line": 545,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TablesInsert",
+        "line": 574,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TablesUpdate",
+        "line": 599,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Enums",
+        "line": 624,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "CompositeTypes",
+        "line": 641,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Constants",
+        "line": 658,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/ai-gateway.server.ts",
+    "relative": "src/lib/ai-gateway.server.ts",
+    "unused": [
+      {
+        "name": "GatewayMessage",
+        "line": 21,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "UsageRecord",
+        "line": 30,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "recordUsage",
+        "line": 43,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "callGateway",
+        "line": 59,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "ai-gateway.server.test.ts"
+        ]
+      },
+      {
+        "name": "parseJsonResponse",
+        "line": 105,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "ai-gateway.server.test.ts"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/applications.functions.ts",
+    "relative": "src/lib/applications.functions.ts",
+    "unused": [
+      {
+        "name": "getCandidateKnowledge",
+        "line": 175,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "setSalaryExpectation",
+        "line": 615,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "updateOfferSummary",
+        "line": 665,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/chat-client.ts",
+    "relative": "src/lib/chat-client.ts",
+    "unused": [
+      {
+        "name": "ChatRole",
+        "line": 1,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/chat-guard.ts",
+    "relative": "src/lib/chat-guard.ts",
+    "unused": [
+      {
+        "name": "GuardVerdict",
+        "line": 10,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/client-info.ts",
+    "relative": "src/lib/client-info.ts",
+    "unused": [
+      {
+        "name": "APP_BUILD",
+        "line": 3,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "ClientInfo",
+        "line": 6,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/crypto.server.ts",
+    "relative": "src/lib/crypto.server.ts",
+    "unused": [
+      {
+        "name": "isEncrypted",
+        "line": 36,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "encryptText",
+        "line": 41,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "decryptText",
+        "line": 56,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/cv-template.ts",
+    "relative": "src/lib/cv-template.ts",
+    "unused": [
+      {
+        "name": "TemplateId",
+        "line": 1,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TemplateFont",
+        "line": 2,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "TemplateDensity",
+        "line": 3,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/cv.ts",
+    "relative": "src/lib/cv.ts",
+    "unused": [
+      {
+        "name": "Experience",
+        "line": 1,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "Education",
+        "line": 10,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "LinkItem",
+        "line": 18,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "isProfileLanguage",
+        "line": 56,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "normalizeLinkItems",
+        "line": 128,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "cv.test.ts"
+        ]
+      },
+      {
+        "name": "guessLinkLabel",
+        "line": 146,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "cv.test.ts"
+        ]
+      },
+      {
+        "name": "linkItemsToLine",
+        "line": 155,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "cv.test.ts"
+        ]
+      },
+      {
+        "name": "CV_SECTION_LABELS",
+        "line": 253,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/dossier.server.ts",
+    "relative": "src/lib/dossier.server.ts",
+    "unused": [
+      {
+        "name": "DossierParts",
+        "line": 12,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "loadDossierParts",
+        "line": 22,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "loadDossier",
+        "line": 43,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "saveDossier",
+        "line": 48,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "saveUploadedContext",
+        "line": 58,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "clearUploadedContext",
+        "line": 79,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "eraseDossier",
+        "line": 88,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "mergeAnswerIntoDossier",
+        "line": 98,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/dossier.ts",
+    "relative": "src/lib/dossier.ts",
+    "unused": [
+      {
+        "name": "DOSSIER_MAX_CHARS",
+        "line": 8,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "dossier.test.ts"
+        ]
+      },
+      {
+        "name": "isDossierEmpty",
+        "line": 48,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "dossier.test.ts"
+        ]
+      },
+      {
+        "name": "UPLOADED_HEADING",
+        "line": 53,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "dossier.test.ts"
+        ]
+      },
+      {
+        "name": "UPLOADED_MAX_CHARS",
+        "line": 55,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "dossier.test.ts"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/error-capture.ts",
+    "relative": "src/lib/error-capture.ts",
+    "unused": [
+      {
+        "name": "describeError",
+        "line": 18,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/feedback.functions.ts",
+    "relative": "src/lib/feedback.functions.ts",
+    "unused": [
+      {
+        "name": "listMyReviews",
+        "line": 63,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/interview-prep.ts",
+    "relative": "src/lib/interview-prep.ts",
+    "unused": [
+      {
+        "name": "PREP_CATEGORIES",
+        "line": 1,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PrepCategory",
+        "line": 2,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PrepQuestion",
+        "line": 4,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/notifications.ts",
+    "relative": "src/lib/notifications.ts",
+    "unused": [
+      {
+        "name": "NotificationEvent",
+        "line": 7,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/offer-parse.ts",
+    "relative": "src/lib/offer-parse.ts",
+    "unused": [
+      {
+        "name": "findJobPosting",
+        "line": 22,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "TEST_ONLY",
+        "usedIn": [
+          "offer-parse.test.ts"
+        ]
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/offer-summary.ts",
+    "relative": "src/lib/offer-summary.ts",
+    "unused": [
+      {
+        "name": "EMPTY_OFFER_SUMMARY",
+        "line": 17,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "OFFER_SUMMARY_SCHEMA_HINT",
+        "line": 59,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/pipeline.ts",
+    "relative": "src/lib/pipeline.ts",
+    "unused": [
+      {
+        "name": "normalizeStage",
+        "line": 30,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "isClosedStage",
+        "line": 34,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DAY_MS",
+        "line": 45,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "daysSince",
+        "line": 48,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "DEFAULT_WINDOWS",
+        "line": 67,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "responseLikelihood",
+        "line": 78,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PipelineTone",
+        "line": 94,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PipelineHealth",
+        "line": 96,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "PipelineRow",
+        "line": 107,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "suggestedFollowUp",
+        "line": 252,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "archiveExpired",
+        "line": 262,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/profile-strings.ts",
+    "relative": "src/lib/profile-strings.ts",
+    "unused": [
+      {
+        "name": "ProfileStrings",
+        "line": 2,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/supabase-user.server.ts",
+    "relative": "src/lib/supabase-user.server.ts",
+    "unused": [
+      {
+        "name": "createUserScopedClient",
+        "line": 9,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/template.functions.ts",
+    "relative": "src/lib/template.functions.ts",
+    "unused": [
+      {
+        "name": "setApplicationTemplate",
+        "line": 36,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/ui-strings.ts",
+    "relative": "src/lib/ui-strings.ts",
+    "unused": [
+      {
+        "name": "UI_LANGUAGE_KEY",
+        "line": 8,
+        "col": 14,
+        "kind": "VariableStatement",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "UiStrings",
+        "line": 10,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "uiStrings",
+        "line": 212,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "readStoredUiLanguage",
+        "line": 216,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "useUiLanguage",
+        "line": 228,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/user-settings.server.ts",
+    "relative": "src/lib/user-settings.server.ts",
+    "unused": [
+      {
+        "name": "loadSettings",
+        "line": 6,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "saveSettings",
+        "line": 16,
+        "col": 23,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  },
+  {
+    "file": "/Users/madecolombia/Developer/TailorCV/src/lib/user-settings.ts",
+    "relative": "src/lib/user-settings.ts",
+    "unused": [
+      {
+        "name": "CoverLetterTone",
+        "line": 29,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "InterviewDepth",
+        "line": 58,
+        "col": 13,
+        "kind": "TypeAliasDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "normalizeDepth",
+        "line": 60,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "depthMaxQuestions",
+        "line": 66,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "normalizeCvLanguages",
+        "line": 131,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      },
+      {
+        "name": "isContextExpired",
+        "line": 229,
+        "col": 17,
+        "kind": "FunctionDeclaration",
+        "isDefault": false,
+        "status": "NEVER_USED",
+        "usedIn": []
+      }
+    ]
+  }
+]

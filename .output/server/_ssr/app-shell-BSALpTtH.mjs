@@ -1,0 +1,717 @@
+import { o as __toESM } from "../_runtime.mjs";
+import { O as isRedirect, _ as useNavigate, g as Link, l as useRouterState, v as useRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { c as createServerFn, i as TSS_SERVER_FUNCTION } from "./createServerFn-BFFE07zL.mjs";
+import { t as getServerFnById } from "../__23tanstack-start-server-fn-resolver-T7w3KPp8.mjs";
+import { _ as DialogTrigger$1, d as DialogClose, f as DialogContent$1, g as DialogTitle$1, h as DialogPortal$1, m as DialogOverlay$1, p as DialogDescription$1, u as Dialog$1 } from "../_libs/@radix-ui/react-alert-dialog+[...].mjs";
+import { t as requireSupabaseAuth } from "./auth-middleware-UH_Jp6hR.mjs";
+import { l as normalizeUiLanguage } from "./user-settings-BzcLPF0g.mjs";
+import { t as supabase } from "./client-Bxc8_G9k.mjs";
+import { u as require_react } from "../_libs/@floating-ui/react-dom+[...].mjs";
+import { v as require_jsx_runtime } from "../_libs/@radix-ui/react-accordion+[...].mjs";
+import { r as cn, t as Button } from "./button-DyZVOtWw.mjs";
+import { n as Label } from "./input-Cl4UdChK.mjs";
+import { i as useQueryClient, n as useQuery, t as useMutation } from "../_libs/tanstack__react-query.mjs";
+import { n as toast } from "../_libs/sonner.mjs";
+import { D as ImagePlus, T as LifeBuoy, b as LogOut, c as Star, t as X } from "../_libs/lucide-react.mjs";
+import { i as Trigger, n as List, r as Root2, t as Content } from "../_libs/radix-ui__react-tabs.mjs";
+import { n as SwitchThumb, t as Switch$1 } from "../_libs/radix-ui__react-switch.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/app-shell-BSALpTtH.js
+var import_react = /* @__PURE__ */ __toESM(require_react());
+var import_jsx_runtime = require_jsx_runtime();
+function useServerFn(serverFn) {
+	const router = useRouter();
+	return import_react.useCallback(async (...args) => {
+		try {
+			const res = await serverFn(...args);
+			if (isRedirect(res)) throw res;
+			return res;
+		} catch (err) {
+			if (isRedirect(err)) {
+				err.options._fromLocation = router.stores.location.get();
+				return router.navigate(router.resolveRedirect(err).options);
+			}
+			throw err;
+		}
+	}, [router, serverFn]);
+}
+/**
+* Interface copy for the app chrome and the settings screen, in the system
+* language the user picked (English by default).
+*/
+var UI_LANGUAGE_KEY = "tailorcv:ui-language";
+var TABLE = {
+	en: {
+		navApplications: "Applications",
+		navProfile: "Master profile",
+		navTargets: "Role targets",
+		navSettings: "Settings",
+		signOut: "Sign out",
+		settingsTitle: "Settings",
+		settingsSubtitle: "Your privacy controls and how TailorCV keeps you posted.",
+		preferences: "Defaults & languages",
+		preferencesHint: "How new applications and generated documents start out.",
+		systemLanguage: "System language",
+		systemLanguageHint: "The language of the app interface itself.",
+		cvLanguages: "CV languages",
+		cvLanguagesHint: "Languages your master profile is kept in. English is always included.",
+		addLanguage: "Add language",
+		remove: "Remove",
+		defaultAppLanguage: "Default application language",
+		defaultAppLanguageHint: "Pre-selected when you start a new application.",
+		coverLetterTone: "Default cover-letter tone",
+		coverLetterToneHint: "Used unless you change it inside a workspace.",
+		interviewDepth: "AI interview depth",
+		interviewDepthHint: "How many questions the AI may ask per application.",
+		aiGuard: "AI usage guard",
+		aiGuardHint: "Caps how many AI messages a single session can spend, to keep costs down.",
+		messagesPerSession: "Messages per session",
+		retention: "Auto-delete my saved context",
+		retentionHint: "When on, your career context is erased if you haven't added to it for this many months.",
+		retentionMonths: "Delete after",
+		emailTitle: "Email notifications",
+		emailHint: "We only email you about your data and the product — never job listings.",
+		emailExpiry: "Warn me before my saved context expires",
+		emailFeatures: "Tell me about new features to try",
+		authenticatorTitle: "Two-factor authentication",
+		authenticatorHint: "Adds an extra layer of security to your account. Required before you can download all your data.",
+		authenticatorEnabled: "Two-factor authentication is enabled",
+		authenticatorDisabled: "Two-factor authentication is disabled",
+		authenticatorSetupButton: "Set up two-factor authentication",
+		authenticatorVerifyButton: "Verify and enable",
+		authenticatorCodeLabel: "Authenticator code",
+		authenticatorScanQr: "Scan this with your authenticator app, then enter the 6-digit code.",
+		authenticatorManualKey: "Manual key",
+		exportTitle: "Download all my data",
+		exportHint: "A zip with your profiles, applications, cover letters, role targets and saved context. Protected by two-factor verification.",
+		exportDisabled: "This is disabled unless you enable two-factor authentication.",
+		exportEnableButton: "Enable two-factor authentication",
+		saved: "Settings saved"
+	},
+	es: {
+		navApplications: "Candidaturas",
+		navProfile: "Perfil maestro",
+		navTargets: "Objetivos de puesto",
+		navSettings: "Ajustes",
+		signOut: "Cerrar sesión",
+		settingsTitle: "Ajustes",
+		settingsSubtitle: "Tu privacidad y cómo TailorCV te mantiene al día.",
+		preferences: "Valores por defecto e idiomas",
+		preferencesHint: "Cómo empiezan las nuevas candidaturas y los documentos generados.",
+		systemLanguage: "Idioma del sistema",
+		systemLanguageHint: "El idioma de la interfaz de la aplicación.",
+		cvLanguages: "Idiomas del CV",
+		cvLanguagesHint: "Idiomas en los que mantienes tu perfil maestro. El inglés siempre está incluido.",
+		addLanguage: "Añadir idioma",
+		remove: "Quitar",
+		defaultAppLanguage: "Idioma por defecto de la candidatura",
+		defaultAppLanguageHint: "Preseleccionado al crear una candidatura nueva.",
+		coverLetterTone: "Tono por defecto de la carta",
+		coverLetterToneHint: "Se usa salvo que lo cambies dentro del espacio de trabajo.",
+		interviewDepth: "Profundidad de la entrevista con IA",
+		interviewDepthHint: "Cuántas preguntas puede hacer la IA por candidatura.",
+		aiGuard: "Límite de uso de IA",
+		aiGuardHint: "Limita cuántos mensajes de IA puede gastar una sesión, para controlar el coste.",
+		messagesPerSession: "Mensajes por sesión",
+		retention: "Borrar automáticamente mi contexto",
+		retentionHint: "Si está activo, tu contexto se borra si no lo actualizas durante estos meses.",
+		retentionMonths: "Borrar después de",
+		emailTitle: "Notificaciones por correo",
+		emailHint: "Solo te escribimos sobre tus datos y el producto, nunca ofertas de empleo.",
+		emailExpiry: "Avisarme antes de que caduque mi contexto",
+		emailFeatures: "Contarme las novedades que puedo probar",
+		authenticatorTitle: "Verificación en dos pasos",
+		authenticatorHint: "Añade una capa extra de seguridad a tu cuenta. Requerida para descargar todos tus datos.",
+		authenticatorEnabled: "Verificación en dos pasos activada",
+		authenticatorDisabled: "Verificación en dos pasos desactivada",
+		authenticatorSetupButton: "Configurar verificación en dos pasos",
+		authenticatorVerifyButton: "Verificar y activar",
+		authenticatorCodeLabel: "Código de autenticación",
+		authenticatorScanQr: "Escanea esto con tu app de autenticación y luego introduce el código de 6 dígitos.",
+		authenticatorManualKey: "Clave manual",
+		exportTitle: "Descargar todos mis datos",
+		exportHint: "Un zip con tus perfiles, candidaturas, cartas, objetivos y contexto guardado. Protegido con verificación en dos pasos.",
+		exportDisabled: "Esta opción está desactivada hasta que actives la verificación en dos pasos.",
+		exportEnableButton: "Activar verificación en dos pasos",
+		saved: "Ajustes guardados"
+	},
+	pt: {
+		navApplications: "Candidaturas",
+		navProfile: "Perfil principal",
+		navTargets: "Objetivos de função",
+		navSettings: "Definições",
+		signOut: "Terminar sessão",
+		settingsTitle: "Definições",
+		settingsSubtitle: "A tua privacidade e como o TailorCV te mantém informado.",
+		preferences: "Predefinições e idiomas",
+		preferencesHint: "Como começam as novas candidaturas e os documentos gerados.",
+		systemLanguage: "Idioma do sistema",
+		systemLanguageHint: "O idioma da interface da aplicação.",
+		cvLanguages: "Idiomas do CV",
+		cvLanguagesHint: "Idiomas em que manténs o teu perfil principal. O inglês está sempre incluído.",
+		addLanguage: "Adicionar idioma",
+		remove: "Remover",
+		defaultAppLanguage: "Idioma predefinido da candidatura",
+		defaultAppLanguageHint: "Pré-selecionado ao criar uma nova candidatura.",
+		coverLetterTone: "Tom predefinido da carta",
+		coverLetterToneHint: "Usado a menos que o mudes dentro do espaço de trabalho.",
+		interviewDepth: "Profundidade da entrevista com IA",
+		interviewDepthHint: "Quantas perguntas a IA pode fazer por candidatura.",
+		aiGuard: "Limite de utilização de IA",
+		aiGuardHint: "Limita quantas mensagens de IA uma sessão pode gastar, para controlar custos.",
+		messagesPerSession: "Mensagens por sessão",
+		retention: "Apagar automaticamente o meu contexto",
+		retentionHint: "Se ativo, o teu contexto é apagado se não o atualizares durante estes meses.",
+		retentionMonths: "Apagar após",
+		emailTitle: "Notificações por email",
+		emailHint: "Só te escrevemos sobre os teus dados e o produto, nunca ofertas de emprego.",
+		emailExpiry: "Avisar-me antes de o meu contexto expirar",
+		emailFeatures: "Contar-me as novidades para experimentar",
+		authenticatorTitle: "Verificação em duas etapas",
+		authenticatorHint: "Adiciona uma camada extra de segurança à tua conta. Necessária antes de descarregares todos os teus dados.",
+		authenticatorEnabled: "Verificação em duas etapas ativada",
+		authenticatorDisabled: "Verificação em duas etapas desativada",
+		authenticatorSetupButton: "Configurar verificação em duas etapas",
+		authenticatorVerifyButton: "Verificar e ativar",
+		authenticatorCodeLabel: "Código de autenticação",
+		authenticatorScanQr: "Escaneia isto com a tua app de autenticação e depois introduz o código de 6 dígitos.",
+		authenticatorManualKey: "Chave manual",
+		exportTitle: "Descarregar todos os meus dados",
+		exportHint: "Um zip com os teus perfis, candidaturas, cartas, objetivos e contexto guardado. Protegido por verificação em duas etapas.",
+		exportDisabled: "Esta opção está desativada até ativares a verificação em duas etapas.",
+		exportEnableButton: "Ativar verificação em duas etapas",
+		saved: "Definições guardadas"
+	}
+};
+function uiStrings(language) {
+	return TABLE[normalizeUiLanguage(language)];
+}
+function readStoredUiLanguage() {
+	if (typeof window === "undefined") return "en";
+	return normalizeUiLanguage(window.localStorage.getItem(UI_LANGUAGE_KEY));
+}
+function storeUiLanguage(language) {
+	if (typeof window === "undefined") return;
+	window.localStorage.setItem(UI_LANGUAGE_KEY, normalizeUiLanguage(language));
+	window.dispatchEvent(new Event("tailorcv:ui-language"));
+}
+/** Interface language, hydration-safe (reads storage only after mount). */
+function useUiLanguage() {
+	const [language, setLanguage] = (0, import_react.useState)("en");
+	(0, import_react.useEffect)(() => {
+		const sync = () => setLanguage(readStoredUiLanguage());
+		sync();
+		window.addEventListener("tailorcv:ui-language", sync);
+		window.addEventListener("storage", sync);
+		return () => {
+			window.removeEventListener("tailorcv:ui-language", sync);
+			window.removeEventListener("storage", sync);
+		};
+	}, []);
+	return language;
+}
+function useUiStrings() {
+	return uiStrings(useUiLanguage());
+}
+var Dialog = Dialog$1;
+var DialogTrigger = DialogTrigger$1;
+var DialogPortal = DialogPortal$1;
+var DialogOverlay = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay$1, {
+	ref,
+	className: cn("fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0", className),
+	...props
+}));
+DialogOverlay.displayName = DialogOverlay$1.displayName;
+var DialogContent = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogPortal, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogOverlay, {}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent$1, {
+	ref,
+	className: cn("fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:rounded-lg", className),
+	...props,
+	children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogClose, {
+		className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background cursor-pointer transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "h-4 w-4" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+			className: "sr-only",
+			children: "Close"
+		})]
+	})]
+})] }));
+DialogContent.displayName = DialogContent$1.displayName;
+var DialogHeader = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col space-y-1.5 text-center sm:text-left", className),
+	...props
+});
+DialogHeader.displayName = "DialogHeader";
+var DialogFooter = ({ className, ...props }) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	className: cn("flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2", className),
+	...props
+});
+DialogFooter.displayName = "DialogFooter";
+var DialogTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle$1, {
+	ref,
+	className: cn("text-lg font-semibold leading-none tracking-tight", className),
+	...props
+}));
+DialogTitle.displayName = DialogTitle$1.displayName;
+var DialogDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription$1, {
+	ref,
+	className: cn("text-sm text-muted-foreground", className),
+	...props
+}));
+DialogDescription.displayName = DialogDescription$1.displayName;
+var Tabs = Root2;
+var TabsList = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, {
+	ref,
+	className: cn("inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground", className),
+	...props
+}));
+TabsList.displayName = List.displayName;
+var TabsTrigger = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Trigger, {
+	ref,
+	className: cn("inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium ring-offset-background cursor-pointer transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow", className),
+	...props
+}));
+TabsTrigger.displayName = Trigger.displayName;
+var TabsContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content, {
+	ref,
+	className: cn("mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2", className),
+	...props
+}));
+TabsContent.displayName = Content.displayName;
+var Textarea = import_react.forwardRef(({ className, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("textarea", {
+		className: cn("flex min-h-[60px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm", className),
+		ref,
+		...props
+	});
+});
+Textarea.displayName = "Textarea";
+var Switch = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch$1, {
+	className: cn("peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-input", className),
+	...props,
+	ref,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SwitchThumb, { className: cn("pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-4 data-[state=unchecked]:translate-x-0") })
+}));
+Switch.displayName = Switch$1.displayName;
+var createSsrRpc = (functionId) => {
+	const url = "/_serverFn/" + functionId;
+	const serverFnMeta = { id: functionId };
+	const fn = async (...args) => {
+		return (await getServerFnById(functionId, { origin: "server" }))(...args);
+	};
+	return Object.assign(fn, {
+		url,
+		serverFnMeta,
+		[TSS_SERVER_FUNCTION]: true
+	});
+};
+/** Sticky "Report an issue" button. */
+var submitIssue = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("104a666e36aedd4a8b20c788963037e4749599095d73b0d9d68fae0979c2dda7"));
+/** Star rating + testimonial, either general or tied to a landed job. */
+var submitReview = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("40ee1b47d52a3b4fb0cf444dc986217be844c2a1f4d7390aa15116d8416d4193"));
+createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("8c97463d1a886f6139c38d47478f071064102ae25938aa46ef1888296c1446fc"));
+/** App build identity + device/browser diagnostics attached to issue reports. */
+var APP_VERSION = "1.0.0";
+var APP_BUILD = {
+	"BASE_URL": "/",
+	"DEV": false,
+	"MODE": "production",
+	"PROD": true,
+	"SSR": true,
+	"TSS_DEV_SERVER": "false",
+	"TSS_DEV_SSR_STYLES_BASEPATH": "/",
+	"TSS_DEV_SSR_STYLES_ENABLED": "true",
+	"TSS_DISABLE_CSRF_MIDDLEWARE_WARNING": "false",
+	"TSS_INLINE_CSS_ENABLED": "false",
+	"TSS_ROUTER_BASEPATH": "",
+	"TSS_SERVER_FN_BASE": "/_serverFn/"
+}["VITE_APP_BUILD"] ?? "dev";
+function detectBrowser(ua) {
+	for (const [name, pattern] of [
+		["Edge", /Edg(?:e|A|iOS)?\/([\d.]+)/],
+		["Opera", /OPR\/([\d.]+)/],
+		["Samsung Internet", /SamsungBrowser\/([\d.]+)/],
+		["Firefox", /(?:Firefox|FxiOS)\/([\d.]+)/],
+		["Chrome", /(?:Chrome|CriOS)\/([\d.]+)/],
+		["Safari", /Version\/([\d.]+).*Safari/]
+	]) {
+		const match = ua.match(pattern);
+		if (match) return {
+			name,
+			version: match[1] ?? ""
+		};
+	}
+	return {
+		name: "Unknown",
+		version: ""
+	};
+}
+function detectOs(ua) {
+	if (/Windows NT 10/.test(ua)) return "Windows 10/11";
+	if (/Windows/.test(ua)) return "Windows";
+	if (/iPhone|iPad|iPod/.test(ua)) {
+		const version = ua.match(/OS (\d+[_\d]*)/)?.[1]?.replace(/_/g, ".");
+		return `iOS${version ? ` ${version}` : ""}`;
+	}
+	if (/Mac OS X/.test(ua)) {
+		const version = ua.match(/Mac OS X (\d+[_\d]*)/)?.[1]?.replace(/_/g, ".");
+		return `macOS${version ? ` ${version}` : ""}`;
+	}
+	if (/Android/.test(ua)) {
+		const version = ua.match(/Android (\d+[.\d]*)/)?.[1];
+		return `Android${version ? ` ${version}` : ""}`;
+	}
+	if (/Linux/.test(ua)) return "Linux";
+	return "Unknown";
+}
+function detectDeviceType(ua) {
+	if (/iPad|Tablet/.test(ua)) return "tablet";
+	if (/Mobi|iPhone|Android.*Mobile/.test(ua)) return "mobile";
+	return "desktop";
+}
+/** Collect non-sensitive environment details for a support ticket. */
+function collectClientInfo() {
+	if (typeof navigator === "undefined" || typeof window === "undefined") return {
+		appVersion: APP_VERSION,
+		appBuild: APP_BUILD,
+		browser: "Unknown",
+		browserVersion: "",
+		os: "Unknown",
+		deviceType: "unknown",
+		screen: "",
+		viewport: "",
+		pixelRatio: 1,
+		language: "",
+		timezone: "",
+		online: true,
+		reportedAt: (/* @__PURE__ */ new Date()).toISOString(),
+		userAgent: ""
+	};
+	const ua = navigator.userAgent;
+	const browser = detectBrowser(ua);
+	return {
+		appVersion: APP_VERSION,
+		appBuild: APP_BUILD,
+		browser: browser.name,
+		browserVersion: browser.version,
+		os: detectOs(ua),
+		deviceType: detectDeviceType(ua),
+		screen: `${window.screen.width}x${window.screen.height}`,
+		viewport: `${window.innerWidth}x${window.innerHeight}`,
+		pixelRatio: window.devicePixelRatio ?? 1,
+		language: navigator.language ?? "",
+		timezone: Intl.DateTimeFormat().resolvedOptions().timeZone ?? "",
+		online: navigator.onLine,
+		reportedAt: (/* @__PURE__ */ new Date()).toISOString(),
+		userAgent: ua.slice(0, 400)
+	};
+}
+/** Sticky helper: report a bug or leave a review from anywhere in the app. */
+function SupportButton() {
+	const [open, setOpen] = (0, import_react.useState)(false);
+	const [issue, setIssue] = (0, import_react.useState)("");
+	const [review, setReview] = (0, import_react.useState)("");
+	const [rating, setRating] = (0, import_react.useState)(5);
+	const [mayQuote, setMayQuote] = (0, import_react.useState)(false);
+	const [shot, setShot] = (0, import_react.useState)(null);
+	const [shotPreview, setShotPreview] = (0, import_react.useState)(null);
+	const fileInput = (0, import_react.useRef)(null);
+	const pathname = useRouterState({ select: (state) => state.location.pathname });
+	const sendIssue = useServerFn(submitIssue);
+	const sendReview = useServerFn(submitReview);
+	function pickScreenshot(file) {
+		if (!file) return;
+		if (!file.type.startsWith("image/")) {
+			toast.error("Please choose an image file.");
+			return;
+		}
+		if (file.size > 5242880) {
+			toast.error("Screenshots must be under 5 MB.");
+			return;
+		}
+		setShot(file);
+		setShotPreview(URL.createObjectURL(file));
+	}
+	function clearScreenshot() {
+		setShot(null);
+		setShotPreview(null);
+		if (fileInput.current) fileInput.current.value = "";
+	}
+	const issueMutation = useMutation({
+		mutationFn: async () => {
+			let screenshotPath = null;
+			if (shot) {
+				const { data: userData } = await supabase.auth.getUser();
+				const userId = userData.user?.id;
+				if (!userId) throw new Error("Please sign in again to attach a screenshot.");
+				const extension = (shot.name.split(".").pop() ?? "png").toLowerCase().slice(0, 5);
+				const path = `${userId}/${crypto.randomUUID()}.${extension}`;
+				const { error } = await supabase.storage.from("issue-screenshots").upload(path, shot, {
+					contentType: shot.type,
+					upsert: false
+				});
+				if (error) throw new Error(`Screenshot upload failed: ${error.message}`);
+				screenshotPath = path;
+			}
+			return sendIssue({ data: {
+				message: issue,
+				route: pathname,
+				userAgent: typeof navigator === "undefined" ? "" : navigator.userAgent,
+				screenshotPath,
+				clientInfo: {
+					...collectClientInfo(),
+					route: pathname
+				}
+			} });
+		},
+		onSuccess: () => {
+			toast.success("Thanks — we got your report.");
+			setIssue("");
+			clearScreenshot();
+			setOpen(false);
+		},
+		onError: (error) => toast.error(error.message)
+	});
+	const reviewMutation = useMutation({
+		mutationFn: () => sendReview({ data: {
+			rating,
+			message: review,
+			source: "general",
+			mayQuote
+		} }),
+		onSuccess: () => {
+			toast.success("Thank you for the feedback!");
+			setReview("");
+			setOpen(false);
+		},
+		onError: (error) => toast.error(error.message)
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+		size: "sm",
+		variant: "secondary",
+		onClick: () => setOpen(true),
+		className: "fixed bottom-5 right-5 z-40 gap-2 rounded-full border border-border shadow-lg",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LifeBuoy, { className: "size-4" }), " Help"]
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Dialog, {
+		open,
+		onOpenChange: setOpen,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogContent, {
+			className: "sm:max-w-lg",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(DialogHeader, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogTitle, { children: "Tell us what's going on" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DialogDescription, { children: "Report something broken, or let us know how TailorCV is working for you." })] }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Tabs, {
+				defaultValue: "issue",
+				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsList, {
+						className: "w-full",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+							value: "issue",
+							className: "flex-1",
+							children: "Report an issue"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(TabsTrigger, {
+							value: "review",
+							className: "flex-1",
+							children: "Share feedback"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsContent, {
+						value: "issue",
+						className: "space-y-3 pt-3",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+								rows: 5,
+								value: issue,
+								onChange: (event) => setIssue(event.target.value),
+								placeholder: "What happened? What were you doing right before?"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								ref: fileInput,
+								type: "file",
+								accept: "image/*",
+								className: "hidden",
+								onChange: (event) => pickScreenshot(event.target.files?.[0] ?? null)
+							}),
+							shotPreview ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "relative overflow-hidden rounded-lg border border-border",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									src: shotPreview,
+									alt: "Screenshot attached to the issue report",
+									className: "max-h-48 w-full object-contain bg-muted"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+									size: "icon",
+									variant: "secondary",
+									className: "absolute right-2 top-2 size-7 rounded-full",
+									onClick: clearScreenshot,
+									"aria-label": "Remove screenshot",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { className: "size-4" })
+								})]
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								variant: "outline",
+								className: "w-full gap-2",
+								onClick: () => fileInput.current?.click(),
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ImagePlus, { className: "size-4" }), " Attach a screenshot"]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "text-xs text-muted-foreground",
+								children: [
+									"We attach the page you were on (",
+									pathname,
+									"), your device, browser and app version (v",
+									APP_VERSION,
+									"), and the date. No CV content is sent."
+								]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								className: "w-full",
+								disabled: issue.trim().length < 5 || issueMutation.isPending,
+								onClick: () => issueMutation.mutate(),
+								children: issueMutation.isPending ? "Sending…" : "Send report"
+							})
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TabsContent, {
+						value: "review",
+						className: "space-y-3 pt-3",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "flex items-center gap-1",
+								children: [
+									1,
+									2,
+									3,
+									4,
+									5
+								].map((value) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									"aria-label": `${value} star${value > 1 ? "s" : ""}`,
+									onClick: () => setRating(value),
+									className: "p-1",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Star, { className: cn("size-6 transition-colors", value <= rating ? "fill-primary text-primary" : "text-muted-foreground/40") })
+								}, value))
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
+								rows: 4,
+								value: review,
+								onChange: (event) => setReview(event.target.value),
+								placeholder: "What worked well? What would you change?"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between rounded-lg border border-border px-3 py-2",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
+									htmlFor: "may-quote",
+									className: "text-sm font-normal",
+									children: "You may quote me publicly"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Switch, {
+									id: "may-quote",
+									checked: mayQuote,
+									onCheckedChange: setMayQuote
+								})]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								className: "w-full",
+								disabled: reviewMutation.isPending,
+								onClick: () => reviewMutation.mutate(),
+								children: reviewMutation.isPending ? "Sending…" : "Send feedback"
+							})
+						]
+					})
+				]
+			})]
+		})
+	})] });
+}
+/** The permanent owner account. Always admin; its role can never be revoked. */
+/**
+* Ensures the master account always holds the admin role, even if it signed up
+* after the role table was seeded. Returns true when the caller is the master.
+*/
+/** Is the caller an admin? Answered through the caller's own RLS-scoped client. */
+var getAdminStatus = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("77265b60422ccd3fca55e66689775b583f1f9a8f66bbea850c2c67d32fad8080"));
+/** Usage, signups, issues and reviews for the admin dashboard. */
+var getAdminOverview = createServerFn({ method: "GET" }).middleware([requireSupabaseAuth]).handler(createSsrRpc("98193c088815d6bbdd4155ffbad4b125116e51df7ef81d3d6aef43156e028e01"));
+/** Promote or demote another account. Admins may not demote themselves. */
+var setAdminRole = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("187914f9251ed9244b70b0dd4cad9ddd430053b8a038071b8d1807b7fc91e2e2"));
+/** Move an issue through new → in_progress → resolved. */
+var setIssueStatus = createServerFn({ method: "POST" }).middleware([requireSupabaseAuth]).inputValidator((input) => input).handler(createSsrRpc("1fd219f3a3f4c9a53b82097eb48d01c23516a99e48e1e22ee5dced54e754333b"));
+function AppShell({ children }) {
+	const navigate = useNavigate();
+	const queryClient = useQueryClient();
+	const pathname = useRouterState({ select: (state) => state.location.pathname });
+	const t = useUiStrings();
+	const signOut = async () => {
+		await queryClient.cancelQueries();
+		queryClient.clear();
+		await supabase.auth.signOut();
+		navigate({
+			to: "/auth",
+			replace: true
+		});
+	};
+	const adminStatus = useServerFn(getAdminStatus);
+	const { data: admin } = useQuery({
+		queryKey: ["admin-status"],
+		queryFn: () => adminStatus({}),
+		staleTime: 3e5
+	});
+	const links = [
+		{
+			to: "/dashboard",
+			label: t.navApplications
+		},
+		{
+			to: "/targets",
+			label: t.navTargets
+		},
+		{
+			to: "/profile",
+			label: t.navProfile
+		},
+		{
+			to: "/settings",
+			label: t.navSettings
+		},
+		...admin?.isAdmin ? [{
+			to: "/admin",
+			label: "Admin"
+		}] : []
+	];
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		className: "min-h-screen bg-background",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", {
+				className: "sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mx-auto flex h-14 max-w-6xl items-center gap-6 px-6",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+							to: "/dashboard",
+							className: "font-display text-base font-bold",
+							children: ["Tailor", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								className: "text-primary",
+								children: "CV"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
+							className: "flex items-center gap-1",
+							children: links.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+								to: link.to,
+								className: cn("rounded-md px-3 py-1.5 text-sm transition-colors", pathname.startsWith(link.to) ? "bg-secondary text-foreground" : "text-muted-foreground hover:text-foreground"),
+								children: link.label
+							}, link.to))
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+							variant: "ghost",
+							size: "sm",
+							className: "ml-auto text-muted-foreground",
+							onClick: signOut,
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LogOut, { className: "size-4" }),
+								" ",
+								t.signOut
+							]
+						})
+					]
+				})
+			}),
+			children,
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SupportButton, {})
+		]
+	});
+}
+//#endregion
+export { useUiStrings as S, setAdminRole as _, DialogFooter as a, submitReview as b, DialogTrigger as c, TabsContent as d, TabsList as f, getAdminOverview as g, createSsrRpc as h, DialogDescription as i, Switch as l, Textarea as m, Dialog as n, DialogHeader as o, TabsTrigger as p, DialogContent as r, DialogTitle as s, AppShell as t, Tabs as u, setIssueStatus as v, useServerFn as x, storeUiLanguage as y };
