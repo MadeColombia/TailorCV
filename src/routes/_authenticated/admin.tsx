@@ -11,14 +11,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { getAdminOverview, setAdminRole, setIssueStatus } from "@/lib/admin.functions";
+import {
+  getAdminOverview,
+  setAdminRole,
+  setIssueStatus,
+} from "@/lib/admin.functions";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   component: AdminPage,
   head: () => ({
     meta: [
       { title: "Admin · TailorCV" },
-      { name: "description", content: "Usage, users, issues and reviews for TailorCV operators." },
+      {
+        name: "description",
+        content: "Usage, users, issues and reviews for TailorCV operators.",
+      },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -46,7 +53,8 @@ function AdminPage() {
   });
 
   const roleMutation = useMutation({
-    mutationFn: (input: { userId: string; isAdmin: boolean }) => roleFn({ data: input }),
+    mutationFn: (input: { userId: string; isAdmin: boolean }) =>
+      roleFn({ data: input }),
     onSuccess: () => {
       toast.success("Role updated");
       queryClient.invalidateQueries({ queryKey: ["admin-overview"] });
@@ -55,15 +63,19 @@ function AdminPage() {
   });
 
   const statusMutation = useMutation({
-    mutationFn: (input: { id: string; status: string }) => statusFn({ data: input }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["admin-overview"] }),
+    mutationFn: (input: { id: string; status: string }) =>
+      statusFn({ data: input }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["admin-overview"] }),
     onError: (mutationError: Error) => toast.error(mutationError.message),
   });
 
   const users = useMemo(() => {
     const list = data?.users ?? [];
     const term = search.trim().toLowerCase();
-    const filtered = term ? list.filter((user) => user.email.toLowerCase().includes(term)) : list;
+    const filtered = term
+      ? list.filter((user) => user.email.toLowerCase().includes(term))
+      : list;
     return [...filtered].sort((a, b) => b.tokens - a.tokens);
   }, [data?.users, search]);
 
@@ -82,7 +94,9 @@ function AdminPage() {
 
   const usage = data?.usage;
   const stats = data?.stats;
-  const featureRows = Object.entries(usage?.byFeature ?? {}).sort((a, b) => b[1] - a[1]);
+  const featureRows = Object.entries(usage?.byFeature ?? {}).sort(
+    (a, b) => b[1] - a[1],
+  );
 
   return (
     <AppShell>
@@ -188,18 +202,22 @@ function AdminPage() {
                           </td>
                           <td className="px-4 py-2 text-right">
                             {user.isMaster ? (
-                              <span className="text-xs font-medium text-primary">Owner</span>
+                              <span className="text-xs font-medium text-primary">
+                                Owner
+                              </span>
                             ) : (
                               <Switch
                                 checked={user.isAdmin}
                                 disabled={!data?.viewerIsMaster}
                                 onCheckedChange={(checked) =>
-                                  roleMutation.mutate({ userId: user.id, isAdmin: checked })
+                                  roleMutation.mutate({
+                                    userId: user.id,
+                                    isAdmin: checked,
+                                  })
                                 }
                               />
                             )}
                           </td>
-
                         </tr>
                       ))}
                     </tbody>
@@ -210,14 +228,18 @@ function AdminPage() {
               <TabsContent value="usage" className="pt-4">
                 <div className="space-y-2">
                   {featureRows.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">No AI usage recorded yet.</p>
+                    <p className="text-sm text-muted-foreground">
+                      No AI usage recorded yet.
+                    </p>
                   ) : (
                     featureRows.map(([feature, tokens]) => {
                       const max = featureRows[0]?.[1] || 1;
                       return (
                         <div key={feature} className="space-y-1">
                           <div className="flex justify-between text-sm">
-                            <span className="capitalize">{feature.replace(/_/g, " ")}</span>
+                            <span className="capitalize">
+                              {feature.replace(/_/g, " ")}
+                            </span>
                             <span className="tabular-nums text-muted-foreground">
                               {numberFormat.format(tokens)}
                             </span>
@@ -225,7 +247,9 @@ function AdminPage() {
                           <div className="h-2 rounded-full bg-muted">
                             <div
                               className="h-2 rounded-full bg-primary"
-                              style={{ width: `${Math.round((tokens / max) * 100)}%` }}
+                              style={{
+                                width: `${Math.round((tokens / max) * 100)}%`,
+                              }}
                             />
                           </div>
                         </div>
@@ -237,25 +261,41 @@ function AdminPage() {
 
               <TabsContent value="issues" className="space-y-3 pt-4">
                 {(data?.issues ?? []).length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No issues reported. Nice.</p>
+                  <p className="text-sm text-muted-foreground">
+                    No issues reported. Nice.
+                  </p>
                 ) : (
                   (data?.issues ?? []).map((issue) => (
                     <Card key={issue.id}>
                       <CardContent className="space-y-2 py-4">
                         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                          <Badge variant={issue.status === "resolved" ? "secondary" : "default"}>
+                          <Badge
+                            variant={
+                              issue.status === "resolved"
+                                ? "secondary"
+                                : "default"
+                            }
+                          >
                             {issue.status.replace("_", " ")}
                           </Badge>
                           <span>{formatDate(issue.created_at)}</span>
                           {issue.route ? <span>· {issue.route}</span> : null}
                         </div>
-                        <p className="whitespace-pre-wrap text-sm">{issue.message}</p>
+                        <p className="whitespace-pre-wrap text-sm">
+                          {issue.message}
+                        </p>
                         {issue.client_info ? (
                           <div className="flex flex-wrap gap-1.5 text-[11px] text-muted-foreground">
                             {(
                               [
-                                ["App", `v${issue.client_info["appVersion"] ?? "?"} (${issue.client_info["appBuild"] ?? "?"})`],
-                                ["Browser", `${issue.client_info["browser"] ?? "?"} ${issue.client_info["browserVersion"] ?? ""}`],
+                                [
+                                  "App",
+                                  `v${issue.client_info["appVersion"] ?? "?"} (${issue.client_info["appBuild"] ?? "?"})`,
+                                ],
+                                [
+                                  "Browser",
+                                  `${issue.client_info["browser"] ?? "?"} ${issue.client_info["browserVersion"] ?? ""}`,
+                                ],
                                 ["OS", issue.client_info["os"]],
                                 ["Device", issue.client_info["deviceType"]],
                                 ["Screen", issue.client_info["screen"]],
@@ -265,7 +305,12 @@ function AdminPage() {
                                 ["TZ", issue.client_info["timezone"]],
                               ] as Array<[string, unknown]>
                             )
-                              .filter(([, value]) => value !== null && value !== undefined && value !== "")
+                              .filter(
+                                ([, value]) =>
+                                  value !== null &&
+                                  value !== undefined &&
+                                  value !== "",
+                              )
                               .map(([label, value]) => (
                                 <span
                                   key={label}
@@ -295,8 +340,12 @@ function AdminPage() {
                             <Button
                               key={status}
                               size="sm"
-                              variant={issue.status === status ? "secondary" : "ghost"}
-                              onClick={() => statusMutation.mutate({ id: issue.id, status })}
+                              variant={
+                                issue.status === status ? "secondary" : "ghost"
+                              }
+                              onClick={() =>
+                                statusMutation.mutate({ id: issue.id, status })
+                              }
                             >
                               {status.replace("_", " ")}
                             </Button>
@@ -310,7 +359,9 @@ function AdminPage() {
 
               <TabsContent value="reviews" className="space-y-3 pt-4">
                 {(data?.reviews ?? []).length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No reviews yet.</p>
+                  <p className="text-sm text-muted-foreground">
+                    No reviews yet.
+                  </p>
                 ) : (
                   (data?.reviews ?? []).map((review) => (
                     <Card key={review.id}>
@@ -333,7 +384,9 @@ function AdminPage() {
                           </span>
                         </div>
                         {review.message ? (
-                          <p className="whitespace-pre-wrap text-sm">{review.message}</p>
+                          <p className="whitespace-pre-wrap text-sm">
+                            {review.message}
+                          </p>
                         ) : null}
                       </CardContent>
                     </Card>

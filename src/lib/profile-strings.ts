@@ -74,11 +74,13 @@ const EN: ProfileStrings = {
   location: "Location",
   links: "Links",
   addLink: "Add link",
-  linksEmpty: "Add your LinkedIn, GitHub, portfolio or personal site — one line each.",
+  linksEmpty:
+    "Add your LinkedIn, GitHub, portfolio or personal site — one line each.",
   label: "Label",
   removeLink: "Remove link",
   summary: "Summary",
-  summaryPlaceholder: "Three or four lines about what you do and the results you get.",
+  summaryPlaceholder:
+    "Three or four lines about what you do and the results you get.",
   experience: "Experience",
   jobTitle: "Job title",
   company: "Company",
@@ -133,11 +135,13 @@ const ES: ProfileStrings = {
   location: "Ubicación",
   links: "Enlaces",
   addLink: "Añadir enlace",
-  linksEmpty: "Añade tu LinkedIn, GitHub, portfolio o web personal — una línea cada uno.",
+  linksEmpty:
+    "Añade tu LinkedIn, GitHub, portfolio o web personal — una línea cada uno.",
   label: "Etiqueta",
   removeLink: "Quitar enlace",
   summary: "Perfil profesional",
-  summaryPlaceholder: "Tres o cuatro líneas sobre lo que haces y los resultados que consigues.",
+  summaryPlaceholder:
+    "Tres o cuatro líneas sobre lo que haces y los resultados que consigues.",
   experience: "Experiencia",
   jobTitle: "Puesto",
   company: "Empresa",

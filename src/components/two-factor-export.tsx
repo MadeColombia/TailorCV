@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { AlertTriangle, Archive, CheckCircle2, ShieldCheck } from "lucide-react";
+import {
+  AlertTriangle,
+  Archive,
+  CheckCircle2,
+  ShieldCheck,
+} from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,13 +22,21 @@ type Factor = { id: string; status: string };
  * Two-factor authentication setup and full-account zip export. The sections are
  * kept separate: the export is locked behind an overlay until 2FA is verified.
  */
-export function TwoFactorExport({ title, hint }: { title: string; hint: string }) {
+export function TwoFactorExport({
+  title,
+  hint,
+}: {
+  title: string;
+  hint: string;
+}) {
   const t = useUiStrings();
   const runExport = useServerFn(exportAccountArchive);
   const [factor, setFactor] = useState<Factor | null>(null);
-  const [enrolling, setEnrolling] = useState<{ id: string; qr: string; secret: string } | null>(
-    null,
-  );
+  const [enrolling, setEnrolling] = useState<{
+    id: string;
+    qr: string;
+    secret: string;
+  } | null>(null);
   const [enrollCode, setEnrollCode] = useState("");
   const [exportCode, setExportCode] = useState("");
   const [loading, setLoading] = useState(true);
@@ -40,17 +53,24 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
   }, []);
 
   const startEnroll = async () => {
-    const { data, error } = await supabase.auth.mfa.enroll({ factorType: "totp" });
+    const { data, error } = await supabase.auth.mfa.enroll({
+      factorType: "totp",
+    });
     if (error || !data) {
       toast.error(error?.message ?? "Couldn't start two-factor setup.");
       return;
     }
-    setEnrolling({ id: data.id, qr: data.totp.qr_code, secret: data.totp.secret });
+    setEnrolling({
+      id: data.id,
+      qr: data.totp.qr_code,
+      secret: data.totp.secret,
+    });
   };
 
   const verifyEnrollMutation = useMutation({
     mutationFn: async () => {
-      if (!enrolling?.id) throw new Error("Set up two-factor authentication first.");
+      if (!enrolling?.id)
+        throw new Error("Set up two-factor authentication first.");
       const { error } = await supabase.auth.mfa.challengeAndVerify({
         factorId: enrolling.id,
         code: enrollCode.trim(),
@@ -68,7 +88,8 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
 
   const exportMutation = useMutation({
     mutationFn: async () => {
-      if (!factor?.id) throw new Error("Enable two-factor authentication first.");
+      if (!factor?.id)
+        throw new Error("Enable two-factor authentication first.");
       const { error } = await supabase.auth.mfa.challengeAndVerify({
         factorId: factor.id,
         code: exportCode.trim(),
@@ -78,8 +99,12 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
     },
     onSuccess: (result) => {
       setExportCode("");
-      const bytes = Uint8Array.from(atob(result.base64), (char) => char.charCodeAt(0));
-      const url = URL.createObjectURL(new Blob([bytes], { type: "application/zip" }));
+      const bytes = Uint8Array.from(atob(result.base64), (char) =>
+        char.charCodeAt(0),
+      );
+      const url = URL.createObjectURL(
+        new Blob([bytes], { type: "application/zip" }),
+      );
       const link = document.createElement("a");
       link.href = url;
       link.download = result.filename;
@@ -99,10 +124,14 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
           <ShieldCheck className="mt-0.5 size-5 text-primary" />
           <div className="flex-1">
             <h2 className="font-medium">{t.authenticatorTitle}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">{t.authenticatorHint}</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              {t.authenticatorHint}
+            </p>
 
             {loading ? (
-              <p className="mt-4 text-sm text-muted-foreground">Checking your security setup…</p>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Checking your security setup…
+              </p>
             ) : factor ? (
               <div className="mt-4 flex items-center gap-2 text-sm text-emerald-600">
                 <CheckCircle2 className="size-4" />
@@ -123,7 +152,9 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
                 </div>
                 <div className="flex flex-wrap items-end gap-3">
                   <div className="space-y-1.5">
-                    <Label htmlFor="enroll-mfa-code">{t.authenticatorCodeLabel}</Label>
+                    <Label htmlFor="enroll-mfa-code">
+                      {t.authenticatorCodeLabel}
+                    </Label>
                     <Input
                       id="enroll-mfa-code"
                       inputMode="numeric"
@@ -131,25 +162,41 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
                       maxLength={6}
                       className="w-36 tracking-[0.3em]"
                       value={enrollCode}
-                      onChange={(event) => setEnrollCode(event.target.value.replace(/\D/g, ""))}
+                      onChange={(event) =>
+                        setEnrollCode(event.target.value.replace(/\D/g, ""))
+                      }
                       placeholder="000000"
                     />
                   </div>
                   <Button
                     size="sm"
-                    disabled={enrollCode.trim().length !== 6 || verifyEnrollMutation.isPending}
+                    disabled={
+                      enrollCode.trim().length !== 6 ||
+                      verifyEnrollMutation.isPending
+                    }
                     onClick={() => verifyEnrollMutation.mutate()}
                   >
-                    {verifyEnrollMutation.isPending ? <Spinner /> : <ShieldCheck className="size-4" />}
+                    {verifyEnrollMutation.isPending ? (
+                      <Spinner />
+                    ) : (
+                      <ShieldCheck className="size-4" />
+                    )}
                     {t.authenticatorVerifyButton}
                   </Button>
                 </div>
               </div>
             ) : (
               <div className="mt-4 space-y-3">
-                <p className="text-sm text-muted-foreground">{t.authenticatorDisabled}</p>
-                <Button variant="outline" size="sm" onClick={() => void startEnroll()}>
-                  <ShieldCheck className="size-4" /> {t.authenticatorSetupButton}
+                <p className="text-sm text-muted-foreground">
+                  {t.authenticatorDisabled}
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => void startEnroll()}
+                >
+                  <ShieldCheck className="size-4" />{" "}
+                  {t.authenticatorSetupButton}
                 </Button>
               </div>
             )}
@@ -161,7 +208,9 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
         {!isEnabled ? (
           <div className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-xl bg-card/80 p-6 text-center backdrop-blur-sm">
             <AlertTriangle className="size-8 text-amber-500" />
-            <p className="mt-3 max-w-xs text-sm font-medium">{t.exportDisabled}</p>
+            <p className="mt-3 max-w-xs text-sm font-medium">
+              {t.exportDisabled}
+            </p>
             <Button
               variant="outline"
               size="sm"
@@ -184,7 +233,9 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
 
               <div className="mt-4 flex flex-wrap items-end gap-3">
                 <div className="space-y-1.5">
-                  <Label htmlFor="export-mfa-code">{t.authenticatorCodeLabel}</Label>
+                  <Label htmlFor="export-mfa-code">
+                    {t.authenticatorCodeLabel}
+                  </Label>
                   <Input
                     id="export-mfa-code"
                     inputMode="numeric"
@@ -192,17 +243,27 @@ export function TwoFactorExport({ title, hint }: { title: string; hint: string }
                     maxLength={6}
                     className="w-36 tracking-[0.3em]"
                     value={exportCode}
-                    onChange={(event) => setExportCode(event.target.value.replace(/\D/g, ""))}
+                    onChange={(event) =>
+                      setExportCode(event.target.value.replace(/\D/g, ""))
+                    }
                     placeholder="000000"
                     disabled={!isEnabled}
                   />
                 </div>
                 <Button
                   size="sm"
-                  disabled={!isEnabled || exportCode.trim().length !== 6 || exportMutation.isPending}
+                  disabled={
+                    !isEnabled ||
+                    exportCode.trim().length !== 6 ||
+                    exportMutation.isPending
+                  }
                   onClick={() => exportMutation.mutate()}
                 >
-                  {exportMutation.isPending ? <Spinner /> : <Archive className="size-4" />}
+                  {exportMutation.isPending ? (
+                    <Spinner />
+                  ) : (
+                    <Archive className="size-4" />
+                  )}
                   Verify and download
                 </Button>
               </div>

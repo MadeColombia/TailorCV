@@ -13,7 +13,9 @@ import { getAdminStatus } from "@/lib/admin.functions";
 export function AppShell({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
   const t = useUiStrings();
 
   const signOut = async () => {
@@ -37,8 +39,6 @@ export function AppShell({ children }: { children: ReactNode }) {
     { to: "/settings", label: t.navSettings },
     ...(admin?.isAdmin ? [{ to: "/admin", label: "Admin" } as const] : []),
   ] as Array<{ to: string; label: string }>;
-
-
 
   return (
     <div className="min-h-screen bg-background">

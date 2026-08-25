@@ -10,9 +10,14 @@ export const CV_SCHEMA_HINT = `{
 
 type Db = { from: (table: string) => any };
 
-const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
-export async function loadApplication(supabase: Db, userId: string, id: string) {
+export async function loadApplication(
+  supabase: Db,
+  userId: string,
+  id: string,
+) {
   if (!UUID_RE.test(id)) throw new Error("Application not found");
   const { data, error } = await supabase
     .from("applications")
@@ -64,9 +69,15 @@ export async function loadKnowledge(supabase: Db, userId: string) {
   return (data ?? []) as Array<{ question: string; answer: string }>;
 }
 
-export function knowledgeToText(items: Array<{ question: string; answer: string }>) {
+export function knowledgeToText(
+  items: Array<{ question: string; answer: string }>,
+) {
   if (!items.length) return "(nothing yet)";
   return items
-    .map((item) => (item.question ? `Q: ${item.question}\nA: ${item.answer}` : `- ${item.answer}`))
+    .map((item) =>
+      item.question
+        ? `Q: ${item.question}\nA: ${item.answer}`
+        : `- ${item.answer}`,
+    )
     .join("\n\n");
 }

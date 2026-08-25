@@ -44,7 +44,11 @@ export async function encryptText(plaintext: string): Promise<string> {
   if (!key) return plaintext;
   const iv = crypto.getRandomValues(new Uint8Array(12));
   const cipher = new Uint8Array(
-    await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, new TextEncoder().encode(plaintext)),
+    await crypto.subtle.encrypt(
+      { name: "AES-GCM", iv },
+      key,
+      new TextEncoder().encode(plaintext),
+    ),
   );
   const packed = new Uint8Array(iv.length + cipher.length);
   packed.set(iv, 0);
@@ -62,7 +66,11 @@ export async function decryptText(stored: unknown): Promise<string> {
     const packed = base64ToBytes(stored.slice(PREFIX.length));
     const iv = packed.slice(0, 12);
     const cipher = packed.slice(12);
-    const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv }, key, cipher);
+    const plain = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      cipher,
+    );
     return new TextDecoder().decode(plain);
   } catch (error) {
     console.error("[crypto] failed to decrypt stored value", error);

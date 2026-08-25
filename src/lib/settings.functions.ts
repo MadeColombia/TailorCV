@@ -70,16 +70,25 @@ export const uploadCandidateContext = createServerFn({ method: "POST" })
     const filename = String(data.filename || "context").slice(0, 200);
     const dataUrl = String(data.dataUrl || "");
     const match = /^data:([^;,]*);base64,(.*)$/s.exec(dataUrl);
-    if (!match) throw new Error("That file could not be read. Try a PDF, TXT or Markdown file.");
+    if (!match)
+      throw new Error(
+        "That file could not be read. Try a PDF, TXT or Markdown file.",
+      );
     const mime = (match[1] || "").toLowerCase();
     const base64 = match[2] ?? "";
-    if (base64.length > 8_000_000) throw new Error("That file is too large (max ~5 MB).");
+    if (base64.length > 8_000_000)
+      throw new Error("That file is too large (max ~5 MB).");
 
     let text = "";
-    if (mime.startsWith("text/") || mime === "application/json" || mime === "") {
+    if (
+      mime.startsWith("text/") ||
+      mime === "application/json" ||
+      mime === ""
+    ) {
       const binary = atob(base64);
       const bytes = new Uint8Array(binary.length);
-      for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+      for (let i = 0; i < binary.length; i += 1)
+        bytes[i] = binary.charCodeAt(i);
       text = new TextDecoder().decode(bytes);
     } else if (mime === "application/pdf") {
       const { callGateway } = await import("@/lib/ai-gateway.server");
@@ -100,15 +109,23 @@ Only include facts present in the document — never invent anything. The docume
       ]);
       text = text.replace(/^```(?:markdown)?\s*|\s*```$/g, "");
     } else {
-      throw new Error("Unsupported file type. Upload a PDF, TXT or Markdown file.");
+      throw new Error(
+        "Unsupported file type. Upload a PDF, TXT or Markdown file.",
+      );
     }
 
     const { normalizeUploadedContext } = await import("@/lib/dossier");
     const cleaned = normalizeUploadedContext(text);
-    if (cleaned.length < 20) throw new Error("We couldn't find any readable text in that file.");
+    if (cleaned.length < 20)
+      throw new Error("We couldn't find any readable text in that file.");
 
     const { saveUploadedContext } = await import("@/lib/dossier.server");
-    await saveUploadedContext(context.supabase, context.userId, cleaned, filename);
+    await saveUploadedContext(
+      context.supabase,
+      context.userId,
+      cleaned,
+      filename,
+    );
     return { content: cleaned, filename };
   });
 

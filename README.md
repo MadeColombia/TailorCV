@@ -57,6 +57,7 @@ An AI-powered full-stack web application designed to help job seekers tailor ATS
 ## Getting Started
 
 ### 1. Prerequisites
+
 - **Node.js**: `v20.x` or `v22.x` (LTS) & **npm** `v10+`
 - **Supabase Account**: With a database project, Google/Apple OAuth configured, and an `issue-screenshots` storage bucket.
 - **OpenAI API Key**: Active key with access to chat completion models.
@@ -64,6 +65,7 @@ An AI-powered full-stack web application designed to help job seekers tailor ATS
 ### 2. Installation & Environment Setup
 
 1. **Clone & Install:**
+
    ```sh
    git clone <repository-url>
    cd TailorCV
@@ -71,6 +73,7 @@ An AI-powered full-stack web application designed to help job seekers tailor ATS
    ```
 
 2. **Configure Environment Variables (`.env.local`):**
+
    ```env
    # Client-Side (Vite)
    VITE_SUPABASE_URL=https://your-supabase-project.supabase.co
@@ -93,19 +96,20 @@ An AI-powered full-stack web application designed to help job seekers tailor ATS
 ```sh
 npm run dev
 ```
+
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
 ## Available Commands
 
-| Command | Description |
-|---|---|
-| `npm run dev` | Starts local development server on port 3000 |
-| `npm run test` | Runs all 101 unit tests via Vitest |
-| `npm run test:watch` | Runs test runner in interactive watch mode |
-| `npm run test:coverage` | Generates detailed test coverage report |
-| `npx tsc --noEmit` | Runs full TypeScript static type check |
-| `npm run lint` | Runs ESLint analysis |
-| `npm run build` | Builds client & server SSR bundle for production |
-| `npm run preview` | Previews production build locally |
+| Command                 | Description                                      |
+| ----------------------- | ------------------------------------------------ |
+| `npm run dev`           | Starts local development server on port 3000     |
+| `npm run test`          | Runs all 101 unit tests via Vitest               |
+| `npm run test:watch`    | Runs test runner in interactive watch mode       |
+| `npm run test:coverage` | Generates detailed test coverage report          |
+| `npx tsc --noEmit`      | Runs full TypeScript static type check           |
+| `npm run lint`          | Runs ESLint analysis                             |
+| `npm run build`         | Builds client & server SSR bundle for production |
+| `npm run preview`       | Previews production build locally                |

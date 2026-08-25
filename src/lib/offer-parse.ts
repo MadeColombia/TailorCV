@@ -19,7 +19,10 @@ export function htmlToText(html: string): string {
 }
 
 /** Deep-search embedded JSON-LD for a JobPosting node (most boards ship one). */
-export function findJobPosting(node: unknown, depth = 0): Record<string, unknown> | null {
+export function findJobPosting(
+  node: unknown,
+  depth = 0,
+): Record<string, unknown> | null {
   if (!node || depth > 6) return null;
   if (Array.isArray(node)) {
     for (const item of node) {
@@ -30,7 +33,7 @@ export function findJobPosting(node: unknown, depth = 0): Record<string, unknown
   }
   if (typeof node !== "object") return null;
   const obj = node as Record<string, unknown>;
-  const type = obj['@type'];
+  const type = obj["@type"];
   const types = Array.isArray(type) ? type.map(String) : [String(type ?? "")];
   if (types.some((t) => t.toLowerCase() === "jobposting")) return obj;
   for (const value of Object.values(obj)) {
@@ -41,9 +44,14 @@ export function findJobPosting(node: unknown, depth = 0): Record<string, unknown
 }
 
 export function jsonLdOffer(html: string): string {
-  const blocks = html.match(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi) ?? [];
+  const blocks =
+    html.match(
+      /<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi,
+    ) ?? [];
   for (const block of blocks) {
-    const body = block.replace(/^<script[^>]*>/i, "").replace(/<\/script>$/i, "");
+    const body = block
+      .replace(/^<script[^>]*>/i, "")
+      .replace(/<\/script>$/i, "");
     try {
       const posting = findJobPosting(JSON.parse(body));
       if (!posting) continue;
@@ -52,16 +60,24 @@ export function jsonLdOffer(html: string): string {
         const text = typeof value === "string" ? value : "";
         if (text.trim()) parts.push(`${label}: ${text.trim()}`);
       };
-      push("Title", posting['title']);
-      const org = posting['hiringOrganization'];
-      if (org && typeof org === "object") push("Company", (org as Record<string, unknown>)['name']);
-      push("Employment type", Array.isArray(posting['employmentType'])
-        ? (posting['employmentType'] as unknown[]).join(", ")
-        : posting['employmentType']);
-      const loc = posting['jobLocation'];
-      if (loc) parts.push(`Location: ${htmlToText(JSON.stringify(loc)).slice(0, 300)}`);
-      const description = posting['description'];
-      if (typeof description === "string") parts.push("\n" + htmlToText(description));
+      push("Title", posting["title"]);
+      const org = posting["hiringOrganization"];
+      if (org && typeof org === "object")
+        push("Company", (org as Record<string, unknown>)["name"]);
+      push(
+        "Employment type",
+        Array.isArray(posting["employmentType"])
+          ? (posting["employmentType"] as unknown[]).join(", ")
+          : posting["employmentType"],
+      );
+      const loc = posting["jobLocation"];
+      if (loc)
+        parts.push(
+          `Location: ${htmlToText(JSON.stringify(loc)).slice(0, 300)}`,
+        );
+      const description = posting["description"];
+      if (typeof description === "string")
+        parts.push("\n" + htmlToText(description));
       const joined = parts.join("\n");
       if (joined.length > 300) return joined;
     } catch {
@@ -97,12 +113,18 @@ export function validateOfferUrl(input: unknown): string {
     throw new Error("That does not look like a valid job offer link.");
   }
   const host = url.hostname.toLowerCase();
-  if (!host.includes(".") || BLOCKED_HOST.test(host) || host.endsWith(".local") || host.endsWith(".internal")) {
-    throw new Error("That link points to a private address and cannot be opened.");
+  if (
+    !host.includes(".") ||
+    BLOCKED_HOST.test(host) ||
+    host.endsWith(".local") ||
+    host.endsWith(".internal")
+  ) {
+    throw new Error(
+      "That link points to a private address and cannot be opened.",
+    );
   }
   return url.toString();
 }
-
 
 export type OfferAnalysis = {
   ok: boolean;
@@ -137,9 +159,12 @@ export const failedOffer = (url: string, reason: string): OfferAnalysis => ({
 });
 
 /** Shape the model's JSON into a confirmed offer, or explain why it failed. */
-export function buildOfferAnalysis(url: string, parsed: Record<string, unknown>): OfferAnalysis {
-  const offerText = String(parsed['offerText'] ?? "").trim();
-  if (!parsed['isJobOffer'] || offerText.length < 200) {
+export function buildOfferAnalysis(
+  url: string,
+  parsed: Record<string, unknown>,
+): OfferAnalysis {
+  const offerText = String(parsed["offerText"] ?? "").trim();
+  if (!parsed["isJobOffer"] || offerText.length < 200) {
     return failedOffer(
       url,
       "We opened the page but could not find a job description on it. Paste the description below instead.",
@@ -149,19 +174,29 @@ export function buildOfferAnalysis(url: string, parsed: Record<string, unknown>)
     ok: true,
     reason: "",
     url,
-    company: String(parsed['company'] ?? "").trim(),
-    roleTitle: String(parsed['roleTitle'] ?? "").trim(),
-    location: String(parsed['location'] ?? "").trim(),
-    employmentType: String(parsed['employmentType'] ?? "").trim(),
-    seniority: String(parsed['seniority'] ?? "").trim(),
-    highlights: Array.isArray(parsed['highlights'])
-      ? (parsed['highlights'] as unknown[]).map((item) => String(item)).filter(Boolean).slice(0, 6)
+    company: String(parsed["company"] ?? "").trim(),
+    roleTitle: String(parsed["roleTitle"] ?? "").trim(),
+    location: String(parsed["location"] ?? "").trim(),
+    employmentType: String(parsed["employmentType"] ?? "").trim(),
+    seniority: String(parsed["seniority"] ?? "").trim(),
+    highlights: Array.isArray(parsed["highlights"])
+      ? (parsed["highlights"] as unknown[])
+          .map((item) => String(item))
+          .filter(Boolean)
+          .slice(0, 6)
       : [],
     offerText,
-    summary: String(parsed['summary'] ?? "").trim().slice(0, 700),
-    salaryText: String(parsed['salaryText'] ?? parsed['salary'] ?? "").trim().slice(0, 120),
-    skills: Array.isArray(parsed['skills'])
-      ? (parsed['skills'] as unknown[]).map((item) => String(item).trim()).filter(Boolean).slice(0, 8)
+    summary: String(parsed["summary"] ?? "")
+      .trim()
+      .slice(0, 700),
+    salaryText: String(parsed["salaryText"] ?? parsed["salary"] ?? "")
+      .trim()
+      .slice(0, 120),
+    skills: Array.isArray(parsed["skills"])
+      ? (parsed["skills"] as unknown[])
+          .map((item) => String(item).trim())
+          .filter(Boolean)
+          .slice(0, 8)
       : [],
   };
 }

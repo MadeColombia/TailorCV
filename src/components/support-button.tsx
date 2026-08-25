@@ -31,7 +31,9 @@ export function SupportButton() {
   const [shot, setShot] = useState<File | null>(null);
   const [shotPreview, setShotPreview] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement | null>(null);
-  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const pathname = useRouterState({
+    select: (state) => state.location.pathname,
+  });
 
   const sendIssue = useServerFn(submitIssue);
   const sendReview = useServerFn(submitReview);
@@ -62,20 +64,25 @@ export function SupportButton() {
       if (shot) {
         const { data: userData } = await supabase.auth.getUser();
         const userId = userData.user?.id;
-        if (!userId) throw new Error("Please sign in again to attach a screenshot.");
-        const extension = (shot.name.split(".").pop() ?? "png").toLowerCase().slice(0, 5);
+        if (!userId)
+          throw new Error("Please sign in again to attach a screenshot.");
+        const extension = (shot.name.split(".").pop() ?? "png")
+          .toLowerCase()
+          .slice(0, 5);
         const path = `${userId}/${crypto.randomUUID()}.${extension}`;
         const { error } = await supabase.storage
           .from("issue-screenshots")
           .upload(path, shot, { contentType: shot.type, upsert: false });
-        if (error) throw new Error(`Screenshot upload failed: ${error.message}`);
+        if (error)
+          throw new Error(`Screenshot upload failed: ${error.message}`);
         screenshotPath = path;
       }
       return sendIssue({
         data: {
           message: issue,
           route: pathname,
-          userAgent: typeof navigator === "undefined" ? "" : navigator.userAgent,
+          userAgent:
+            typeof navigator === "undefined" ? "" : navigator.userAgent,
           screenshotPath,
           clientInfo: { ...collectClientInfo(), route: pathname },
         },
@@ -92,7 +99,9 @@ export function SupportButton() {
 
   const reviewMutation = useMutation({
     mutationFn: () =>
-      sendReview({ data: { rating, message: review, source: "general", mayQuote } }),
+      sendReview({
+        data: { rating, message: review, source: "general", mayQuote },
+      }),
     onSuccess: () => {
       toast.success("Thank you for the feedback!");
       setReview("");
@@ -117,7 +126,8 @@ export function SupportButton() {
           <DialogHeader>
             <DialogTitle>Tell us what's going on</DialogTitle>
             <DialogDescription>
-              Report something broken, or let us know how TailorCV is working for you.
+              Report something broken, or let us know how TailorCV is working
+              for you.
             </DialogDescription>
           </DialogHeader>
 
@@ -143,7 +153,9 @@ export function SupportButton() {
                 type="file"
                 accept="image/*"
                 className="hidden"
-                onChange={(event) => pickScreenshot(event.target.files?.[0] ?? null)}
+                onChange={(event) =>
+                  pickScreenshot(event.target.files?.[0] ?? null)
+                }
               />
 
               {shotPreview ? (
@@ -174,8 +186,9 @@ export function SupportButton() {
               )}
 
               <p className="text-xs text-muted-foreground">
-                We attach the page you were on ({pathname}), your device, browser and app version
-                (v{APP_VERSION}), and the date. No CV content is sent.
+                We attach the page you were on ({pathname}), your device,
+                browser and app version (v{APP_VERSION}), and the date. No CV
+                content is sent.
               </p>
               <Button
                 className="w-full"
@@ -217,7 +230,11 @@ export function SupportButton() {
                 <Label htmlFor="may-quote" className="text-sm font-normal">
                   You may quote me publicly
                 </Label>
-                <Switch id="may-quote" checked={mayQuote} onCheckedChange={setMayQuote} />
+                <Switch
+                  id="may-quote"
+                  checked={mayQuote}
+                  onCheckedChange={setMayQuote}
+                />
               </div>
               <Button
                 className="w-full"

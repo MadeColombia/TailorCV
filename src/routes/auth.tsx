@@ -11,9 +11,16 @@ export const Route = createFileRoute("/auth")({
   head: () => ({
     meta: [
       { title: "Sign in — TailorCV" },
-      { name: "description", content: "Sign in to TailorCV to tailor ATS-approved CVs and cover letters." },
+      {
+        name: "description",
+        content:
+          "Sign in to TailorCV to tailor ATS-approved CVs and cover letters.",
+      },
       { property: "og:title", content: "Sign in — TailorCV" },
-      { property: "og:description", content: "Access your master profile and tailored applications." },
+      {
+        property: "og:description",
+        content: "Access your master profile and tailored applications.",
+      },
     ],
   }),
   component: AuthPage,
@@ -49,12 +56,17 @@ function AuthPage() {
           return;
         }
       } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
         if (error) throw error;
       }
       navigate({ to: "/dashboard", replace: true });
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Something went wrong");
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong",
+      );
     } finally {
       setLoading(false);
     }
@@ -75,7 +87,6 @@ function AuthPage() {
     }
   };
 
-
   return (
     <main className="grain flex min-h-screen items-center justify-center bg-background px-6 py-12">
       <div className="w-full max-w-sm">
@@ -83,12 +94,15 @@ function AuthPage() {
           Tailor<span className="text-primary">CV</span>
         </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          {mode === "signin" ? "Welcome back." : "Create your account to get started."}
+          {mode === "signin"
+            ? "Welcome back."
+            : "Create your account to get started."}
         </p>
 
         {sent ? (
           <div className="mt-8 rounded-lg border border-border bg-card p-5 text-sm text-muted-foreground">
-            Check your inbox — we sent a confirmation link to <strong>{email}</strong>.
+            Check your inbox — we sent a confirmation link to{" "}
+            <strong>{email}</strong>.
           </div>
         ) : (
           <>
@@ -112,7 +126,6 @@ function AuthPage() {
                 Continue with Apple
               </Button>
             </div>
-
 
             <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
               <span className="h-px flex-1 bg-border" />

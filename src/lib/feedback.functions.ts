@@ -15,9 +15,11 @@ export const submitIssue = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     const message = data.message.trim().slice(0, 4000);
-    if (message.length < 5) throw new Error("Tell us a little more about what went wrong.");
+    if (message.length < 5)
+      throw new Error("Tell us a little more about what went wrong.");
     const screenshotPath =
-      data.screenshotPath && data.screenshotPath.startsWith(`${context.userId}/`)
+      data.screenshotPath &&
+      data.screenshotPath.startsWith(`${context.userId}/`)
         ? data.screenshotPath.slice(0, 300)
         : null;
     const { error } = await context.supabase.from("issue_reports").insert({
@@ -31,7 +33,6 @@ export const submitIssue = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     return { ok: true };
   });
-
 
 /** Star rating + testimonial, either general or tied to a landed job. */
 export const submitReview = createServerFn({ method: "POST" })

@@ -14,7 +14,8 @@ function isMasterEmail(email?: string | null) {
  */
 async function ensureMasterAdmin(context: { userId: string; claims: any }) {
   if (!isMasterEmail(context.claims?.email)) return false;
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const { supabaseAdmin } =
+    await import("@/integrations/supabase/client.server");
   await supabaseAdmin
     .from("user_roles")
     .upsert({ user_id: context.userId, role: "admin" } as never, {
@@ -36,7 +37,11 @@ export const getAdminStatus = createServerFn({ method: "GET" })
     return { isAdmin: data === true, isMaster: false };
   });
 
-async function assertAdmin(context: { supabase: any; userId: string; claims?: any }) {
+async function assertAdmin(context: {
+  supabase: any;
+  userId: string;
+  claims?: any;
+}) {
   if (isMasterEmail(context.claims?.email)) {
     await ensureMasterAdmin(context as never);
     return;
@@ -48,40 +53,49 @@ async function assertAdmin(context: { supabase: any; userId: string; claims?: an
   if (data !== true) throw new Error("Forbidden");
 }
 
-
 /** Usage, signups, issues and reviews for the admin dashboard. */
 export const getAdminOverview = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin } =
+      await import("@/integrations/supabase/client.server");
 
     const since = (days: number) =>
       new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
-    const [usageRows, issues, reviews, applications, roles] = await Promise.all([
-      supabaseAdmin
-        .from("ai_usage")
-        .select("feature, total_tokens, prompt_tokens, completion_tokens, created_at, user_id")
-        .gte("created_at", since(30))
-        .order("created_at", { ascending: false })
-        .limit(5000),
-      supabaseAdmin
-        .from("issue_reports")
-        .select(
-          "id, user_id, message, route, user_agent, status, created_at, screenshot_path, client_info",
-        )
+    const [usageRows, issues, reviews, applications, roles] = await Promise.all(
+      [
+        supabaseAdmin
+          .from("ai_usage")
+          .select(
+            "feature, total_tokens, prompt_tokens, completion_tokens, created_at, user_id",
+          )
+          .gte("created_at", since(30))
+          .order("created_at", { ascending: false })
+          .limit(5000),
+        supabaseAdmin
+          .from("issue_reports")
+          .select(
+            "id, user_id, message, route, user_agent, status, created_at, screenshot_path, client_info",
+          )
 
-        .order("created_at", { ascending: false })
-        .limit(200),
-      supabaseAdmin
-        .from("feedback_reviews")
-        .select("id, user_id, rating, message, source, may_quote, created_at, application_id")
-        .order("created_at", { ascending: false })
-        .limit(200),
-      supabaseAdmin.from("applications").select("id, created_at, stage").limit(5000),
-      supabaseAdmin.from("user_roles").select("user_id, role"),
-    ]);
+          .order("created_at", { ascending: false })
+          .limit(200),
+        supabaseAdmin
+          .from("feedback_reviews")
+          .select(
+            "id, user_id, rating, message, source, may_quote, created_at, application_id",
+          )
+          .order("created_at", { ascending: false })
+          .limit(200),
+        supabaseAdmin
+          .from("applications")
+          .select("id, created_at, stage")
+          .limit(5000),
+        supabaseAdmin.from("user_roles").select("user_id, role"),
+      ],
+    );
 
     const rows = (usageRows.data ?? []) as Array<{
       feature: string;
@@ -99,21 +113,29 @@ export const getAdminOverview = createServerFn({ method: "GET" })
 
     const byFeature: Record<string, number> = {};
     for (const row of rows) {
-      byFeature[row.feature] = (byFeature[row.feature] ?? 0) + (row.total_tokens ?? 0);
+      byFeature[row.feature] =
+        (byFeature[row.feature] ?? 0) + (row.total_tokens ?? 0);
     }
     const byUser: Record<string, number> = {};
     for (const row of rows) {
       if (!row.user_id) continue;
-      byUser[row.user_id] = (byUser[row.user_id] ?? 0) + (row.total_tokens ?? 0);
+      byUser[row.user_id] =
+        (byUser[row.user_id] ?? 0) + (row.total_tokens ?? 0);
     }
 
-    const { data: userList } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 200 });
+    const { data: userList } = await supabaseAdmin.auth.admin.listUsers({
+      page: 1,
+      perPage: 200,
+    });
     const adminIds = new Set(
       ((roles.data ?? []) as Array<{ user_id: string; role: string }>)
         .filter((row) => row.role === "admin")
         .map((row) => row.user_id),
     );
-    const apps = (applications.data ?? []) as Array<{ created_at: string; stage: string }>;
+    const apps = (applications.data ?? []) as Array<{
+      created_at: string;
+      stage: string;
+    }>;
 
     const users = (userList?.users ?? []).map((user) => ({
       id: user.id,
@@ -125,9 +147,9 @@ export const getAdminOverview = createServerFn({ method: "GET" })
       tokens: byUser[user.id] ?? 0,
     }));
 
-
     const signupsLast30 = users.filter(
-      (user) => Date.parse(user.createdAt) >= Date.now() - 30 * 24 * 60 * 60 * 1000,
+      (user) =>
+        Date.parse(user.createdAt) >= Date.now() - 30 * 24 * 60 * 60 * 1000,
     ).length;
 
     type IssueRow = {
@@ -144,7 +166,8 @@ export const getAdminOverview = createServerFn({ method: "GET" })
     const issueRows = (issues.data ?? []) as IssueRow[];
     const issuesWithShots = await Promise.all(
       issueRows.map(async (issue) => {
-        if (!issue.screenshot_path) return { ...issue, screenshot_url: null as string | null };
+        if (!issue.screenshot_path)
+          return { ...issue, screenshot_url: null as string | null };
         const { data: signed } = await supabaseAdmin.storage
           .from("issue-screenshots")
           .createSignedUrl(issue.screenshot_path, 60 * 60);
@@ -161,7 +184,9 @@ export const getAdminOverview = createServerFn({ method: "GET" })
         calls30: rows.length,
       },
       users,
-      viewerIsMaster: isMasterEmail((context as never as { claims?: { email?: string } }).claims?.email),
+      viewerIsMaster: isMasterEmail(
+        (context as never as { claims?: { email?: string } }).claims?.email,
+      ),
 
       stats: {
         totalUsers: users.length,
@@ -190,14 +215,21 @@ export const setAdminRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { userId: string; isAdmin: boolean }) => input)
   .handler(async ({ data, context }) => {
-    if (!isMasterEmail((context as never as { claims?: { email?: string } }).claims?.email)) {
+    if (
+      !isMasterEmail(
+        (context as never as { claims?: { email?: string } }).claims?.email,
+      )
+    ) {
       throw new Error("Only the master admin can change admin access.");
     }
     if (data.userId === context.userId) {
       throw new Error("The master admin role cannot be changed.");
     }
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { data: target } = await supabaseAdmin.auth.admin.getUserById(data.userId);
+    const { supabaseAdmin } =
+      await import("@/integrations/supabase/client.server");
+    const { data: target } = await supabaseAdmin.auth.admin.getUserById(
+      data.userId,
+    );
     if (isMasterEmail(target?.user?.email)) {
       throw new Error("The master admin role cannot be changed.");
     }
@@ -226,7 +258,9 @@ export const setIssueStatus = createServerFn({ method: "POST" })
   .inputValidator((input: { id: string; status: string }) => input)
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const status = ["new", "in_progress", "resolved"].includes(data.status) ? data.status : "new";
+    const status = ["new", "in_progress", "resolved"].includes(data.status)
+      ? data.status
+      : "new";
     const { error } = await context.supabase
       .from("issue_reports")
       .update({ status } as never)

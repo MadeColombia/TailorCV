@@ -38,7 +38,8 @@ export const Route = createFileRoute("/_authenticated/targets/")({
       { title: "Role targets — TailorCV" },
       {
         name: "description",
-        content: "Save up to five roles you're hunting for and get a general ATS CV for each one.",
+        content:
+          "Save up to five roles you're hunting for and get a general ATS CV for each one.",
       },
       { property: "og:title", content: "Role targets — TailorCV" },
       {
@@ -79,7 +80,8 @@ function TargetsPage() {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => remove({ data: { id } }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["role-targets"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["role-targets"] }),
     onError: (error: Error) => toast.error(error.message),
   });
 
@@ -92,8 +94,8 @@ function TargetsPage() {
           <div>
             <h1 className="text-2xl font-bold">Role targets</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Up to {MAX_TARGETS} roles you're hunting for — one general, ATS-ready CV each, reusable
-              across every posting for that role.
+              Up to {MAX_TARGETS} roles you're hunting for — one general,
+              ATS-ready CV each, reusable across every posting for that role.
             </p>
           </div>
           <Dialog open={open} onOpenChange={setOpen}>
@@ -106,7 +108,8 @@ function TargetsPage() {
               <DialogHeader>
                 <DialogTitle>New role target</DialogTitle>
                 <DialogDescription>
-                  Name the role you want to be found for. You can refine it on the next screen.
+                  Name the role you want to be found for. You can refine it on
+                  the next screen.
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4">
@@ -123,7 +126,9 @@ function TargetsPage() {
                   <Label>CV language</Label>
                   <Select
                     value={language}
-                    onValueChange={(value) => setLanguage(value as ProfileLanguage)}
+                    onValueChange={(value) =>
+                      setLanguage(value as ProfileLanguage)
+                    }
                   >
                     <SelectTrigger>
                       <SelectValue />
@@ -152,44 +157,55 @@ function TargetsPage() {
 
         {atLimit && (
           <p className="mt-3 text-xs text-muted-foreground">
-            You've reached the {MAX_TARGETS}-target limit. Delete one to add another.
+            You've reached the {MAX_TARGETS}-target limit. Delete one to add
+            another.
           </p>
         )}
 
         <div className="mt-8 grid gap-4 sm:grid-cols-2">
-          {isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
+          {isLoading && (
+            <p className="text-sm text-muted-foreground">Loading…</p>
+          )}
           {!isLoading && targets.length === 0 && (
             <div className="col-span-full rounded-xl border border-dashed border-border p-12 text-center">
               <Target className="mx-auto size-6 text-primary" />
               <p className="mt-3 text-sm text-muted-foreground">
-                No targets yet. Add the roles you're aiming for and we'll shape a CV around each.
+                No targets yet. Add the roles you're aiming for and we'll shape
+                a CV around each.
               </p>
             </div>
           )}
           {targets.map((target) => {
             const row = target as Record<string, any>;
-            const match = row['match_result'] ? normalizeMatch(row['match_result']) : null;
+            const match = row["match_result"]
+              ? normalizeMatch(row["match_result"])
+              : null;
             return (
               <div
-                key={row['id']}
+                key={row["id"]}
                 className="group relative rounded-xl border border-border bg-card p-5 transition-colors hover:border-primary/50"
               >
                 <Link
                   to="/targets/$id"
-                  params={{ id: row['id'] }}
+                  params={{ id: row["id"] }}
                   className="block"
                 >
-                  <p className="font-display text-base font-semibold">{row['title'] || "Untitled role"}</p>
+                  <p className="font-display text-base font-semibold">
+                    {row["title"] || "Untitled role"}
+                  </p>
                   <p className="mt-1 text-xs text-muted-foreground">
-                    {[row['seniority'], row['industry'], row['location']].filter(Boolean).join(" · ") ||
-                      "No extra details yet"}
+                    {[row["seniority"], row["industry"], row["location"]]
+                      .filter(Boolean)
+                      .join(" · ") || "No extra details yet"}
                   </p>
                   <div className="mt-4 flex items-center gap-3 text-xs text-muted-foreground">
                     <span className="rounded-full border border-border px-2 py-0.5 uppercase">
-                      {row['language'] === "es" ? "Español" : "English"}
+                      {row["language"] === "es" ? "Español" : "English"}
                     </span>
                     {match ? (
-                      <span className="text-primary">{match.score}% role readiness</span>
+                      <span className="text-primary">
+                        {match.score}% role readiness
+                      </span>
                     ) : (
                       <span>Not generated yet</span>
                     )}
@@ -199,7 +215,7 @@ function TargetsPage() {
                   variant="ghost"
                   size="icon"
                   className="absolute right-3 top-3 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100"
-                  onClick={() => deleteMutation.mutate(row['id'])}
+                  onClick={() => deleteMutation.mutate(row["id"])}
                   aria-label="Delete target"
                 >
                   <Trash2 className="size-4" />

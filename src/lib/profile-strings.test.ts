@@ -6,7 +6,7 @@ describe("profileStrings", () => {
     const en = profileStrings("en");
     expect(en.contact).toBe("Contact");
     expect(en.translateFrom("Spanish")).toBe("Translate from Spanish");
-    expect(en.languageNames['es']).toBe("Spanish");
+    expect(en.languageNames["es"]).toBe("Spanish");
   });
 
   it("returns Spanish copy for the Spanish version", () => {
@@ -21,7 +21,11 @@ describe("profileStrings", () => {
 
   it("falls back to English for unknown languages", () => {
     expect(profileStrings("fr").title).toBe("Master profile");
-    expect(profileStrings(undefined).languageHint("Spanish")).toContain("Spanish");
-    expect(profileStrings("en").fillOtherFirst("Spanish")).toBe("Fill in your Spanish profile first");
+    expect(profileStrings(undefined).languageHint("Spanish")).toContain(
+      "Spanish",
+    );
+    expect(profileStrings("en").fillOtherFirst("Spanish")).toBe(
+      "Fill in your Spanish profile first",
+    );
   });
 });

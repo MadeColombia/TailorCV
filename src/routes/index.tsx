@@ -1,5 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, FileText, MessagesSquare, ScanLine, Target } from "lucide-react";
+import {
+  ArrowRight,
+  FileText,
+  MessagesSquare,
+  ScanLine,
+  Target,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
@@ -11,7 +17,10 @@ export const Route = createFileRoute("/")({
         content:
           "Upload your CV once. TailorCV interviews you, rewrites an ATS-approved résumé for each offer, and drafts the matching cover letter.",
       },
-      { property: "og:title", content: "TailorCV — ATS résumés tailored to each job offer" },
+      {
+        property: "og:title",
+        content: "TailorCV — ATS résumés tailored to each job offer",
+      },
       {
         property: "og:description",
         content:
@@ -60,11 +69,13 @@ function Landing() {
         <h1 className="max-w-3xl text-4xl font-bold leading-[1.05] md:text-6xl">
           One profile in.
           <br />
-          <span className="text-primary">A tailored CV</span> out, for every offer.
+          <span className="text-primary">A tailored CV</span> out, for every
+          offer.
         </h1>
         <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-          Paste the job description. TailorCV rewrites your résumé around it — same facts, the
-          right words — scores the keyword match, and writes the cover letter to send with it.
+          Paste the job description. TailorCV rewrites your résumé around it —
+          same facts, the right words — scores the keyword match, and writes the
+          cover letter to send with it.
         </p>
         <div className="mt-9 flex flex-wrap gap-3">
           <Button asChild size="lg">
@@ -84,10 +95,14 @@ function Landing() {
             >
               <div className="flex items-center justify-between">
                 <step.icon className="size-5 text-primary" />
-                <span className="font-display text-xs text-muted-foreground">0{index + 1}</span>
+                <span className="font-display text-xs text-muted-foreground">
+                  0{index + 1}
+                </span>
               </div>
               <h2 className="mt-5 text-lg font-semibold">{step.title}</h2>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.body}</p>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                {step.body}
+              </p>
             </article>
           ))}
         </div>
@@ -95,7 +110,8 @@ function Landing() {
 
       <footer className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-8 text-xs text-muted-foreground">
-          TailorCV — your experience, phrased for the machine that reads it first.
+          TailorCV — your experience, phrased for the machine that reads it
+          first.
         </div>
       </footer>
     </main>

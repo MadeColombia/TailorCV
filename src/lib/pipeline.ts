@@ -8,7 +8,11 @@ export const PIPELINE_STAGES = [
   { value: "draft", label: "Draft", hint: "Tailoring, not sent yet." },
   { value: "applied", label: "Applied", hint: "Sent — waiting for a reply." },
   { value: "interview", label: "Interview", hint: "They invited you to talk." },
-  { value: "offer", label: "Got the job", hint: "Offer received. Congratulations." },
+  {
+    value: "offer",
+    label: "Got the job",
+    hint: "Offer received. Congratulations.",
+  },
 ] as const;
 
 /** Closed stages live in the archive rather than the pipeline bar. */
@@ -28,7 +32,9 @@ const ALL_STAGES: PipelineStage[] = [
 ];
 
 export function normalizeStage(value: unknown): PipelineStage {
-  return ALL_STAGES.includes(value as PipelineStage) ? (value as PipelineStage) : "draft";
+  return ALL_STAGES.includes(value as PipelineStage)
+    ? (value as PipelineStage)
+    : "draft";
 }
 
 export function isClosedStage(stage: unknown): boolean {
@@ -38,21 +44,28 @@ export function isClosedStage(stage: unknown): boolean {
 export function stageLabel(stage: unknown): string {
   const value = normalizeStage(stage);
   return (
-    [...PIPELINE_STAGES, ...CLOSED_STAGES].find((item) => item.value === value)?.label ?? "Draft"
+    [...PIPELINE_STAGES, ...CLOSED_STAGES].find((item) => item.value === value)
+      ?.label ?? "Draft"
   );
 }
 
 export const DAY_MS = 24 * 60 * 60 * 1000;
 
 /** Whole days elapsed since a timestamp; null when the date is unusable. */
-export function daysSince(value: unknown, now: number = Date.now()): number | null {
+export function daysSince(
+  value: unknown,
+  now: number = Date.now(),
+): number | null {
   const stamp = typeof value === "string" ? Date.parse(value) : Number(value);
   if (!Number.isFinite(stamp)) return null;
   return Math.floor((now - stamp) / DAY_MS);
 }
 
 /** Whole days until a future timestamp (negative once it has passed). */
-export function daysUntil(value: unknown, now: number = Date.now()): number | null {
+export function daysUntil(
+  value: unknown,
+  now: number = Date.now(),
+): number | null {
   const days = daysSince(value, now);
   return days === null ? null : -days;
 }
@@ -91,7 +104,8 @@ export function responseLikelihood(
   return Math.max(3, Math.round(55 - ratio * 52));
 }
 
-export type PipelineTone = "neutral" | "ok" | "warn" | "danger" | "info" | "success" | "muted";
+export type PipelineTone =
+  "neutral" | "ok" | "warn" | "danger" | "info" | "success" | "muted";
 
 export type PipelineHealth = {
   stage: PipelineStage;
@@ -120,9 +134,14 @@ export function pipelineHealth(
 ): PipelineHealth {
   const stage = normalizeStage(row.stage);
   const daysApplied = daysSince(row.applied_at, now);
-  const interviewInDays = row.interview_at ? daysUntil(row.interview_at, now) : null;
+  const interviewInDays = row.interview_at
+    ? daysUntil(row.interview_at, now)
+    : null;
   const archiveDeletesInDays = row.archived_at
-    ? Math.max(0, windows.archiveRetentionDays - (daysSince(row.archived_at, now) ?? 0))
+    ? Math.max(
+        0,
+        windows.archiveRetentionDays - (daysSince(row.archived_at, now) ?? 0),
+      )
     : null;
 
   const base = {
@@ -145,12 +164,20 @@ export function pipelineHealth(
   }
 
   if (stage === "offer") {
-    return { ...base, tone: "success", sentence: "You got the job — congratulations." };
+    return {
+      ...base,
+      tone: "success",
+      sentence: "You got the job — congratulations.",
+    };
   }
 
   if (stage === "interview") {
     if (interviewInDays === null) {
-      return { ...base, tone: "info", sentence: "Interview stage — add the date to get a countdown." };
+      return {
+        ...base,
+        tone: "info",
+        sentence: "Interview stage — add the date to get a countdown.",
+      };
     }
     if (interviewInDays > 0) {
       return {
@@ -160,7 +187,11 @@ export function pipelineHealth(
       };
     }
     if (interviewInDays === 0) {
-      return { ...base, tone: "info", sentence: "Interview is today. Good luck." };
+      return {
+        ...base,
+        tone: "info",
+        sentence: "Interview is today. Good luck.",
+      };
     }
     return {
       ...base,
@@ -253,9 +284,12 @@ export function suggestedFollowUp(
   appliedAt: unknown,
   windows: TrackingWindows = DEFAULT_WINDOWS,
 ): string | null {
-  const stamp = typeof appliedAt === "string" ? Date.parse(appliedAt) : Number(appliedAt);
+  const stamp =
+    typeof appliedAt === "string" ? Date.parse(appliedAt) : Number(appliedAt);
   if (!Number.isFinite(stamp)) return null;
-  return new Date(stamp + Math.max(1, windows.followupOffsetDays) * DAY_MS).toISOString();
+  return new Date(
+    stamp + Math.max(1, windows.followupOffsetDays) * DAY_MS,
+  ).toISOString();
 }
 
 /** True when an archived row has outlived the retention window. */
@@ -269,12 +303,7 @@ export function archiveExpired(
 }
 
 export type PipelineFilter =
-  | "all"
-  | "active"
-  | "draft"
-  | "interviewing"
-  | "risk"
-  | "archive";
+  "all" | "active" | "draft" | "interviewing" | "risk" | "archive";
 
 export function matchesFilter(
   row: PipelineRow,
@@ -296,4 +325,3 @@ export function matchesFilter(
   const health = pipelineHealth(row, windows, now);
   return health.tone === "warn" || health.tone === "danger";
 }
-

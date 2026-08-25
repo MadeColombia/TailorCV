@@ -19,7 +19,10 @@ export type DossierParts = {
 };
 
 /** Read both sections of the user's knowledge document (decrypted at rest). */
-export async function loadDossierParts(supabase: Db, userId: string): Promise<DossierParts> {
+export async function loadDossierParts(
+  supabase: Db,
+  userId: string,
+): Promise<DossierParts> {
   const { data } = await supabase
     .from("candidate_dossier")
     .select("content, uploaded_context, uploaded_name, uploaded_at")
@@ -40,12 +43,19 @@ export async function loadDossierParts(supabase: Db, userId: string): Promise<Do
 }
 
 /** The full document injected into every AI prompt. */
-export async function loadDossier(supabase: Db, userId: string): Promise<string> {
+export async function loadDossier(
+  supabase: Db,
+  userId: string,
+): Promise<string> {
   const parts = await loadDossierParts(supabase, userId);
   return combineDossier(parts.learned, parts.uploaded);
 }
 
-export async function saveDossier(supabase: Db, userId: string, content: string) {
+export async function saveDossier(
+  supabase: Db,
+  userId: string,
+  content: string,
+) {
   const { encryptText } = await import("@/lib/crypto.server");
   const stored = await encryptText(normalizeDossier(content));
   const { error } = await supabase
@@ -86,7 +96,10 @@ export async function clearUploadedContext(supabase: Db, userId: string) {
 
 /** Permanently delete the stored context document (both sections). */
 export async function eraseDossier(supabase: Db, userId: string) {
-  const { error } = await supabase.from("candidate_dossier").delete().eq("user_id", userId);
+  const { error } = await supabase
+    .from("candidate_dossier")
+    .delete()
+    .eq("user_id", userId);
   if (error) throw new Error(error.message);
 }
 
@@ -133,7 +146,9 @@ CANDIDATE'S ANSWER:
 ${answer.trim()}`,
       },
     ]);
-    const cleaned = normalizeDossier(merged.replace(/^```(?:markdown)?\s*|\s*```$/g, ""));
+    const cleaned = normalizeDossier(
+      merged.replace(/^```(?:markdown)?\s*|\s*```$/g, ""),
+    );
     if (cleaned.length > 20) next = cleaned;
   } catch (error) {
     console.error("[dossier] merge failed, falling back to append", error);

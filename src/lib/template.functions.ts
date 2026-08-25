@@ -1,6 +1,10 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { DEFAULT_TEMPLATE, normalizeTemplate, type TemplateSettings } from "@/lib/cv-template";
+import {
+  DEFAULT_TEMPLATE,
+  normalizeTemplate,
+  type TemplateSettings,
+} from "@/lib/cv-template";
 
 export const getCvTemplate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
@@ -35,7 +39,9 @@ export const saveCvTemplate = createServerFn({ method: "POST" })
 /** Per-application visual override, falling back to the saved default. */
 export const setApplicationTemplate = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; settings: TemplateSettings | null }) => input)
+  .inputValidator(
+    (input: { id: string; settings: TemplateSettings | null }) => input,
+  )
   .handler(async ({ data, context }) => {
     const settings = data.settings ? normalizeTemplate(data.settings) : null;
     const { error } = await context.supabase

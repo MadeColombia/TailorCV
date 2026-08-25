@@ -3,7 +3,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Download, Languages, Plus, Trash2, Upload, UserRound, X } from "lucide-react";
+import {
+  Download,
+  Languages,
+  Plus,
+  Trash2,
+  Upload,
+  UserRound,
+  X,
+} from "lucide-react";
 import { AppShell } from "@/components/app-shell";
 import { CvTemplateEditor } from "@/components/cv-template-editor";
 
@@ -41,7 +49,10 @@ import { getCvTemplate } from "@/lib/template.functions";
 import { downloadCvPdf } from "@/lib/cv-pdf";
 import { DEFAULT_TEMPLATE } from "@/lib/cv-template";
 import { profileStrings } from "@/lib/profile-strings";
-import { getUserSettings, updateUserSettings } from "@/lib/user-settings.functions";
+import {
+  getUserSettings,
+  updateUserSettings,
+} from "@/lib/user-settings.functions";
 import { useUiStrings } from "@/lib/ui-strings";
 
 export const Route = createFileRoute("/_authenticated/profile")({
@@ -50,10 +61,14 @@ export const Route = createFileRoute("/_authenticated/profile")({
       { title: "Master profile — TailorCV" },
       {
         name: "description",
-        content: "Your full career history in one place, ready to be tailored for any offer.",
+        content:
+          "Your full career history in one place, ready to be tailored for any offer.",
       },
       { property: "og:title", content: "Master profile — TailorCV" },
-      { property: "og:description", content: "Upload a CV or fill the fields once, per language." },
+      {
+        property: "og:description",
+        content: "Upload a CV or fill the fields once, per language.",
+      },
     ],
   }),
   component: ProfilePage,
@@ -131,11 +146,13 @@ function ProfilePage() {
   const [language, setLanguage] = useState<ProfileLanguage>("en");
   const fetchSettings = useServerFn(getUserSettings);
   const saveSettings = useServerFn(updateUserSettings);
-  const settingsQuery = useQuery({ queryKey: ["user-settings"], queryFn: () => fetchSettings() });
+  const settingsQuery = useQuery({
+    queryKey: ["user-settings"],
+    queryFn: () => fetchSettings(),
+  });
   const cvLanguages = settingsQuery.data?.cvLanguages ?? ["en"];
   const [view, setView] = useState<"details" | "design">("details");
   const [cv, setCv] = useState<CvData>(emptyCv);
-
 
   const { data, isLoading, isFetching } = useQuery({
     queryKey: ["profile", language],
@@ -160,7 +177,9 @@ function ProfilePage() {
   const saveMutation = useMutation({
     mutationFn: () => persist({ data: { language, cv } }),
     onSuccess: () => {
-      toast.success(`${LANGUAGES.find((item) => item.code === language)?.label} profile saved`);
+      toast.success(
+        `${LANGUAGES.find((item) => item.code === language)?.label} profile saved`,
+      );
       queryClient.invalidateQueries({ queryKey: ["profile-versions"] });
     },
     onError: (error: Error) => toast.error(error.message),
@@ -177,14 +196,20 @@ function ProfilePage() {
       return extract({ data: { filename: file.name, dataUrl } });
     },
     onSuccess: (result) => {
-      setCv((current) => ({ ...result, photoUrl: result.photoUrl || current.photoUrl }));
+      setCv((current) => ({
+        ...result,
+        photoUrl: result.photoUrl || current.photoUrl,
+      }));
       toast.success("CV imported — review it and save");
     },
     onError: (error: Error) => toast.error(error.message),
   });
 
   const translateMutation = useMutation({
-    mutationFn: () => translate({ data: { from: language === "en" ? "es" : "en", to: language } }),
+    mutationFn: () =>
+      translate({
+        data: { from: language === "en" ? "es" : "en", to: language },
+      }),
     onSuccess: (result) => {
       setCv(result);
       queryClient.invalidateQueries({ queryKey: ["profile-versions"] });
@@ -205,9 +230,14 @@ function ProfilePage() {
   // Translate from whichever other language already has content (English first).
   const otherLanguage =
     LANGUAGES.find(
-      (item) => item.code !== language && cvLanguages.includes(item.code) && filled.has(item.code),
+      (item) =>
+        item.code !== language &&
+        cvLanguages.includes(item.code) &&
+        filled.has(item.code),
     ) ??
-    LANGUAGES.find((item) => item.code !== language && cvLanguages.includes(item.code)) ??
+    LANGUAGES.find(
+      (item) => item.code !== language && cvLanguages.includes(item.code),
+    ) ??
     LANGUAGES[0];
 
   const addLanguageMutation = useMutation({
@@ -216,7 +246,9 @@ function ProfilePage() {
     onSuccess: (result, code) => {
       queryClient.setQueryData(["user-settings"], result);
       setLanguage(code);
-      toast.success(`${LANGUAGES.find((item) => item.code === code)?.native} version added`);
+      toast.success(
+        `${LANGUAGES.find((item) => item.code === code)?.native} version added`,
+      );
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -230,20 +262,24 @@ function ProfilePage() {
   });
 
   const downloadMaster = () => {
-    const name = (cv.fullName || "master-profile").toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    downloadCvPdf(cv, `${name}-${language}.pdf`, language, templateSettings ?? DEFAULT_TEMPLATE);
+    const name = (cv.fullName || "master-profile")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-");
+    downloadCvPdf(
+      cv,
+      `${name}-${language}.pdf`,
+      language,
+      templateSettings ?? DEFAULT_TEMPLATE,
+    );
   };
 
   return (
     <AppShell>
       <main className="mx-auto max-w-6xl px-6 py-10">
-
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold">{t.title}</h1>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {t.subtitle}
-            </p>
+            <p className="mt-1 text-sm text-muted-foreground">{t.subtitle}</p>
           </div>
           <div className="flex gap-2">
             <input
@@ -262,20 +298,30 @@ function ProfilePage() {
               onClick={() => fileRef.current?.click()}
               disabled={extractMutation.isPending}
             >
-              {extractMutation.isPending ? <Spinner /> : <Upload className="size-4" />}
+              {extractMutation.isPending ? (
+                <Spinner />
+              ) : (
+                <Upload className="size-4" />
+              )}
               {t.importPdf}
             </Button>
             <Button variant="outline" onClick={downloadMaster}>
               <Download className="size-4" />
               {t.download}
             </Button>
-            <Button onClick={() => saveMutation.mutate()} disabled={saveMutation.isPending}>
+            <Button
+              onClick={() => saveMutation.mutate()}
+              disabled={saveMutation.isPending}
+            >
               {t.save}
             </Button>
           </div>
         </div>
 
-        <Tabs value={view} onValueChange={(value) => setView(value as "details" | "design")}>
+        <Tabs
+          value={view}
+          onValueChange={(value) => setView(value as "details" | "design")}
+        >
           <TabsList className="mt-6">
             <TabsTrigger value="details">{t.tabDetails}</TabsTrigger>
             <TabsTrigger value="design">{t.tabTemplate}</TabsTrigger>
@@ -283,54 +329,70 @@ function ProfilePage() {
         </Tabs>
 
         {view === "details" && (
-        <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3">
-          <Tabs value={language} onValueChange={(value) => setLanguage(value as ProfileLanguage)}>
-
-            <TabsList>
-              {LANGUAGES.filter((item) => cvLanguages.includes(item.code)).map((item) => (
-                <TabsTrigger key={item.code} value={item.code}>
-                  {item.native}
-                  {filled.has(item.code) && <span className="ml-1.5 text-primary">•</span>}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-          {LANGUAGES.some((item) => !cvLanguages.includes(item.code)) && (
-            <Select
-              value=""
-              onValueChange={(value) => addLanguageMutation.mutate(value as ProfileLanguage)}
+          <div className="mt-6 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-card p-3">
+            <Tabs
+              value={language}
+              onValueChange={(value) => setLanguage(value as ProfileLanguage)}
             >
-              <SelectTrigger className="w-44" aria-label="Add a CV language">
-                <Plus className="size-4" />
-                <span className="text-sm">{ui.addLanguage}</span>
-              </SelectTrigger>
-              <SelectContent>
-                {LANGUAGES.filter((item) => !cvLanguages.includes(item.code)).map((item) => (
-                  <SelectItem key={item.code} value={item.code}>
+              <TabsList>
+                {LANGUAGES.filter((item) =>
+                  cvLanguages.includes(item.code),
+                ).map((item) => (
+                  <TabsTrigger key={item.code} value={item.code}>
                     {item.native}
-                  </SelectItem>
+                    {filled.has(item.code) && (
+                      <span className="ml-1.5 text-primary">•</span>
+                    )}
+                  </TabsTrigger>
                 ))}
-              </SelectContent>
-            </Select>
-          )}
-          <p className="flex-1 text-xs text-muted-foreground">
-            {t.languageHint(otherName)}
-          </p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => translateMutation.mutate()}
-            disabled={translateMutation.isPending || !filled.has(otherLanguage.code)}
-            title={
-              filled.has(otherLanguage.code)
-                ? undefined
-                : t.fillOtherFirst(otherName)
-            }
-          >
-            {translateMutation.isPending ? <Spinner /> : <Languages className="size-4" />}
-            {t.translateFrom(otherName)}
-          </Button>
-        </div>
+              </TabsList>
+            </Tabs>
+            {LANGUAGES.some((item) => !cvLanguages.includes(item.code)) && (
+              <Select
+                value=""
+                onValueChange={(value) =>
+                  addLanguageMutation.mutate(value as ProfileLanguage)
+                }
+              >
+                <SelectTrigger className="w-44" aria-label="Add a CV language">
+                  <Plus className="size-4" />
+                  <span className="text-sm">{ui.addLanguage}</span>
+                </SelectTrigger>
+                <SelectContent>
+                  {LANGUAGES.filter(
+                    (item) => !cvLanguages.includes(item.code),
+                  ).map((item) => (
+                    <SelectItem key={item.code} value={item.code}>
+                      {item.native}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            <p className="flex-1 text-xs text-muted-foreground">
+              {t.languageHint(otherName)}
+            </p>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => translateMutation.mutate()}
+              disabled={
+                translateMutation.isPending || !filled.has(otherLanguage.code)
+              }
+              title={
+                filled.has(otherLanguage.code)
+                  ? undefined
+                  : t.fillOtherFirst(otherName)
+              }
+            >
+              {translateMutation.isPending ? (
+                <Spinner />
+              ) : (
+                <Languages className="size-4" />
+              )}
+              {t.translateFrom(otherName)}
+            </Button>
+          </div>
         )}
 
         {view === "design" ? (
@@ -338,7 +400,6 @@ function ProfilePage() {
             <CvTemplateEditor profileCv={cv} language={language} />
           </div>
         ) : isLoading || isFetching ? (
-
           <p className="mt-8 text-sm text-muted-foreground">{t.loading}</p>
         ) : (
           <div className="mt-4 space-y-4">
@@ -349,7 +410,11 @@ function ProfilePage() {
                     {cv.photoUrl ? (
                       <img
                         src={cv.photoUrl}
-                        alt={cv.fullName ? `${cv.fullName} profile photo` : "Profile photo"}
+                        alt={
+                          cv.fullName
+                            ? `${cv.fullName} profile photo`
+                            : "Profile photo"
+                        }
                         className="size-full object-cover"
                       />
                     ) : (
@@ -440,21 +505,23 @@ function ProfilePage() {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => set("linkItems", [...cv.linkItems, { ...emptyLink }])}
+                  onClick={() =>
+                    set("linkItems", [...cv.linkItems, { ...emptyLink }])
+                  }
                 >
                   <Plus className="size-4" /> {t.addLink}
                 </Button>
               }
             >
               {cv.linkItems.length === 0 && (
-                <p className="text-sm text-muted-foreground">
-                  {t.linksEmpty}
-                </p>
+                <p className="text-sm text-muted-foreground">{t.linksEmpty}</p>
               )}
               {cv.linkItems.map((link, index) => (
                 <div key={index} className="flex flex-wrap items-center gap-2">
                   <Select
-                    value={LINK_PRESETS.includes(link.label) ? link.label : "Other"}
+                    value={
+                      LINK_PRESETS.includes(link.label) ? link.label : "Other"
+                    }
                     onValueChange={(value) =>
                       set(
                         "linkItems",
@@ -475,7 +542,8 @@ function ProfilePage() {
                       ))}
                     </SelectContent>
                   </Select>
-                  {!LINK_PRESETS.includes(link.label) || link.label === "Other" ? (
+                  {!LINK_PRESETS.includes(link.label) ||
+                  link.label === "Other" ? (
                     <Input
                       className="w-40"
                       placeholder={t.label}
@@ -484,7 +552,9 @@ function ProfilePage() {
                         set(
                           "linkItems",
                           cv.linkItems.map((item, i) =>
-                            i === index ? { ...item, label: event.target.value } : item,
+                            i === index
+                              ? { ...item, label: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -498,7 +568,9 @@ function ProfilePage() {
                       set(
                         "linkItems",
                         cv.linkItems.map((item, i) =>
-                          i === index ? { ...item, url: event.target.value } : item,
+                          i === index
+                            ? { ...item, url: event.target.value }
+                            : item,
                         ),
                       )
                     }
@@ -532,7 +604,10 @@ function ProfilePage() {
 
             <Section title={t.experience}>
               {cv.experiences.map((experience, index) => (
-                <div key={index} className="rounded-lg border border-border p-4">
+                <div
+                  key={index}
+                  className="rounded-lg border border-border p-4"
+                >
                   <div className="grid gap-3 sm:grid-cols-2">
                     <Input
                       placeholder={t.jobTitle}
@@ -541,7 +616,9 @@ function ProfilePage() {
                         set(
                           "experiences",
                           cv.experiences.map((item, i) =>
-                            i === index ? { ...item, title: event.target.value } : item,
+                            i === index
+                              ? { ...item, title: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -553,7 +630,9 @@ function ProfilePage() {
                         set(
                           "experiences",
                           cv.experiences.map((item, i) =>
-                            i === index ? { ...item, company: event.target.value } : item,
+                            i === index
+                              ? { ...item, company: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -565,7 +644,9 @@ function ProfilePage() {
                         set(
                           "experiences",
                           cv.experiences.map((item, i) =>
-                            i === index ? { ...item, location: event.target.value } : item,
+                            i === index
+                              ? { ...item, location: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -578,7 +659,9 @@ function ProfilePage() {
                           set(
                             "experiences",
                             cv.experiences.map((item, i) =>
-                              i === index ? { ...item, start: event.target.value } : item,
+                              i === index
+                                ? { ...item, start: event.target.value }
+                                : item,
                             ),
                           )
                         }
@@ -590,7 +673,9 @@ function ProfilePage() {
                           set(
                             "experiences",
                             cv.experiences.map((item, i) =>
-                              i === index ? { ...item, end: event.target.value } : item,
+                              i === index
+                                ? { ...item, end: event.target.value }
+                                : item,
                             ),
                           )
                         }
@@ -606,7 +691,12 @@ function ProfilePage() {
                       set(
                         "experiences",
                         cv.experiences.map((item, i) =>
-                          i === index ? { ...item, bullets: event.target.value.split("\n") } : item,
+                          i === index
+                            ? {
+                                ...item,
+                                bullets: event.target.value.split("\n"),
+                              }
+                            : item,
                         ),
                       )
                     }
@@ -629,7 +719,12 @@ function ProfilePage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => set("experiences", [...cv.experiences, { ...emptyExperience }])}
+                onClick={() =>
+                  set("experiences", [
+                    ...cv.experiences,
+                    { ...emptyExperience },
+                  ])
+                }
               >
                 <Plus className="size-4" /> {t.addRole}
               </Button>
@@ -648,7 +743,9 @@ function ProfilePage() {
                       set(
                         "education",
                         cv.education.map((item, i) =>
-                          i === index ? { ...item, degree: event.target.value } : item,
+                          i === index
+                            ? { ...item, degree: event.target.value }
+                            : item,
                         ),
                       )
                     }
@@ -660,7 +757,9 @@ function ProfilePage() {
                       set(
                         "education",
                         cv.education.map((item, i) =>
-                          i === index ? { ...item, school: event.target.value } : item,
+                          i === index
+                            ? { ...item, school: event.target.value }
+                            : item,
                         ),
                       )
                     }
@@ -673,7 +772,9 @@ function ProfilePage() {
                         set(
                           "education",
                           cv.education.map((item, i) =>
-                            i === index ? { ...item, start: event.target.value } : item,
+                            i === index
+                              ? { ...item, start: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -685,7 +786,9 @@ function ProfilePage() {
                         set(
                           "education",
                           cv.education.map((item, i) =>
-                            i === index ? { ...item, end: event.target.value } : item,
+                            i === index
+                              ? { ...item, end: event.target.value }
+                              : item,
                           ),
                         )
                       }
@@ -698,7 +801,9 @@ function ProfilePage() {
                       set(
                         "education",
                         cv.education.map((item, i) =>
-                          i === index ? { ...item, details: event.target.value } : item,
+                          i === index
+                            ? { ...item, details: event.target.value }
+                            : item,
                         ),
                       )
                     }
@@ -721,7 +826,9 @@ function ProfilePage() {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => set("education", [...cv.education, { ...emptyEducation }])}
+                onClick={() =>
+                  set("education", [...cv.education, { ...emptyEducation }])
+                }
               >
                 <Plus className="size-4" /> {t.addEducation}
               </Button>
@@ -742,7 +849,10 @@ function ProfilePage() {
             </Section>
 
             <div className="flex justify-end pb-6">
-              <Button onClick={() => saveMutation.mutate()} disabled={saveMutation.isPending}>
+              <Button
+                onClick={() => saveMutation.mutate()}
+                disabled={saveMutation.isPending}
+              >
                 {t.save}
               </Button>
             </div>

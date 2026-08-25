@@ -1,10 +1,21 @@
 import { describe, expect, it } from "vitest";
-import { chatMessageText, createChatMessage, KICKOFF_MESSAGE } from "./chat-client";
+import {
+  chatMessageText,
+  createChatMessage,
+  KICKOFF_MESSAGE,
+} from "./chat-client";
 
 describe("chat-client", () => {
   it("joins and trims message parts", () => {
     expect(
-      chatMessageText({ id: "1", role: "assistant", parts: [{ type: "text", text: " Hello " }, { type: "text", text: "world " }] }),
+      chatMessageText({
+        id: "1",
+        role: "assistant",
+        parts: [
+          { type: "text", text: " Hello " },
+          { type: "text", text: "world " },
+        ],
+      }),
     ).toBe("Hello world");
   });
 

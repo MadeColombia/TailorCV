@@ -28,7 +28,12 @@ function hexToRgb(hex: string): [number, number, number] {
  * multi-page exports — so the layout is rendered at progressively tighter
  * scales until it fits.
  */
-function renderCv(cv: CvData, language: string, scale: number, settings: TemplateSettings) {
+function renderCv(
+  cv: CvData,
+  language: string,
+  scale: number,
+  settings: TemplateSettings,
+) {
   const labels = sectionLabels(language);
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   const font = settings.font;
@@ -86,13 +91,16 @@ function renderCv(cv: CvData, language: string, scale: number, settings: Templat
   };
 
   // Header
-  const photo = settings.showPhoto && cv.photoUrl.startsWith("data:image") ? cv.photoUrl : "";
+  const photo =
+    settings.showPhoto && cv.photoUrl.startsWith("data:image")
+      ? cv.photoUrl
+      : "";
   const photoSize = 62 * s;
   const headerW = photo ? maxW - photoSize - 14 : maxW;
 
   if (band) {
     const bandTop = margin - 22 * s;
-    const bandHeight = (photo ? photoSize + 26 * s : 82 * s);
+    const bandHeight = photo ? photoSize + 26 * s : 82 * s;
     doc.setFillColor(244, 245, 247);
     doc.rect(0, Math.max(0, bandTop), PAGE_W, bandHeight, "F");
   }
@@ -100,7 +108,9 @@ function renderCv(cv: CvData, language: string, scale: number, settings: Templat
   const headerTop = y;
   text(cv.fullName, band ? 20 : 19, "bold", 22 * s, headerW);
   if (cv.headline) text(cv.headline, 11, "normal", 15 * s, headerW);
-  const contact = [cv.email, cv.phone, cv.location].filter(Boolean).join("  |  ");
+  const contact = [cv.email, cv.phone, cv.location]
+    .filter(Boolean)
+    .join("  |  ");
   if (contact) text(contact, 9.5, "normal", 13 * s, headerW);
   const links = cv.linkItems.length
     ? cv.linkItems
@@ -135,8 +145,16 @@ function renderCv(cv: CvData, language: string, scale: number, settings: Templat
     if (section === "experience" && cv.experiences.length) {
       heading(labels.experience);
       for (const exp of cv.experiences) {
-        text([exp.title, exp.company].filter(Boolean).join(" — "), 10.5, "bold", 14 * s);
-        const meta = [exp.location, [exp.start, exp.end].filter(Boolean).join(" – ")]
+        text(
+          [exp.title, exp.company].filter(Boolean).join(" — "),
+          10.5,
+          "bold",
+          14 * s,
+        );
+        const meta = [
+          exp.location,
+          [exp.start, exp.end].filter(Boolean).join(" – "),
+        ]
           .filter(Boolean)
           .join("  |  ");
         if (meta) text(meta, 9, "normal", 12 * s);
@@ -147,7 +165,11 @@ function renderCv(cv: CvData, language: string, scale: number, settings: Templat
           const lines = doc.splitTextToSize(bullet, maxW - 14) as string[];
           for (const [index, item] of lines.entries()) {
             if (!room()) break;
-            doc.text(index === 0 ? `• ${item}` : item, margin + (index === 0 ? 0 : 14), y);
+            doc.text(
+              index === 0 ? `• ${item}` : item,
+              margin + (index === 0 ? 0 : 14),
+              y,
+            );
             y += line;
           }
         }
@@ -158,7 +180,12 @@ function renderCv(cv: CvData, language: string, scale: number, settings: Templat
     if (section === "education" && cv.education.length) {
       heading(labels.education);
       for (const edu of cv.education) {
-        text([edu.degree, edu.school].filter(Boolean).join(" — "), 10.5, "bold", 14 * s);
+        text(
+          [edu.degree, edu.school].filter(Boolean).join(" — "),
+          10.5,
+          "bold",
+          14 * s,
+        );
         const meta = [edu.start, edu.end].filter(Boolean).join(" – ");
         if (meta) text(meta, 9, "normal", 12 * s);
         if (edu.details) text(edu.details, 10, "normal");
@@ -193,7 +220,11 @@ export function downloadCvPdf(
 
 const MARGIN = 54;
 
-export function downloadLetterPdf(letter: string, name: string, filename: string) {
+export function downloadLetterPdf(
+  letter: string,
+  name: string,
+  filename: string,
+) {
   const doc = new jsPDF({ unit: "pt", format: "a4" });
   let y = MARGIN;
   doc.setFont("helvetica", "bold");
@@ -205,7 +236,10 @@ export function downloadLetterPdf(letter: string, name: string, filename: string
   doc.setFont("helvetica", "normal");
   doc.setFontSize(10.5);
   for (const paragraph of letter.split(/\n{2,}/)) {
-    for (const line of doc.splitTextToSize(paragraph.trim(), PAGE_W - MARGIN * 2) as string[]) {
+    for (const line of doc.splitTextToSize(
+      paragraph.trim(),
+      PAGE_W - MARGIN * 2,
+    ) as string[]) {
       if (y > PAGE_H - MARGIN) {
         doc.addPage();
         y = MARGIN;

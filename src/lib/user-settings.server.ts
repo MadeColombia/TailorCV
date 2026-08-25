@@ -1,9 +1,17 @@
-import { DEFAULT_SETTINGS, normalizeSettings, settingsToRow, type UserSettings } from "@/lib/user-settings";
+import {
+  DEFAULT_SETTINGS,
+  normalizeSettings,
+  settingsToRow,
+  type UserSettings,
+} from "@/lib/user-settings";
 
 type Db = { from: (table: string) => any };
 
 /** Read the caller's preferences, falling back to defaults when unset. */
-export async function loadSettings(supabase: Db, userId: string): Promise<UserSettings> {
+export async function loadSettings(
+  supabase: Db,
+  userId: string,
+): Promise<UserSettings> {
   const { data } = await supabase
     .from("user_settings")
     .select("*")
@@ -20,7 +28,10 @@ export async function saveSettings(
 ): Promise<UserSettings> {
   const { error } = await supabase
     .from("user_settings")
-    .upsert({ user_id: userId, ...settingsToRow(settings) }, { onConflict: "user_id" });
+    .upsert(
+      { user_id: userId, ...settingsToRow(settings) },
+      { onConflict: "user_id" },
+    );
   if (error) throw new Error(error.message);
   return settings;
 }
