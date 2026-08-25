@@ -1,1 +1,0 @@
-import{r as e}from"./useRouter-DFeFks9M.js";import{t}from"./createLucideIcon-BksDBjSU.js";import{r as n}from"./button-v_DYP3KV.js";var r=t(`loader-circle`,[[`path`,{d:`M21 12a9 9 0 1 1-6.219-8.56`,key:`13zald`}]]),i=e();function a({className:e,...t}){return(0,i.jsx)(r,{role:`status`,"aria-label":`Loading`,className:n(`size-4 animate-spin`,e),...t})}export{a as t};

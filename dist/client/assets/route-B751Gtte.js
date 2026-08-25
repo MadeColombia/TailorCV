@@ -1,1 +1,0 @@
-import{r as e}from"./useRouter-DFeFks9M.js";import{r as t}from"./index-jf11Yxcm.js";var n=e(),r=()=>(0,n.jsx)(t,{});export{r as component};
