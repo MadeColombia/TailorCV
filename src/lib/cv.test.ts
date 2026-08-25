@@ -28,13 +28,21 @@ describe("guessLinkLabel", () => {
 
 describe("normalizeLinkItems", () => {
   it("keeps structured items and trims urls", () => {
-    expect(normalizeLinkItems([{ label: "GitHub", url: " https://gh.com " }, { label: "", url: "" }])).toEqual([
-      { label: "GitHub", url: "https://gh.com" },
-    ]);
+    expect(
+      normalizeLinkItems([
+        { label: "GitHub", url: " https://gh.com " },
+        { label: "", url: "" },
+      ]),
+    ).toEqual([{ label: "GitHub", url: "https://gh.com" }]);
   });
 
   it("falls back to the legacy single line field", () => {
-    expect(normalizeLinkItems(undefined, "https://linkedin.com/in/a | https://x.dev")).toEqual([
+    expect(
+      normalizeLinkItems(
+        undefined,
+        "https://linkedin.com/in/a | https://x.dev",
+      ),
+    ).toEqual([
       { label: "LinkedIn", url: "https://linkedin.com/in/a" },
       { label: "Website", url: "https://x.dev" },
     ]);
@@ -61,7 +69,9 @@ describe("linkItemsToLine", () => {
 describe("normalizeCv", () => {
   it("returns the empty CV for junk input", () => {
     expect(normalizeCv(null)).toEqual(emptyCv);
-    expect(normalizeCv({ experiences: "no", education: 3, skills: null })).toEqual(emptyCv);
+    expect(
+      normalizeCv({ experiences: "no", education: 3, skills: null }),
+    ).toEqual(emptyCv);
   });
 
   it("coerces values and drops blank bullets/skills", () => {
@@ -75,10 +85,18 @@ describe("normalizeCv", () => {
     });
     expect(cv.fullName).toBe("Ada");
     expect(cv.phone).toBe("555");
-    expect(cv.linkItems).toEqual([{ label: "GitHub", url: "https://github.com/ada" }]);
+    expect(cv.linkItems).toEqual([
+      { label: "GitHub", url: "https://github.com/ada" },
+    ]);
     expect(cv.links).toBe("GitHub: https://github.com/ada");
     expect(cv.experiences[0]!.bullets).toEqual(["Shipped", "7"]);
-    expect(cv.education[0]).toEqual({ school: "MIT", degree: "", start: "", end: "", details: "" });
+    expect(cv.education[0]).toEqual({
+      school: "MIT",
+      degree: "",
+      start: "",
+      end: "",
+      details: "",
+    });
     expect(cv.skills).toEqual(["SQL", "Python"]);
   });
 
@@ -96,7 +114,11 @@ describe("normalizeMatch", () => {
   });
 
   it("normalizes the keyword lists and notes", () => {
-    const match = normalizeMatch({ matched: ["sql", ""], missing: "x", notes: 12 });
+    const match = normalizeMatch({
+      matched: ["sql", ""],
+      missing: "x",
+      notes: 12,
+    });
     expect(match.matched).toEqual(["sql"]);
     expect(match.missing).toEqual([]);
     expect(match.notes).toBe("12");
@@ -114,9 +136,24 @@ describe("cvToPlainText", () => {
         location: "Madrid",
         summary: "Does things.",
         experiences: [
-          { company: "ACME", title: "Lead", location: "Remote", start: "2020", end: "2024", bullets: ["Shipped"] },
+          {
+            company: "ACME",
+            title: "Lead",
+            location: "Remote",
+            start: "2020",
+            end: "2024",
+            bullets: ["Shipped"],
+          },
         ],
-        education: [{ school: "MIT", degree: "BSc", start: "2014", end: "2018", details: "Honours" }],
+        education: [
+          {
+            school: "MIT",
+            degree: "BSc",
+            start: "2014",
+            end: "2018",
+            details: "Honours",
+          },
+        ],
         skills: ["SQL"],
       }),
     );
@@ -138,7 +175,11 @@ describe("cvToPlainText", () => {
 
 describe("constants and labels", () => {
   it("exposes stable defaults", () => {
-    expect(LANGUAGES.map((l) => l.code).slice(0, 3)).toEqual(["en", "es", "pt"]);
+    expect(LANGUAGES.map((l) => l.code).slice(0, 3)).toEqual([
+      "en",
+      "es",
+      "pt",
+    ]);
     expect(LINK_PRESETS).toContain("Portfolio");
     expect(emptyLink.label).toBe("LinkedIn");
     expect(emptyExperience.bullets).toEqual([""]);

@@ -16,13 +16,18 @@ export async function createUserScopedClient(token: string) {
       headers: { Authorization: `Bearer ${token}` },
       fetch: (input, init) => {
         const headers = new Headers(init?.headers);
-        if (headers.get("Authorization") === `Bearer ${key}`) headers.delete("Authorization");
+        if (headers.get("Authorization") === `Bearer ${key}`)
+          headers.delete("Authorization");
         headers.set("apikey", key);
         headers.set("Authorization", `Bearer ${token}`);
         return fetch(input, { ...init, headers });
       },
     },
-    auth: { persistSession: false, autoRefreshToken: false, storage: undefined },
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      storage: undefined,
+    },
   });
 
   const { data, error } = await supabase.auth.getClaims(token);

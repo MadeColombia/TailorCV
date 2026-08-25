@@ -70,9 +70,15 @@ export const Route = createFileRoute("/_authenticated/dashboard")({
   head: () => ({
     meta: [
       { title: "Applications — TailorCV" },
-      { name: "description", content: "Track every company and role you have tailored a CV for." },
+      {
+        name: "description",
+        content: "Track every company and role you have tailored a CV for.",
+      },
       { property: "og:title", content: "Applications — TailorCV" },
-      { property: "og:description", content: "Your tailored CVs and cover letters, per company." },
+      {
+        property: "og:description",
+        content: "Your tailored CVs and cover letters, per company.",
+      },
     ],
   }),
   component: Dashboard,
@@ -98,10 +104,14 @@ function Dashboard() {
   const [analysis, setAnalysis] = useState<OfferAnalysis | null>(null);
 
   const fetchSettings = useServerFn(getUserSettings);
-  const settingsQuery = useQuery({ queryKey: ["user-settings"], queryFn: () => fetchSettings() });
+  const settingsQuery = useQuery({
+    queryKey: ["user-settings"],
+    queryFn: () => fetchSettings(),
+  });
   const cvLanguages = settingsQuery.data?.cvLanguages ?? ["en"];
   // Falls back to the account default until the user picks something else.
-  const effectiveLanguage = language ?? settingsQuery.data?.defaultAppLanguage ?? "en";
+  const effectiveLanguage =
+    language ?? settingsQuery.data?.defaultAppLanguage ?? "en";
 
   const fetchTargets = useServerFn(listRoleTargets);
   const { data: targets = [] } = useQuery({
@@ -109,9 +119,11 @@ function Dashboard() {
     queryFn: () => fetchTargets(),
   });
   const readyTargets = (targets as Array<Record<string, any>>)
-    .filter((target) => Boolean(target['generated_cv']))
-    .map((target) => ({ id: target['id'] as string, title: (target['title'] as string) || "Untitled role" }));
-
+    .filter((target) => Boolean(target["generated_cv"]))
+    .map((target) => ({
+      id: target["id"] as string,
+      title: (target["title"] as string) || "Untitled role",
+    }));
 
   const analyzeRunRef = useRef(0);
 
@@ -132,7 +144,10 @@ function Dashboard() {
   const analyzeMutation = useMutation({
     mutationFn: () => {
       const run = ++analyzeRunRef.current;
-      return analyze({ data: { url: offerUrl.trim() } }).then((result) => ({ run, result }));
+      return analyze({ data: { url: offerUrl.trim() } }).then((result) => ({
+        run,
+        result,
+      }));
     },
     onSuccess: ({ run, result }) => {
       if (run !== analyzeRunRef.current) return;
@@ -142,10 +157,18 @@ function Dashboard() {
         setRoleTitle(result.roleTitle);
         setOfferText(result.offerText);
         toast.success("Offer found — check the details below");
-        notify("offer_analyzed", "Job offer analysed", `${result.roleTitle || "Role"} at ${result.company || "company"}.`);
+        notify(
+          "offer_analyzed",
+          "Job offer analysed",
+          `${result.roleTitle || "Role"} at ${result.company || "company"}.`,
+        );
       } else {
         toast.error("We couldn't read that offer");
-        notify("errors", "We couldn't read that job link", "Fill in the offer details manually to continue.");
+        notify(
+          "errors",
+          "We couldn't read that job link",
+          "Fill in the offer details manually to continue.",
+        );
       }
     },
     onError: (error: Error) => {
@@ -203,9 +226,12 @@ function Dashboard() {
   const [isBulkMode, setIsBulkMode] = useState(false);
   const visibleIds = visible.map((item) => item.id);
   const selectedVisible = selected.filter((id) => visibleIds.includes(id));
-  const allVisibleSelected = visibleIds.length > 0 && selectedVisible.length === visibleIds.length;
+  const allVisibleSelected =
+    visibleIds.length > 0 && selectedVisible.length === visibleIds.length;
   const toggleSelected = (id: string, checked: boolean) =>
-    setSelected((prev) => (checked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id)));
+    setSelected((prev) =>
+      checked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id),
+    );
   const exitBulkMode = () => {
     setIsBulkMode(false);
     setSelected([]);
@@ -253,7 +279,8 @@ function Dashboard() {
 
   const deleteMutation = useMutation({
     mutationFn: (id: string) => remove({ data: { id } }),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["applications"] }),
+    onSuccess: () =>
+      queryClient.invalidateQueries({ queryKey: ["applications"] }),
     onError: (error: Error) => toast.error(error.message),
   });
 
@@ -270,10 +297,16 @@ function Dashboard() {
           <div className="flex items-center gap-2">
             <Button
               variant="outline"
-              onClick={() => (isBulkMode ? exitBulkMode() : setIsBulkMode(true))}
+              onClick={() =>
+                isBulkMode ? exitBulkMode() : setIsBulkMode(true)
+              }
               aria-pressed={isBulkMode}
             >
-              {isBulkMode ? <X className="size-4" /> : <ListChecks className="size-4" />}
+              {isBulkMode ? (
+                <X className="size-4" />
+              ) : (
+                <ListChecks className="size-4" />
+              )}
               {isBulkMode ? "Cancel" : "Multiple"}
             </Button>
             <Dialog
@@ -292,165 +325,192 @@ function Dashboard() {
                   <Plus className="size-4" /> New application
                 </Button>
               </DialogTrigger>
-            <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>New application</DialogTitle>
-                <DialogDescription>
-                  Paste the link to the offer and we'll read it for you — or fill it in by hand.
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="offer-url">Job offer link</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      id="offer-url"
-                      value={offerUrl}
-                      onChange={(event) => setOfferUrl(event.target.value)}
-                      placeholder="https://company.com/careers/senior-data-analyst"
-                    />
-                    <Button
-                      variant="outline"
-                      onClick={() => analyzeMutation.mutate()}
-                      disabled={analyzeMutation.isPending || offerUrl.trim().length < 8}
+              <DialogContent className="max-h-[85vh] max-w-lg overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>New application</DialogTitle>
+                  <DialogDescription>
+                    Paste the link to the offer and we'll read it for you — or
+                    fill it in by hand.
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="offer-url">Job offer link</Label>
+                    <div className="flex gap-2">
+                      <Input
+                        id="offer-url"
+                        value={offerUrl}
+                        onChange={(event) => setOfferUrl(event.target.value)}
+                        placeholder="https://company.com/careers/senior-data-analyst"
+                      />
+                      <Button
+                        variant="outline"
+                        onClick={() => analyzeMutation.mutate()}
+                        disabled={
+                          analyzeMutation.isPending ||
+                          offerUrl.trim().length < 8
+                        }
+                      >
+                        {analyzeMutation.isPending ? (
+                          <Spinner />
+                        ) : (
+                          <Link2 className="size-4" />
+                        )}
+                        Analyze
+                      </Button>
+                    </div>
+                  </div>
+
+                  {analysis?.ok && (
+                    <div className="rounded-lg border border-primary/40 bg-primary/5 p-4">
+                      <p className="flex items-center gap-2 text-sm font-semibold">
+                        <CheckCircle2 className="size-4 text-primary" /> Is this
+                        the right offer?
+                      </p>
+                      <dl className="mt-3 grid gap-1 text-sm">
+                        <div className="flex gap-2">
+                          <dt className="w-24 shrink-0 text-muted-foreground">
+                            Role
+                          </dt>
+                          <dd>{analysis.roleTitle || "—"}</dd>
+                        </div>
+                        <div className="flex gap-2">
+                          <dt className="w-24 shrink-0 text-muted-foreground">
+                            Company
+                          </dt>
+                          <dd>{analysis.company || "—"}</dd>
+                        </div>
+                        {analysis.location && (
+                          <div className="flex gap-2">
+                            <dt className="w-24 shrink-0 text-muted-foreground">
+                              Location
+                            </dt>
+                            <dd>{analysis.location}</dd>
+                          </div>
+                        )}
+                        {(analysis.employmentType || analysis.seniority) && (
+                          <div className="flex gap-2">
+                            <dt className="w-24 shrink-0 text-muted-foreground">
+                              Type
+                            </dt>
+                            <dd>
+                              {[analysis.seniority, analysis.employmentType]
+                                .filter(Boolean)
+                                .join(" · ")}
+                            </dd>
+                          </div>
+                        )}
+                      </dl>
+                      {analysis.highlights.length > 0 && (
+                        <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+                          {analysis.highlights.map((highlight, index) => (
+                            <li key={index}>{highlight}</li>
+                          ))}
+                        </ul>
+                      )}
+                      <p className="mt-3 text-xs text-muted-foreground">
+                        Anything off? Edit the fields below before creating the
+                        workspace.
+                      </p>
+                    </div>
+                  )}
+
+                  {analysis && !analysis.ok && (
+                    <div className="flex gap-2 rounded-lg border border-destructive/40 bg-destructive/5 p-4 text-sm">
+                      <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" />
+                      <p>{analysis.reason}</p>
+                    </div>
+                  )}
+
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Company</Label>
+                      <Input
+                        id="company"
+                        value={company}
+                        onChange={(event) => setCompany(event.target.value)}
+                        placeholder="Acme Ltd"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="role">Role</Label>
+                      <Input
+                        id="role"
+                        value={roleTitle}
+                        onChange={(event) => setRoleTitle(event.target.value)}
+                        placeholder="Senior Data Analyst"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>CV language</Label>
+                    <Select
+                      value={effectiveLanguage}
+                      onValueChange={(value) =>
+                        setLanguage(value as ProfileLanguage)
+                      }
                     >
-                      {analyzeMutation.isPending ? <Spinner /> : <Link2 className="size-4" />}
-                      Analyze
-                    </Button>
-                  </div>
-                </div>
-
-                {analysis?.ok && (
-                  <div className="rounded-lg border border-primary/40 bg-primary/5 p-4">
-                    <p className="flex items-center gap-2 text-sm font-semibold">
-                      <CheckCircle2 className="size-4 text-primary" /> Is this the right offer?
-                    </p>
-                    <dl className="mt-3 grid gap-1 text-sm">
-                      <div className="flex gap-2">
-                        <dt className="w-24 shrink-0 text-muted-foreground">Role</dt>
-                        <dd>{analysis.roleTitle || "—"}</dd>
-                      </div>
-                      <div className="flex gap-2">
-                        <dt className="w-24 shrink-0 text-muted-foreground">Company</dt>
-                        <dd>{analysis.company || "—"}</dd>
-                      </div>
-                      {analysis.location && (
-                        <div className="flex gap-2">
-                          <dt className="w-24 shrink-0 text-muted-foreground">Location</dt>
-                          <dd>{analysis.location}</dd>
-                        </div>
-                      )}
-                      {(analysis.employmentType || analysis.seniority) && (
-                        <div className="flex gap-2">
-                          <dt className="w-24 shrink-0 text-muted-foreground">Type</dt>
-                          <dd>
-                            {[analysis.seniority, analysis.employmentType].filter(Boolean).join(" · ")}
-                          </dd>
-                        </div>
-                      )}
-                    </dl>
-                    {analysis.highlights.length > 0 && (
-                      <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-                        {analysis.highlights.map((highlight, index) => (
-                          <li key={index}>{highlight}</li>
-                        ))}
-                      </ul>
-                    )}
-                    <p className="mt-3 text-xs text-muted-foreground">
-                      Anything off? Edit the fields below before creating the workspace.
-                    </p>
-                  </div>
-                )}
-
-                {analysis && !analysis.ok && (
-                  <div className="flex gap-2 rounded-lg border border-destructive/40 bg-destructive/5 p-4 text-sm">
-                    <AlertTriangle className="mt-0.5 size-4 shrink-0 text-destructive" />
-                    <p>{analysis.reason}</p>
-                  </div>
-                )}
-
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <div className="space-y-2">
-                    <Label htmlFor="company">Company</Label>
-                    <Input
-                      id="company"
-                      value={company}
-                      onChange={(event) => setCompany(event.target.value)}
-                      placeholder="Acme Ltd"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="role">Role</Label>
-                    <Input
-                      id="role"
-                      value={roleTitle}
-                      onChange={(event) => setRoleTitle(event.target.value)}
-                      placeholder="Senior Data Analyst"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label>CV language</Label>
-                  <Select
-                    value={effectiveLanguage}
-                    onValueChange={(value) => setLanguage(value as ProfileLanguage)}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {LANGUAGES.filter((item) => cvLanguages.includes(item.code)).map((item) => (
-                        <SelectItem key={item.code} value={item.code}>
-                          {item.native}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                {readyTargets.length > 0 && (
-                  <div className="space-y-2">
-                    <Label>Start from a role target (optional)</Label>
-                    <Select value={targetId} onValueChange={setTargetId}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Master profile" />
+                        <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="none">Master profile</SelectItem>
-                        {readyTargets.map((target) => (
-                          <SelectItem key={target.id} value={target.id}>
-                            {target.title}
+                        {LANGUAGES.filter((item) =>
+                          cvLanguages.includes(item.code),
+                        ).map((item) => (
+                          <SelectItem key={item.code} value={item.code}>
+                            {item.native}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
-                    <p className="text-xs text-muted-foreground">
-                      Tailoring will start from that role's CV instead of the raw master profile.
-                    </p>
                   </div>
-                )}
+                  {readyTargets.length > 0 && (
+                    <div className="space-y-2">
+                      <Label>Start from a role target (optional)</Label>
+                      <Select value={targetId} onValueChange={setTargetId}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Master profile" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="none">Master profile</SelectItem>
+                          {readyTargets.map((target) => (
+                            <SelectItem key={target.id} value={target.id}>
+                              {target.title}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <p className="text-xs text-muted-foreground">
+                        Tailoring will start from that role's CV instead of the
+                        raw master profile.
+                      </p>
+                    </div>
+                  )}
 
-                <div className="space-y-2">
-                  <Label htmlFor="offer">Job offer</Label>
-                  <Textarea
-                    id="offer"
-                    value={offerText}
-                    onChange={(event) => setOfferText(event.target.value)}
-                    rows={10}
-                    placeholder="Paste the job description here…"
-                  />
+                  <div className="space-y-2">
+                    <Label htmlFor="offer">Job offer</Label>
+                    <Textarea
+                      id="offer"
+                      value={offerText}
+                      onChange={(event) => setOfferText(event.target.value)}
+                      rows={10}
+                      placeholder="Paste the job description here…"
+                    />
+                  </div>
                 </div>
-              </div>
-              <DialogFooter>
-                <Button
-                  onClick={() => createMutation.mutate()}
-                  disabled={createMutation.isPending || offerText.trim().length < 30}
-                >
-                  Create workspace
-                </Button>
-              </DialogFooter>
-            </DialogContent>
-          </Dialog>
-        </div>
+                <DialogFooter>
+                  <Button
+                    onClick={() => createMutation.mutate()}
+                    disabled={
+                      createMutation.isPending || offerText.trim().length < 30
+                    }
+                  >
+                    Create workspace
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
         <nav className="mt-8 flex flex-wrap gap-2">
           {(
@@ -482,7 +542,9 @@ function Dashboard() {
                 )}
               >
                 {label}
-                <span className="ml-1.5 text-xs text-muted-foreground">{count}</span>
+                <span className="ml-1.5 text-xs text-muted-foreground">
+                  {count}
+                </span>
               </button>
             );
           })}
@@ -498,7 +560,9 @@ function Dashboard() {
                 }
                 aria-label="Select all applications in this view"
               />
-              {selected.length > 0 ? `${selected.length} selected` : "Select all"}
+              {selected.length > 0
+                ? `${selected.length} selected`
+                : "Select all"}
             </label>
             {selected.length > 0 && (
               <div className="flex flex-wrap items-center gap-2">
@@ -526,10 +590,18 @@ function Dashboard() {
                   onClick={() => bulkDeleteMutation.mutate()}
                   disabled={bulkDeleteMutation.isPending}
                 >
-                  {bulkDeleteMutation.isPending ? <Spinner className="size-4" /> : <Trash2 className="size-4" />}
+                  {bulkDeleteMutation.isPending ? (
+                    <Spinner className="size-4" />
+                  ) : (
+                    <Trash2 className="size-4" />
+                  )}
                   Delete
                 </Button>
-                <Button variant="ghost" size="sm" onClick={() => setSelected([])}>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setSelected([])}
+                >
                   Clear
                 </Button>
               </div>
@@ -537,14 +609,16 @@ function Dashboard() {
           </div>
         )}
 
-
         <div className="mt-4 grid gap-3">
-          {isLoading && <p className="text-sm text-muted-foreground">Loading…</p>}
+          {isLoading && (
+            <p className="text-sm text-muted-foreground">Loading…</p>
+          )}
           {!isLoading && applications.length === 0 && (
             <div className="rounded-xl border border-dashed border-border p-12 text-center">
               <Building2 className="mx-auto size-6 text-muted-foreground" />
               <p className="mt-3 text-sm text-muted-foreground">
-                No applications yet. Add your first job offer to tailor a CV for it.
+                No applications yet. Add your first job offer to tailor a CV for
+                it.
               </p>
             </div>
           )}
@@ -556,7 +630,9 @@ function Dashboard() {
             </div>
           )}
           {visible.map((application) => {
-            const match = application.match_result ? normalizeMatch(application.match_result) : null;
+            const match = application.match_result
+              ? normalizeMatch(application.match_result)
+              : null;
             const health = pipelineHealth(application as never, windows);
             const archived = Boolean(application.archived_at);
             const reminderInDays = application.next_action_at
@@ -574,7 +650,9 @@ function Dashboard() {
                   <div className="animate-fade-in">
                     <Checkbox
                       checked={selected.includes(application.id)}
-                      onCheckedChange={(checked) => toggleSelected(application.id, checked === true)}
+                      onCheckedChange={(checked) =>
+                        toggleSelected(application.id, checked === true)
+                      }
                       aria-label={`Select ${application.role_title || "application"}`}
                     />
                   </div>
@@ -588,7 +666,9 @@ function Dashboard() {
                     <p className="truncate font-display text-base font-semibold">
                       {application.role_title || "Untitled role"}
                     </p>
-                    <Badge variant="secondary">{stageLabel(application.stage)}</Badge>
+                    <Badge variant="secondary">
+                      {stageLabel(application.stage)}
+                    </Badge>
                     <span className="text-xs uppercase text-muted-foreground">
                       {application.language ?? "en"}
                     </span>
@@ -596,7 +676,12 @@ function Dashboard() {
                   <p className="mt-0.5 truncate text-sm text-muted-foreground">
                     {application.company || "Unknown company"}
                   </p>
-                  <p className={cn("mt-1 truncate text-sm", toneTextClass(health.tone))}>
+                  <p
+                    className={cn(
+                      "mt-1 truncate text-sm",
+                      toneTextClass(health.tone),
+                    )}
+                  >
                     {health.sentence}
                   </p>
                   {reminderInDays !== null && !archived && (
@@ -612,7 +697,9 @@ function Dashboard() {
                 </Link>
                 {match && (
                   <div className="text-right">
-                    <p className="font-display text-xl font-bold text-primary">{match.score}%</p>
+                    <p className="font-display text-xl font-bold text-primary">
+                      {match.score}%
+                    </p>
                     <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
                       match
                     </p>
@@ -642,7 +729,6 @@ function Dashboard() {
             );
           })}
         </div>
-
       </main>
     </AppShell>
   );

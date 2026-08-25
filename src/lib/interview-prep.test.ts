@@ -4,13 +4,20 @@ import { normalizeInterviewPrep, prepToPlainText } from "./interview-prep";
 describe("normalizeInterviewPrep", () => {
   it("returns an empty list for junk input", () => {
     expect(normalizeInterviewPrep(null)).toEqual({ questions: [] });
-    expect(normalizeInterviewPrep({ questions: "nope" })).toEqual({ questions: [] });
+    expect(normalizeInterviewPrep({ questions: "nope" })).toEqual({
+      questions: [],
+    });
   });
 
   it("normalizes categories and trims fields", () => {
     const prep = normalizeInterviewPrep({
       questions: [
-        { category: "Behavioral", question: " Tell me about a conflict ", why: " x ", answer: " y " },
+        {
+          category: "Behavioral",
+          question: " Tell me about a conflict ",
+          why: " x ",
+          answer: " y ",
+        },
         { category: "weird", question: "Why us?" },
         { question: "" },
       ],
@@ -41,7 +48,13 @@ describe("prepToPlainText", () => {
   it("renders a numbered sheet", () => {
     const text = prepToPlainText({
       questions: [
-        { category: "company", question: "Why us?", why: "motivation", answer: "Because.", isGap: false },
+        {
+          category: "company",
+          question: "Why us?",
+          why: "motivation",
+          answer: "Because.",
+          isGap: false,
+        },
       ],
     });
     expect(text).toContain("1. [Company & motivation] Why us?");

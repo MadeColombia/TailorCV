@@ -30,7 +30,11 @@ describe("notification preferences", () => {
   });
 
   it("round-trips saved preferences", () => {
-    saveNotificationPrefs({ ...defaultNotificationPrefs, enabled: true, errors: false });
+    saveNotificationPrefs({
+      ...defaultNotificationPrefs,
+      enabled: true,
+      errors: false,
+    });
     const prefs = loadNotificationPrefs();
     expect(prefs.enabled).toBe(true);
     expect(prefs.errors).toBe(false);
@@ -43,7 +47,10 @@ describe("notification preferences", () => {
 
   it("does not fire when disabled", () => {
     const ctor = vi.fn();
-    vi.stubGlobal("Notification", Object.assign(ctor, { permission: "granted" }));
+    vi.stubGlobal(
+      "Notification",
+      Object.assign(ctor, { permission: "granted" }),
+    );
     (fakeWindow as Record<string, unknown>)["Notification"] = ctor;
     saveNotificationPrefs({ ...defaultNotificationPrefs, enabled: false });
     notify("cv_tailored", "hi");
@@ -52,18 +59,31 @@ describe("notification preferences", () => {
 
   it("fires for an opted-in event when permission is granted", () => {
     const ctor = vi.fn();
-    vi.stubGlobal("Notification", Object.assign(ctor, { permission: "granted" }));
+    vi.stubGlobal(
+      "Notification",
+      Object.assign(ctor, { permission: "granted" }),
+    );
     (fakeWindow as Record<string, unknown>)["Notification"] = ctor;
     saveNotificationPrefs({ ...defaultNotificationPrefs, enabled: true });
     notify("cover_letter", "Ready", "body");
-    expect(ctor).toHaveBeenCalledWith("Ready", expect.objectContaining({ body: "body" }));
+    expect(ctor).toHaveBeenCalledWith(
+      "Ready",
+      expect.objectContaining({ body: "body" }),
+    );
   });
 
   it("stays silent when the event type is muted", () => {
     const ctor = vi.fn();
-    vi.stubGlobal("Notification", Object.assign(ctor, { permission: "granted" }));
+    vi.stubGlobal(
+      "Notification",
+      Object.assign(ctor, { permission: "granted" }),
+    );
     (fakeWindow as Record<string, unknown>)["Notification"] = ctor;
-    saveNotificationPrefs({ ...defaultNotificationPrefs, enabled: true, errors: false });
+    saveNotificationPrefs({
+      ...defaultNotificationPrefs,
+      enabled: true,
+      errors: false,
+    });
     notify("errors", "Boom");
     expect(ctor).not.toHaveBeenCalled();
   });

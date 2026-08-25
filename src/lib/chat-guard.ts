@@ -9,7 +9,8 @@
  * 5. Multi-endpoint per-user rate limiting.
  */
 
-export type GuardVerdict = { blocked: false } | { blocked: true; reason: string };
+export type GuardVerdict =
+  { blocked: false } | { blocked: true; reason: string };
 
 const INJECTION_PATTERNS: RegExp[] = [
   /\bignore (all|any|the)?\s*(previous|prior|above|earlier)\b/i,
@@ -81,11 +82,20 @@ export function screenUserMessage(text: string): GuardVerdict {
  */
 export function sanitizeUntrustedContent(content: string): string {
   if (!content) return "";
-  let sanitized = content
-    .replace(/<\/?(?:system|instruction|prompt|untrusted_[a-z_]+)>/gi, "[tag-removed]")
+  const sanitized = content
+    .replace(
+      /<\/?(?:system|instruction|prompt|untrusted_[a-z_]+)>/gi,
+      "[tag-removed]",
+    )
     .replace(/\b(sk-[a-zA-Z0-9_-]{20,})\b/gi, "[REDACTED_API_KEY]")
-    .replace(/\b(sbp_[a-zA-Z0-9_-]{20,}|sb_[a-zA-Z0-9_-]{20,})\b/gi, "[REDACTED_KEY]")
-    .replace(/eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g, "[REDACTED_JWT]");
+    .replace(
+      /\b(sbp_[a-zA-Z0-9_-]{20,}|sb_[a-zA-Z0-9_-]{20,})\b/gi,
+      "[REDACTED_KEY]",
+    )
+    .replace(
+      /eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g,
+      "[REDACTED_JWT]",
+    );
   return sanitized;
 }
 
@@ -108,8 +118,14 @@ export function screenAiOutput(output: string): string {
   // Redact potential leaked keys
   cleaned = cleaned
     .replace(/\b(sk-[a-zA-Z0-9_-]{20,})\b/gi, "[REDACTED_API_KEY]")
-    .replace(/\b(sbp_[a-zA-Z0-9_-]{20,}|sb_[a-zA-Z0-9_-]{20,})\b/gi, "[REDACTED_KEY]")
-    .replace(/eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g, "[REDACTED_JWT]");
+    .replace(
+      /\b(sbp_[a-zA-Z0-9_-]{20,}|sb_[a-zA-Z0-9_-]{20,})\b/gi,
+      "[REDACTED_KEY]",
+    )
+    .replace(
+      /eyJ[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}\.[a-zA-Z0-9_-]{10,}/g,
+      "[REDACTED_JWT]",
+    );
 
   return cleaned;
 }
@@ -130,7 +146,10 @@ export function checkRateLimit(
     return { allowed: true, retryAfterSeconds: 0 };
   }
   if (entry.count >= limit) {
-    return { allowed: false, retryAfterSeconds: Math.ceil((entry.resetAt - now) / 1000) };
+    return {
+      allowed: false,
+      retryAfterSeconds: Math.ceil((entry.resetAt - now) / 1000),
+    };
   }
   entry.count += 1;
   return { allowed: true, retryAfterSeconds: 0 };
@@ -140,4 +159,3 @@ export function checkRateLimit(
 export function pruneRateLimit(state: RateLimitState, now: number) {
   for (const [key, entry] of state) if (now >= entry.resetAt) state.delete(key);
 }
-

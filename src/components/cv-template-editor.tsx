@@ -61,7 +61,13 @@ const SAMPLE: CvData = {
   skills: ["TypeScript", "React", "PostgreSQL", "AWS"],
 };
 
-function Panel({ title, children }: { title: string; children: React.ReactNode }) {
+function Panel({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
     <section className="rounded-xl border border-border bg-card p-5">
       <h3 className="font-display text-xs font-semibold uppercase tracking-wide text-muted-foreground">
@@ -83,7 +89,9 @@ function Preview({
 }) {
   const labels = sectionLabels(language);
   const accent = accentHex(settings.accent);
-  const factor = densityFactor(settings.density) * (settings.template === "compact" ? 0.94 : 1);
+  const factor =
+    densityFactor(settings.density) *
+    (settings.template === "compact" ? 0.94 : 1);
   const base = 12 * factor;
   const heading = (label: string) => (
     <h4
@@ -106,7 +114,9 @@ function Preview({
         {heading(labels.experience)}
         {cv.experiences.map((exp, index) => (
           <div key={index} className="mb-3">
-            <p className="font-semibold">{[exp.title, exp.company].filter(Boolean).join(" — ")}</p>
+            <p className="font-semibold">
+              {[exp.title, exp.company].filter(Boolean).join(" — ")}
+            </p>
             <p style={{ fontSize: base * 0.85, opacity: 0.75 }}>
               {[exp.location, [exp.start, exp.end].filter(Boolean).join(" – ")]
                 .filter(Boolean)
@@ -126,7 +136,9 @@ function Preview({
         {heading(labels.education)}
         {cv.education.map((edu, index) => (
           <div key={index} className="mb-2">
-            <p className="font-semibold">{[edu.degree, edu.school].filter(Boolean).join(" — ")}</p>
+            <p className="font-semibold">
+              {[edu.degree, edu.school].filter(Boolean).join(" — ")}
+            </p>
             <p style={{ fontSize: base * 0.85, opacity: 0.75 }}>
               {[edu.start, edu.end].filter(Boolean).join(" – ")}
             </p>
@@ -153,7 +165,11 @@ function Preview({
   return (
     <div
       className="rounded-lg bg-white p-8 text-[#111] shadow-sm"
-      style={{ fontFamily: fontCss(settings.font), fontSize: base, lineHeight: 1.45 }}
+      style={{
+        fontFamily: fontCss(settings.font),
+        fontSize: base,
+        lineHeight: 1.45,
+      }}
     >
       <header
         className={cn(
@@ -165,14 +181,22 @@ function Preview({
           <p className="font-bold" style={{ fontSize: base * 1.7 }}>
             {cv.fullName}
           </p>
-          {cv.headline && <p style={{ fontSize: base * 1.05 }}>{cv.headline}</p>}
+          {cv.headline && (
+            <p style={{ fontSize: base * 1.05 }}>{cv.headline}</p>
+          )}
           <p style={{ fontSize: base * 0.85, opacity: 0.8 }}>
             {[cv.email, cv.phone, cv.location].filter(Boolean).join("  |  ")}
           </p>
-          {links && <p style={{ fontSize: base * 0.85, opacity: 0.8 }}>{links}</p>}
+          {links && (
+            <p style={{ fontSize: base * 0.85, opacity: 0.8 }}>{links}</p>
+          )}
         </div>
         {settings.showPhoto && cv.photoUrl && (
-          <img src={cv.photoUrl} alt="" className="size-16 shrink-0 object-cover" />
+          <img
+            src={cv.photoUrl}
+            alt=""
+            className="size-16 shrink-0 object-cover"
+          />
         )}
       </header>
       {settings.template === "band" && <div className="h-4" />}
@@ -192,7 +216,10 @@ export function CvTemplateEditor({
   const fetchTemplate = useServerFn(getCvTemplate);
   const persistTemplate = useServerFn(saveCvTemplate);
 
-  const templateQuery = useQuery({ queryKey: ["cv-template"], queryFn: () => fetchTemplate() });
+  const templateQuery = useQuery({
+    queryKey: ["cv-template"],
+    queryFn: () => fetchTemplate(),
+  });
   const [settings, setSettings] = useState<TemplateSettings>(DEFAULT_TEMPLATE);
 
   useEffect(() => {
@@ -200,8 +227,10 @@ export function CvTemplateEditor({
   }, [templateQuery.data]);
 
   const saveMutation = useMutation({
-    mutationFn: (next: TemplateSettings) => persistTemplate({ data: { settings: next } }),
-    onSuccess: () => toast.success("Template saved — it will be used for every CV export."),
+    mutationFn: (next: TemplateSettings) =>
+      persistTemplate({ data: { settings: next } }),
+    onSuccess: () =>
+      toast.success("Template saved — it will be used for every CV export."),
     onError: (error: Error) => toast.error(error.message),
   });
 
@@ -219,7 +248,9 @@ export function CvTemplateEditor({
   };
 
   const previewCv: CvData =
-    profileCv && (profileCv.fullName || profileCv.experiences.length) ? profileCv : SAMPLE;
+    profileCv && (profileCv.fullName || profileCv.experiences.length)
+      ? profileCv
+      : SAMPLE;
 
   if (templateQuery.isLoading) {
     return (
@@ -243,12 +274,26 @@ export function CvTemplateEditor({
         </Button>
         <Button
           variant="outline"
-          onClick={() => downloadCvPdf(previewCv, "cv-template-sample.pdf", language, settings)}
+          onClick={() =>
+            downloadCvPdf(
+              previewCv,
+              "cv-template-sample.pdf",
+              language,
+              settings,
+            )
+          }
         >
           <Download className="size-4" /> Sample PDF
         </Button>
-        <Button onClick={() => saveMutation.mutate(settings)} disabled={saveMutation.isPending}>
-          {saveMutation.isPending ? <Spinner className="size-4" /> : <Save className="size-4" />}
+        <Button
+          onClick={() => saveMutation.mutate(settings)}
+          disabled={saveMutation.isPending}
+        >
+          {saveMutation.isPending ? (
+            <Spinner className="size-4" />
+          ) : (
+            <Save className="size-4" />
+          )}
           Save template
         </Button>
       </div>
@@ -269,7 +314,9 @@ export function CvTemplateEditor({
                 )}
               >
                 <p className="text-sm font-medium">{option.label}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{option.description}</p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {option.description}
+                </p>
               </button>
             ))}
           </Panel>
@@ -322,7 +369,9 @@ export function CvTemplateEditor({
                   onClick={() => patch({ accent: option.id })}
                   className={cn(
                     "size-8 rounded-full border-2",
-                    settings.accent === option.id ? "border-primary" : "border-border",
+                    settings.accent === option.id
+                      ? "border-primary"
+                      : "border-border",
                   )}
                   style={{ backgroundColor: option.hex }}
                 />

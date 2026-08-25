@@ -3,7 +3,11 @@
  * generation defaults, privacy retention and the AI spending guard.
  * Pure module — safe to import from client and server.
  */
-import { DEFAULT_LANGUAGE, normalizeLanguage, type ProfileLanguage } from "@/lib/cv";
+import {
+  DEFAULT_LANGUAGE,
+  normalizeLanguage,
+  type ProfileLanguage,
+} from "@/lib/cv";
 
 /** Languages the app interface itself is translated into. */
 export const UI_LANGUAGES = [
@@ -15,15 +19,37 @@ export const UI_LANGUAGES = [
 export type UiLanguage = (typeof UI_LANGUAGES)[number]["code"];
 
 export function normalizeUiLanguage(value: unknown): UiLanguage {
-  return UI_LANGUAGES.some((item) => item.code === value) ? (value as UiLanguage) : "en";
+  return UI_LANGUAGES.some((item) => item.code === value)
+    ? (value as UiLanguage)
+    : "en";
 }
 
 export const COVER_LETTER_TONES = [
-  { value: "professional", label: "Professional", hint: "Warm but businesslike. Safe default." },
-  { value: "enthusiastic", label: "Enthusiastic", hint: "Energetic, shows genuine excitement." },
-  { value: "concise", label: "Short and punchy", hint: "Three tight paragraphs, no filler." },
-  { value: "formal", label: "Formal", hint: "Traditional and conservative industries." },
-  { value: "storytelling", label: "Storytelling", hint: "Opens with a concrete moment." },
+  {
+    value: "professional",
+    label: "Professional",
+    hint: "Warm but businesslike. Safe default.",
+  },
+  {
+    value: "enthusiastic",
+    label: "Enthusiastic",
+    hint: "Energetic, shows genuine excitement.",
+  },
+  {
+    value: "concise",
+    label: "Short and punchy",
+    hint: "Three tight paragraphs, no filler.",
+  },
+  {
+    value: "formal",
+    label: "Formal",
+    hint: "Traditional and conservative industries.",
+  },
+  {
+    value: "storytelling",
+    label: "Storytelling",
+    hint: "Opens with a concrete moment.",
+  },
 ] as const;
 
 export type CoverLetterTone = (typeof COVER_LETTER_TONES)[number]["value"];
@@ -121,7 +147,12 @@ export const DEFAULT_SETTINGS: UserSettings = {
   deepPrepOnInterview: true,
 };
 
-function clamp(value: unknown, min: number, max: number, fallback: number): number {
+function clamp(
+  value: unknown,
+  min: number,
+  max: number,
+  fallback: number,
+): number {
   const num = Math.round(Number(value));
   if (!Number.isFinite(num)) return fallback;
   return Math.min(max, Math.max(min, num));
@@ -147,15 +178,23 @@ export function normalizeSettings(input: unknown): UserSettings {
     row[camel] !== undefined ? row[camel] : row[snake];
 
   const cvLanguages = normalizeCvLanguages(pick("cv_languages", "cvLanguages"));
-  const defaultApp = normalizeLanguage(pick("default_app_language", "defaultAppLanguage"));
+  const defaultApp = normalizeLanguage(
+    pick("default_app_language", "defaultAppLanguage"),
+  );
 
   return {
     uiLanguage: normalizeUiLanguage(pick("ui_language", "uiLanguage")),
     cvLanguages,
-    defaultAppLanguage: cvLanguages.includes(defaultApp) ? defaultApp : DEFAULT_LANGUAGE,
-    coverLetterTone: normalizeTone(pick("cover_letter_tone", "coverLetterTone")),
+    defaultAppLanguage: cvLanguages.includes(defaultApp)
+      ? defaultApp
+      : DEFAULT_LANGUAGE,
+    coverLetterTone: normalizeTone(
+      pick("cover_letter_tone", "coverLetterTone"),
+    ),
     interviewDepth: normalizeDepth(pick("interview_depth", "interviewDepth")),
-    autoDeleteEnabled: Boolean(pick("auto_delete_enabled", "autoDeleteEnabled")),
+    autoDeleteEnabled: Boolean(
+      pick("auto_delete_enabled", "autoDeleteEnabled"),
+    ),
     autoDeleteMonths: clamp(
       pick("auto_delete_months", "autoDeleteMonths"),
       AUTO_DELETE_MIN_MONTHS,
@@ -232,7 +271,8 @@ export function isContextExpired(
   now: number = Date.now(),
 ): boolean {
   if (!settings.autoDeleteEnabled) return false;
-  const stamp = typeof updatedAt === "string" ? Date.parse(updatedAt) : Number(updatedAt);
+  const stamp =
+    typeof updatedAt === "string" ? Date.parse(updatedAt) : Number(updatedAt);
   if (!Number.isFinite(stamp)) return false;
   const months = clamp(
     settings.autoDeleteMonths,

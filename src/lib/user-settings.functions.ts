@@ -15,7 +15,8 @@ export const updateUserSettings = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: Partial<UserSettings>) => input)
   .handler(async ({ data, context }) => {
-    const { loadSettings, saveSettings } = await import("@/lib/user-settings.server");
+    const { loadSettings, saveSettings } =
+      await import("@/lib/user-settings.server");
     const current = await loadSettings(context.supabase, context.userId);
     const merged = normalizeSettings({ ...current, ...data });
     return saveSettings(context.supabase, context.userId, merged);
@@ -32,24 +33,30 @@ export const enforceContextRetention = createServerFn({ method: "POST" })
     const { loadSettings } = await import("@/lib/user-settings.server");
     const { isContextExpired } = await import("@/lib/user-settings");
     const settings = await loadSettings(context.supabase, context.userId);
-    if (!settings.autoDeleteEnabled) return { erased: false, expiresAt: null as string | null };
+    if (!settings.autoDeleteEnabled)
+      return { erased: false, expiresAt: null as string | null };
 
     const { data } = await context.supabase
       .from("candidate_dossier")
       .select("updated_at")
       .eq("user_id", context.userId)
       .maybeSingle();
-    const updatedAt = (data as { updated_at?: string } | null)?.updated_at ?? null;
+    const updatedAt =
+      (data as { updated_at?: string } | null)?.updated_at ?? null;
     if (!updatedAt) return { erased: false, expiresAt: null };
 
     if (isContextExpired(settings, updatedAt)) {
       const { eraseDossier } = await import("@/lib/dossier.server");
       await eraseDossier(context.supabase, context.userId);
-      await context.supabase.from("candidate_knowledge").delete().eq("user_id", context.userId);
+      await context.supabase
+        .from("candidate_knowledge")
+        .delete()
+        .eq("user_id", context.userId);
       return { erased: true, expiresAt: null };
     }
     const expiresAt = new Date(
-      Date.parse(updatedAt) + settings.autoDeleteMonths * 30 * 24 * 60 * 60 * 1000,
+      Date.parse(updatedAt) +
+        settings.autoDeleteMonths * 30 * 24 * 60 * 60 * 1000,
     ).toISOString();
     return { erased: false, expiresAt };
   });
@@ -70,16 +77,27 @@ export const exportAccountArchive = createServerFn({ method: "POST" })
     }
 
     const { supabase, userId } = context;
-    const [profiles, applications, targets, templates, knowledge, settings, parts] =
-      await Promise.all([
-        supabase.from("profiles").select("*").eq("user_id", userId),
-        supabase.from("applications").select("*").eq("user_id", userId),
-        supabase.from("role_targets").select("*").eq("user_id", userId),
-        supabase.from("cv_templates").select("*").eq("user_id", userId),
-        supabase.from("candidate_knowledge").select("*").eq("user_id", userId),
-        import("@/lib/user-settings.server").then((m) => m.loadSettings(supabase, userId)),
-        import("@/lib/dossier.server").then((m) => m.loadDossierParts(supabase, userId)),
-      ]);
+    const [
+      profiles,
+      applications,
+      targets,
+      templates,
+      knowledge,
+      settings,
+      parts,
+    ] = await Promise.all([
+      supabase.from("profiles").select("*").eq("user_id", userId),
+      supabase.from("applications").select("*").eq("user_id", userId),
+      supabase.from("role_targets").select("*").eq("user_id", userId),
+      supabase.from("cv_templates").select("*").eq("user_id", userId),
+      supabase.from("candidate_knowledge").select("*").eq("user_id", userId),
+      import("@/lib/user-settings.server").then((m) =>
+        m.loadSettings(supabase, userId),
+      ),
+      import("@/lib/dossier.server").then((m) =>
+        m.loadDossierParts(supabase, userId),
+      ),
+    ]);
 
     const enc = new TextEncoder();
     const files: Record<string, Uint8Array> = {};
@@ -97,18 +115,28 @@ export const exportAccountArchive = createServerFn({ method: "POST" })
     put("cv-templates.json", JSON.stringify(templates.data ?? [], null, 2));
     put("question-answers.json", JSON.stringify(knowledge.data ?? [], null, 2));
     put("settings.json", JSON.stringify(settings, null, 2));
-    put("context/learned-dossier.md", parts.learned || "(nothing recorded yet)");
+    put(
+      "context/learned-dossier.md",
+      parts.learned || "(nothing recorded yet)",
+    );
     if (parts.uploaded) {
-      put(`context/uploaded-${parts.uploadedName || "context"}.md`, parts.uploaded);
+      put(
+        `context/uploaded-${parts.uploadedName || "context"}.md`,
+        parts.uploaded,
+      );
     }
     for (const row of (applications.data ?? []) as Array<Record<string, any>>) {
       if (row["cover_letter"]) {
-        const slug = `${row["company"] || "company"}-${row["role_title"] || "role"}`
-          .toLowerCase()
-          .replace(/[^a-z0-9]+/g, "-")
-          .replace(/^-|-$/g, "")
-          .slice(0, 60);
-        put(`cover-letters/${slug || row["id"]}.md`, String(row["cover_letter"]));
+        const slug =
+          `${row["company"] || "company"}-${row["role_title"] || "role"}`
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/^-|-$/g, "")
+            .slice(0, 60);
+        put(
+          `cover-letters/${slug || row["id"]}.md`,
+          String(row["cover_letter"]),
+        );
       }
     }
 

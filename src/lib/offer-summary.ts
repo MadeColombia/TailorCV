@@ -29,7 +29,9 @@ const str = (value: unknown, max = 600): string =>
 
 export function normalizeOfferSummary(input: unknown): OfferSummary {
   const row = (input ?? {}) as Record<string, unknown>;
-  const skills = Array.isArray(row["skills"]) ? (row["skills"] as unknown[]) : [];
+  const skills = Array.isArray(row["skills"])
+    ? (row["skills"] as unknown[])
+    : [];
   return {
     summary: str(row["summary"], 700),
     salaryText: str(row["salaryText"] ?? row["salary"], 120),

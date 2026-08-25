@@ -17,7 +17,11 @@ const UA =
 async function fetchText(url: string, accept: string): Promise<string> {
   const response = await fetch(url, {
     redirect: "follow",
-    headers: { "User-Agent": UA, Accept: accept, "Accept-Language": "en,es;q=0.8" },
+    headers: {
+      "User-Agent": UA,
+      Accept: accept,
+      "Accept-Language": "en,es;q=0.8",
+    },
     signal: AbortSignal.timeout(25000),
   });
   if (!response.ok) throw new Error(`status ${response.status}`);
@@ -28,18 +32,23 @@ async function fetchText(url: string, accept: string): Promise<string> {
  * Try, in order: direct HTML (JSON-LD first, then visible text), then a reader
  * proxy that renders JavaScript. Job boards block most of these individually.
  */
-async function extractPageText(url: string): Promise<{ text: string; source: string; error: string }> {
+async function extractPageText(
+  url: string,
+): Promise<{ text: string; source: string; error: string }> {
   let lastError = "";
 
   try {
     const html = await fetchText(url, "text/html,application/xhtml+xml");
     const structured = jsonLdOffer(html);
-    if (structured.length > 300) return { text: structured, source: "json-ld", error: "" };
+    if (structured.length > 300)
+      return { text: structured, source: "json-ld", error: "" };
     const visible = htmlToText(html);
-    if (visible.length > 600) return { text: visible, source: "html", error: "" };
+    if (visible.length > 600)
+      return { text: visible, source: "html", error: "" };
     lastError = "the page returned almost no readable text";
   } catch (error) {
-    lastError = error instanceof Error ? error.message : "the site refused the request";
+    lastError =
+      error instanceof Error ? error.message : "the site refused the request";
     console.error("[analyzeOfferUrl] direct fetch failed", error);
   }
 
@@ -59,7 +68,9 @@ async function extractPageText(url: string): Promise<{ text: string; source: str
 /** Read a job posting URL and extract the structured offer so the user can confirm it. */
 export const analyzeOfferUrl = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { url: string }) => ({ url: validateOfferUrl(input.url) }))
+  .inputValidator((input: { url: string }) => ({
+    url: validateOfferUrl(input.url),
+  }))
   .handler(async ({ data, context }): Promise<OfferAnalysis> => {
     const extracted = await extractPageText(data.url);
     if (!extracted.text) {
@@ -70,7 +81,8 @@ export const analyzeOfferUrl = createServerFn({ method: "POST" })
     }
     const text = extracted.text.slice(0, 60000);
 
-    const { callGateway, parseJsonResponse } = await import("@/lib/ai-gateway.server");
+    const { callGateway, parseJsonResponse } =
+      await import("@/lib/ai-gateway.server");
 
     const raw = await callGateway(
       [

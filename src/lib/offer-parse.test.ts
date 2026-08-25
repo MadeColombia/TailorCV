@@ -20,14 +20,18 @@ describe("htmlToText", () => {
   });
 
   it("collapses excess blank lines", () => {
-    expect(htmlToText("<p>a</p><p></p><p></p><p></p><p>b</p>").replace(/ /g, "")).toBe("a\n\nb");
+    expect(
+      htmlToText("<p>a</p><p></p><p></p><p></p><p>b</p>").replace(/ /g, ""),
+    ).toBe("a\n\nb");
   });
 });
 
 describe("findJobPosting", () => {
   it("finds a posting nested in arrays and graphs", () => {
-    const posting = findJobPosting({ "@graph": [{ "@type": ["JobPosting"], title: "Analyst" }] });
-    expect(posting?.['title']).toBe("Analyst");
+    const posting = findJobPosting({
+      "@graph": [{ "@type": ["JobPosting"], title: "Analyst" }],
+    });
+    expect(posting?.["title"]).toBe("Analyst");
   });
 
   it("returns null when there is no posting", () => {
@@ -67,27 +71,37 @@ describe("jsonLdOffer", () => {
 
   it("returns empty for malformed, missing or too-short blocks", () => {
     expect(jsonLdOffer("<p>no scripts here</p>")).toBe("");
-    expect(jsonLdOffer(`<script type="application/ld+json">{oops</script>`)).toBe("");
-    expect(jsonLdOffer(script({ "@type": "JobPosting", title: "Short" }))).toBe("");
+    expect(
+      jsonLdOffer(`<script type="application/ld+json">{oops</script>`),
+    ).toBe("");
+    expect(jsonLdOffer(script({ "@type": "JobPosting", title: "Short" }))).toBe(
+      "",
+    );
     expect(jsonLdOffer(script({ "@type": "WebPage" }))).toBe("");
   });
 });
 
 describe("validateOfferUrl", () => {
   it("accepts http(s) links", () => {
-    expect(validateOfferUrl(" https://jobs.example.com/1 ")).toBe("https://jobs.example.com/1");
+    expect(validateOfferUrl(" https://jobs.example.com/1 ")).toBe(
+      "https://jobs.example.com/1",
+    );
   });
 
   it("rejects anything else", () => {
     expect(() => validateOfferUrl("not a url")).toThrow(/valid job offer link/);
     expect(() => validateOfferUrl(undefined)).toThrow();
-    expect(() => validateOfferUrl(`https://x.com/${"a".repeat(2100)}`)).toThrow();
+    expect(() =>
+      validateOfferUrl(`https://x.com/${"a".repeat(2100)}`),
+    ).toThrow();
   });
 
   it("rejects non-http schemes and embedded credentials", () => {
     expect(() => validateOfferUrl("file:///etc/passwd")).toThrow(/http/i);
     expect(() => validateOfferUrl("javascript:alert(1)")).toThrow();
-    expect(() => validateOfferUrl("https://user:pass@jobs.example.com/1")).toThrow();
+    expect(() =>
+      validateOfferUrl("https://user:pass@jobs.example.com/1"),
+    ).toThrow();
   });
 
   it("rejects private and loopback hosts", () => {
@@ -103,7 +117,6 @@ describe("validateOfferUrl", () => {
       expect(() => validateOfferUrl(url)).toThrow();
     }
   });
-
 });
 
 describe("buildOfferAnalysis", () => {
@@ -127,17 +140,34 @@ describe("buildOfferAnalysis", () => {
   });
 
   it("fails when the page is not an offer or the text is too short", () => {
-    expect(buildOfferAnalysis("https://x.com/1", { isJobOffer: false, offerText: longText }).ok).toBe(false);
-    expect(buildOfferAnalysis("https://x.com/1", { isJobOffer: true, offerText: "tiny" }).ok).toBe(false);
+    expect(
+      buildOfferAnalysis("https://x.com/1", {
+        isJobOffer: false,
+        offerText: longText,
+      }).ok,
+    ).toBe(false);
+    expect(
+      buildOfferAnalysis("https://x.com/1", {
+        isJobOffer: true,
+        offerText: "tiny",
+      }).ok,
+    ).toBe(false);
   });
 
   it("defaults missing fields", () => {
-    const result = buildOfferAnalysis("https://x.com/1", { isJobOffer: true, offerText: longText });
+    const result = buildOfferAnalysis("https://x.com/1", {
+      isJobOffer: true,
+      offerText: longText,
+    });
     expect(result.roleTitle).toBe("");
     expect(result.highlights).toEqual([]);
   });
 
   it("builds a failure payload with the reason", () => {
-    expect(failedOffer("https://x.com", "blocked")).toMatchObject({ ok: false, reason: "blocked", offerText: "" });
+    expect(failedOffer("https://x.com", "blocked")).toMatchObject({
+      ok: false,
+      reason: "blocked",
+      offerText: "",
+    });
   });
 });

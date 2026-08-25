@@ -73,8 +73,13 @@ export function languageNative(value: unknown): string {
   return LANGUAGES.find((item) => item.code === code)!.native;
 }
 
-
-export const LINK_PRESETS = ["LinkedIn", "GitHub", "Portfolio", "Website", "Other"];
+export const LINK_PRESETS = [
+  "LinkedIn",
+  "GitHub",
+  "Portfolio",
+  "Website",
+  "Other",
+];
 
 export type MatchResult = {
   score: number;
@@ -122,15 +127,20 @@ function str(value: unknown): string {
 }
 
 function strArray(value: unknown): string[] {
-  return Array.isArray(value) ? value.map(str).filter((item) => item.trim().length > 0) : [];
+  return Array.isArray(value)
+    ? value.map(str).filter((item) => item.trim().length > 0)
+    : [];
 }
 
-export function normalizeLinkItems(input: unknown, fallbackLinks = ""): LinkItem[] {
+export function normalizeLinkItems(
+  input: unknown,
+  fallbackLinks = "",
+): LinkItem[] {
   if (Array.isArray(input)) {
     const items = (input as unknown[])
       .map((item) => {
         const raw = (item ?? {}) as Record<string, unknown>;
-        return { label: str(raw['label']), url: str(raw['url']).trim() };
+        return { label: str(raw["label"]), url: str(raw["url"]).trim() };
       })
       .filter((item) => item.url.length > 0 || item.label.trim().length > 0);
     if (items.length) return items;
@@ -148,69 +158,76 @@ export function guessLinkLabel(url: string): string {
   if (value.includes("linkedin")) return "LinkedIn";
   if (value.includes("github")) return "GitHub";
   if (value.includes("gitlab")) return "GitLab";
-  if (value.includes("behance") || value.includes("dribbble")) return "Portfolio";
+  if (value.includes("behance") || value.includes("dribbble"))
+    return "Portfolio";
   return "Website";
 }
 
 export function linkItemsToLine(items: LinkItem[]): string {
   return items
     .filter((item) => item.url.trim())
-    .map((item) => (item.label.trim() ? `${item.label.trim()}: ${item.url.trim()}` : item.url.trim()))
+    .map((item) =>
+      item.label.trim()
+        ? `${item.label.trim()}: ${item.url.trim()}`
+        : item.url.trim(),
+    )
     .join("  |  ");
 }
 
 export function normalizeCv(input: unknown): CvData {
   const raw = (input ?? {}) as Record<string, unknown>;
-  const legacyLinks = str(raw['links']);
-  const linkItems = normalizeLinkItems(raw['linkItems'], legacyLinks);
+  const legacyLinks = str(raw["links"]);
+  const linkItems = normalizeLinkItems(raw["linkItems"], legacyLinks);
   return {
-    fullName: str(raw['fullName']),
-    email: str(raw['email']),
-    phone: str(raw['phone']),
-    location: str(raw['location']),
+    fullName: str(raw["fullName"]),
+    email: str(raw["email"]),
+    phone: str(raw["phone"]),
+    location: str(raw["location"]),
     links: linkItems.length ? linkItemsToLine(linkItems) : legacyLinks,
     linkItems,
-    photoUrl: str(raw['photoUrl']),
-    headline: str(raw['headline']),
-    summary: str(raw['summary']),
+    photoUrl: str(raw["photoUrl"]),
+    headline: str(raw["headline"]),
+    summary: str(raw["summary"]),
 
-    experiences: Array.isArray(raw['experiences'])
-      ? (raw['experiences'] as unknown[]).map((item) => {
+    experiences: Array.isArray(raw["experiences"])
+      ? (raw["experiences"] as unknown[]).map((item) => {
           const exp = (item ?? {}) as Record<string, unknown>;
           return {
-            company: str(exp['company']),
-            title: str(exp['title']),
-            location: str(exp['location']),
-            start: str(exp['start']),
-            end: str(exp['end']),
-            bullets: strArray(exp['bullets']),
+            company: str(exp["company"]),
+            title: str(exp["title"]),
+            location: str(exp["location"]),
+            start: str(exp["start"]),
+            end: str(exp["end"]),
+            bullets: strArray(exp["bullets"]),
           };
         })
       : [],
-    education: Array.isArray(raw['education'])
-      ? (raw['education'] as unknown[]).map((item) => {
+    education: Array.isArray(raw["education"])
+      ? (raw["education"] as unknown[]).map((item) => {
           const edu = (item ?? {}) as Record<string, unknown>;
           return {
-            school: str(edu['school']),
-            degree: str(edu['degree']),
-            start: str(edu['start']),
-            end: str(edu['end']),
-            details: str(edu['details']),
+            school: str(edu["school"]),
+            degree: str(edu["degree"]),
+            start: str(edu["start"]),
+            end: str(edu["end"]),
+            details: str(edu["details"]),
           };
         })
       : [],
-    skills: strArray(raw['skills']),
+    skills: strArray(raw["skills"]),
   };
 }
 
 export function normalizeMatch(input: unknown): MatchResult {
   const raw = (input ?? {}) as Record<string, unknown>;
-  const score = Number(raw['score']);
+  const score = Number(raw["score"]);
   return {
-    score: Number.isFinite(score) ? Math.max(0, Math.min(100, Math.round(score))) : 0,
-    matched: strArray(raw['matched']),
-    missing: strArray(raw['missing']),
-    notes: str(raw['notes']),
+    score: Number.isFinite(score)
+      ? Math.max(0, Math.min(100, Math.round(score)))
+      : 0,
+    matched: strArray(raw["matched"]),
+    missing: strArray(raw["missing"]),
+    notes: str(raw["notes"]),
   };
 }
 
@@ -218,7 +235,9 @@ export function cvToPlainText(cv: CvData): string {
   const lines: string[] = [];
   lines.push(cv.fullName.toUpperCase());
   if (cv.headline) lines.push(cv.headline);
-  const contact = [cv.email, cv.phone, cv.location, cv.links].filter(Boolean).join(" | ");
+  const contact = [cv.email, cv.phone, cv.location, cv.links]
+    .filter(Boolean)
+    .join(" | ");
   if (contact) lines.push(contact);
   if (cv.summary) {
     lines.push("", "PROFESSIONAL SUMMARY", cv.summary);
@@ -227,7 +246,10 @@ export function cvToPlainText(cv: CvData): string {
     lines.push("", "PROFESSIONAL EXPERIENCE");
     for (const exp of cv.experiences) {
       lines.push("", `${exp.title}${exp.company ? ` - ${exp.company}` : ""}`);
-      const meta = [exp.location, [exp.start, exp.end].filter(Boolean).join(" - ")]
+      const meta = [
+        exp.location,
+        [exp.start, exp.end].filter(Boolean).join(" - "),
+      ]
         .filter(Boolean)
         .join(" | ");
       if (meta) lines.push(meta);
@@ -250,12 +272,15 @@ export function cvToPlainText(cv: CvData): string {
 }
 
 /** Section headings, localized to the profile language. */
-export const CV_SECTION_LABELS: Record<ProfileLanguage, {
-  summary: string;
-  experience: string;
-  education: string;
-  skills: string;
-}> = {
+export const CV_SECTION_LABELS: Record<
+  ProfileLanguage,
+  {
+    summary: string;
+    experience: string;
+    education: string;
+    skills: string;
+  }
+> = {
   en: {
     summary: "Professional Summary",
     experience: "Professional Experience",
@@ -309,4 +334,3 @@ export const CV_SECTION_LABELS: Record<ProfileLanguage, {
 export function sectionLabels(language: unknown) {
   return CV_SECTION_LABELS[normalizeLanguage(language)];
 }
-

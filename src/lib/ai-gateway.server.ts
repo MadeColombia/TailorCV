@@ -33,7 +33,8 @@ export function createAiProvider(apiKey: string) {
 
 export function requireApiKey(): string {
   const key = process.env["OPENAI_API_KEY"];
-  if (!key) throw new Error("OPENAI_API_KEY is not configured for this project.");
+  if (!key)
+    throw new Error("OPENAI_API_KEY is not configured for this project.");
   return key;
 }
 
@@ -61,7 +62,8 @@ export type UsageRecord = {
  */
 export async function recordUsage(record: UsageRecord): Promise<void> {
   try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabaseAdmin } =
+      await import("@/integrations/supabase/client.server");
     await supabaseAdmin.from("ai_usage").insert({
       user_id: record.userId ?? null,
       feature: record.feature,
@@ -77,7 +79,12 @@ export async function recordUsage(record: UsageRecord): Promise<void> {
 
 export async function callGateway(
   messages: GatewayMessage[],
-  options: { json?: boolean; feature?: string; userId?: string; maxTokens?: number } = {},
+  options: {
+    json?: boolean;
+    feature?: string;
+    userId?: string;
+    maxTokens?: number;
+  } = {},
 ): Promise<string> {
   const now = Date.now();
   if (options.userId) {
@@ -98,13 +105,13 @@ export async function callGateway(
 
   const maxTokens =
     options.maxTokens ??
-    (options.feature ? FEATURE_MAX_TOKENS[options.feature] ?? 2000 : 2000);
+    (options.feature ? (FEATURE_MAX_TOKENS[options.feature] ?? 2000) : 2000);
 
   const response = await fetch(`https://api.openai.com/v1/chat/completions`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": `Bearer ${requireApiKey()}`,
+      Authorization: `Bearer ${requireApiKey()}`,
     },
     body: JSON.stringify({
       model: CHAT_MODEL,
@@ -118,17 +125,25 @@ export async function callGateway(
     const body = await response.text();
     console.error(`[AI Gateway] ${response.status}: ${body}`);
     if (response.status === 429) {
-      throw new Error("The AI is busy right now. Please try again in a moment.");
+      throw new Error(
+        "The AI is busy right now. Please try again in a moment.",
+      );
     }
     if (response.status === 402) {
-      throw new Error("AI credits are exhausted. Add credits to keep generating.");
+      throw new Error(
+        "AI credits are exhausted. Add credits to keep generating.",
+      );
     }
     throw new Error(`AI request failed (${response.status}).`);
   }
 
   const data = (await response.json()) as {
     choices?: Array<{ message?: { content?: string } }>;
-    usage?: { prompt_tokens?: number; completion_tokens?: number; total_tokens?: number };
+    usage?: {
+      prompt_tokens?: number;
+      completion_tokens?: number;
+      total_tokens?: number;
+    };
   };
 
   if (options.feature) {
@@ -147,9 +162,14 @@ export async function callGateway(
 }
 
 export function parseJsonResponse<T>(raw: string): T {
-  const trimmed = raw.trim().replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
+  const trimmed = raw
+    .trim()
+    .replace(/^```(?:json)?/i, "")
+    .replace(/```$/, "")
+    .trim();
   const start = trimmed.indexOf("{");
   const end = trimmed.lastIndexOf("}");
-  const slice = start >= 0 && end > start ? trimmed.slice(start, end + 1) : trimmed;
+  const slice =
+    start >= 0 && end > start ? trimmed.slice(start, end + 1) : trimmed;
   return JSON.parse(slice) as T;
 }

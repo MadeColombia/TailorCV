@@ -17,7 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { getRoleTarget, generateTargetCv, updateRoleTarget } from "@/lib/targets.functions";
+import {
+  getRoleTarget,
+  generateTargetCv,
+  updateRoleTarget,
+} from "@/lib/targets.functions";
 import { getCvTemplate } from "@/lib/template.functions";
 import { DEFAULT_TEMPLATE } from "@/lib/cv-template";
 import { downloadCvPdf } from "@/lib/cv-pdf";
@@ -37,12 +41,14 @@ export const Route = createFileRoute("/_authenticated/targets/$id")({
       { title: "Role target — TailorCV" },
       {
         name: "description",
-        content: "Shape a general ATS CV around one role you're targeting, then download the PDF.",
+        content:
+          "Shape a general ATS CV around one role you're targeting, then download the PDF.",
       },
       { property: "og:title", content: "Role target — TailorCV" },
       {
         property: "og:description",
-        content: "A reusable, role-focused CV with a readiness score and missing keywords.",
+        content:
+          "A reusable, role-focused CV with a readiness score and missing keywords.",
       },
     ],
   }),
@@ -61,7 +67,10 @@ function TargetWorkspace() {
     queryKey: ["role-target", id],
     queryFn: () => fetchTarget({ data: { id } }),
   });
-  const templateQuery = useQuery({ queryKey: ["cv-template"], queryFn: () => fetchTemplate() });
+  const templateQuery = useQuery({
+    queryKey: ["cv-template"],
+    queryFn: () => fetchTemplate(),
+  });
   const templateSettings = templateQuery.data ?? DEFAULT_TEMPLATE;
 
   const [title, setTitle] = useState("");
@@ -77,15 +86,17 @@ function TargetWorkspace() {
   useEffect(() => {
     if (!data) return;
     const row = data as Record<string, any>;
-    setTitle(row['title'] ?? "");
-    setSeniority(row['seniority'] ?? "");
-    setLocation(row['location'] ?? "");
-    setIndustry(row['industry'] ?? "");
-    setKeywords(Array.isArray(row['keywords']) ? row['keywords'].join(", ") : "");
-    setSampleOffers(row['sample_offers'] ?? "");
-    setLanguage(row['language'] === "es" ? "es" : "en");
-    setCv(row['generated_cv'] ? normalizeCv(row['generated_cv']) : null);
-    setMatch(row['match_result'] ? normalizeMatch(row['match_result']) : null);
+    setTitle(row["title"] ?? "");
+    setSeniority(row["seniority"] ?? "");
+    setLocation(row["location"] ?? "");
+    setIndustry(row["industry"] ?? "");
+    setKeywords(
+      Array.isArray(row["keywords"]) ? row["keywords"].join(", ") : "",
+    );
+    setSampleOffers(row["sample_offers"] ?? "");
+    setLanguage(row["language"] === "es" ? "es" : "en");
+    setCv(row["generated_cv"] ? normalizeCv(row["generated_cv"]) : null);
+    setMatch(row["match_result"] ? normalizeMatch(row["match_result"]) : null);
   }, [data]);
 
   const labels = sectionLabels(language);
@@ -130,7 +141,9 @@ function TargetWorkspace() {
   if (isLoading || !data) {
     return (
       <AppShell>
-        <main className="mx-auto max-w-6xl px-6 py-16 text-sm text-muted-foreground">Loading…</main>
+        <main className="mx-auto max-w-6xl px-6 py-16 text-sm text-muted-foreground">
+          Loading…
+        </main>
       </AppShell>
     );
   }
@@ -156,8 +169,15 @@ function TargetWorkspace() {
             <Button variant="ghost" onClick={() => saveMutation.mutate()}>
               Save
             </Button>
-            <Button onClick={() => generateMutation.mutate()} disabled={generateMutation.isPending}>
-              {generateMutation.isPending ? <Spinner /> : <Wand2 className="size-4" />}
+            <Button
+              onClick={() => generateMutation.mutate()}
+              disabled={generateMutation.isPending}
+            >
+              {generateMutation.isPending ? (
+                <Spinner />
+              ) : (
+                <Wand2 className="size-4" />
+              )}
               {cv ? "Regenerate CV" : "Generate CV"}
             </Button>
           </div>
@@ -197,7 +217,9 @@ function TargetWorkspace() {
                 <Label>CV language</Label>
                 <Select
                   value={language}
-                  onValueChange={(value) => setLanguage(value as ProfileLanguage)}
+                  onValueChange={(value) =>
+                    setLanguage(value as ProfileLanguage)
+                  }
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -240,11 +262,17 @@ function TargetWorkspace() {
             {match && (
               <div className="mb-5 rounded-xl border border-border bg-card p-5">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-display text-3xl font-bold text-primary">{match.score}%</span>
-                  <span className="text-sm text-muted-foreground">role readiness</span>
+                  <span className="font-display text-3xl font-bold text-primary">
+                    {match.score}%
+                  </span>
+                  <span className="text-sm text-muted-foreground">
+                    role readiness
+                  </span>
                 </div>
                 {match.notes && (
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{match.notes}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    {match.notes}
+                  </p>
                 )}
                 {match.missing.length > 0 && (
                   <div className="mt-4">
@@ -294,10 +322,16 @@ function TargetWorkspace() {
                       />
                     )}
                     <div className="min-w-0">
-                      <h2 className="font-display text-xl font-bold">{cv.fullName}</h2>
-                      {cv.headline && <p className="text-muted-foreground">{cv.headline}</p>}
+                      <h2 className="font-display text-xl font-bold">
+                        {cv.fullName}
+                      </h2>
+                      {cv.headline && (
+                        <p className="text-muted-foreground">{cv.headline}</p>
+                      )}
                       <p className="mt-1 text-xs text-muted-foreground">
-                        {[cv.email, cv.phone, cv.location].filter(Boolean).join("  •  ")}
+                        {[cv.email, cv.phone, cv.location]
+                          .filter(Boolean)
+                          .join("  •  ")}
                       </p>
                     </div>
                   </header>
@@ -310,7 +344,9 @@ function TargetWorkspace() {
                         className="mt-2"
                         rows={4}
                         value={cv.summary}
-                        onChange={(event) => setCv({ ...cv, summary: event.target.value })}
+                        onChange={(event) =>
+                          setCv({ ...cv, summary: event.target.value })
+                        }
                         onBlur={() => update({ data: { id, generatedCv: cv } })}
                       />
                     </section>
@@ -325,12 +361,16 @@ function TargetWorkspace() {
                           <div key={index}>
                             <p className="font-semibold">
                               {experience.title}
-                              {experience.company ? ` — ${experience.company}` : ""}
+                              {experience.company
+                                ? ` — ${experience.company}`
+                                : ""}
                             </p>
                             <p className="text-xs text-muted-foreground">
                               {[
                                 experience.location,
-                                [experience.start, experience.end].filter(Boolean).join(" – "),
+                                [experience.start, experience.end]
+                                  .filter(Boolean)
+                                  .join(" – "),
                               ]
                                 .filter(Boolean)
                                 .join("  |  ")}
@@ -358,7 +398,9 @@ function TargetWorkspace() {
                               {education.school ? ` — ${education.school}` : ""}
                             </p>
                             <p className="text-xs text-muted-foreground">
-                              {[education.start, education.end].filter(Boolean).join(" – ")}
+                              {[education.start, education.end]
+                                .filter(Boolean)
+                                .join(" – ")}
                             </p>
                             {education.details && <p>{education.details}</p>}
                           </div>
@@ -393,7 +435,8 @@ function TargetWorkspace() {
               <div className="rounded-xl border border-dashed border-border p-12 text-center">
                 <Sparkle className="mx-auto size-6 text-primary" />
                 <p className="mt-3 text-sm text-muted-foreground">
-                  No role CV yet. Fill in the details on the left, then hit “Generate CV”.
+                  No role CV yet. Fill in the details on the left, then hit
+                  “Generate CV”.
                 </p>
               </div>
             )}

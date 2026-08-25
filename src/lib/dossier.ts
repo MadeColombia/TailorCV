@@ -19,15 +19,24 @@ export const DOSSIER_SECTION_HINT = `## Scope & seniority
 /** Trim, collapse noise and cap the document so prompts stay bounded. */
 export function normalizeDossier(input: unknown): string {
   if (typeof input !== "string") return "";
-  const text = input.replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
-  return text.length > DOSSIER_MAX_CHARS ? `${text.slice(0, DOSSIER_MAX_CHARS).trim()}…` : text;
+  const text = input
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  return text.length > DOSSIER_MAX_CHARS
+    ? `${text.slice(0, DOSSIER_MAX_CHARS).trim()}…`
+    : text;
 }
 
 /**
  * Deterministic merge used when the AI merge is unavailable: the new fact is
  * appended verbatim under "Other facts" so nothing is ever lost.
  */
-export function appendFact(existing: unknown, question: string, answer: string): string {
+export function appendFact(
+  existing: unknown,
+  question: string,
+  answer: string,
+): string {
   const base = normalizeDossier(existing);
   const q = question.trim();
   const a = answer.trim();
@@ -35,7 +44,9 @@ export function appendFact(existing: unknown, question: string, answer: string):
   const line = q ? `- ${q} — ${a}` : `- ${a}`;
   if (base.includes(a)) return base;
   const head = base || `${DOSSIER_HEADING}\n\n## Other facts`;
-  const body = head.includes("## Other facts") ? head : `${head}\n\n## Other facts`;
+  const body = head.includes("## Other facts")
+    ? head
+    : `${head}\n\n## Other facts`;
   return normalizeDossier(`${body}\n${line}`);
 }
 
@@ -50,14 +61,18 @@ export function isDossierEmpty(content: unknown): boolean {
 }
 
 /** Heading used for the section the candidate uploads themselves. */
-export const UPLOADED_HEADING = "## Candidate-provided context (uploaded document)";
+export const UPLOADED_HEADING =
+  "## Candidate-provided context (uploaded document)";
 
 export const UPLOADED_MAX_CHARS = 8000;
 
 /** Trim and cap an uploaded document so it never crowds out the learned facts. */
 export function normalizeUploadedContext(input: unknown): string {
   if (typeof input !== "string") return "";
-  const text = input.replace(/\r\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  const text = input
+    .replace(/\r\n/g, "\n")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
   return text.length > UPLOADED_MAX_CHARS
     ? `${text.slice(0, UPLOADED_MAX_CHARS).trim()}…`
     : text;

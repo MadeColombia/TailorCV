@@ -22,24 +22,26 @@ function lang(value: unknown): ProfileLanguage {
 
 function rowToCv(row: Record<string, unknown> | null | undefined): CvData {
   return normalizeCv({
-    fullName: row?.['full_name'] ?? "",
-    email: row?.['email'] ?? "",
-    phone: row?.['phone'] ?? "",
-    location: row?.['location'] ?? "",
-    links: row?.['links'] ?? "",
-    linkItems: row?.['link_items'] ?? [],
-    photoUrl: row?.['photo_url'] ?? "",
-    headline: row?.['headline'] ?? "",
-    summary: row?.['summary'] ?? "",
-    experiences: row?.['experiences'] ?? [],
-    education: row?.['education'] ?? [],
-    skills: row?.['skills'] ?? [],
+    fullName: row?.["full_name"] ?? "",
+    email: row?.["email"] ?? "",
+    phone: row?.["phone"] ?? "",
+    location: row?.["location"] ?? "",
+    links: row?.["links"] ?? "",
+    linkItems: row?.["link_items"] ?? [],
+    photoUrl: row?.["photo_url"] ?? "",
+    headline: row?.["headline"] ?? "",
+    summary: row?.["summary"] ?? "",
+    experiences: row?.["experiences"] ?? [],
+    education: row?.["education"] ?? [],
+    skills: row?.["skills"] ?? [],
   });
 }
 
 export const getProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { language?: string } | undefined) => ({ language: lang(input?.language) }))
+  .inputValidator((input: { language?: string } | undefined) => ({
+    language: lang(input?.language),
+  }))
   .handler(async ({ data, context }) => {
     const { data: rows, error } = await context.supabase
       .from("profiles")
@@ -47,9 +49,12 @@ export const getProfile = createServerFn({ method: "POST" })
       .eq("user_id", context.userId);
     if (error) throw new Error(error.message);
     const all = (rows ?? []) as Array<Record<string, unknown>>;
-    const row = all.find((item) => item['language'] === data.language);
+    const row = all.find((item) => item["language"] === data.language);
     // The profile photo is shared across every language version.
-    const sharedPhoto = all.map((item) => item['photo_url']).find((url) => typeof url === "string" && url) ?? "";
+    const sharedPhoto =
+      all
+        .map((item) => item["photo_url"])
+        .find((url) => typeof url === "string" && url) ?? "";
     const cv = rowToCv(row as never);
     return {
       language: data.language,
@@ -57,7 +62,6 @@ export const getProfile = createServerFn({ method: "POST" })
       cv: { ...cv, photoUrl: cv.photoUrl || (sharedPhoto as string) },
     };
   });
-
 
 /** Which language versions the user has actually filled in. */
 export const listProfileVersions = createServerFn({ method: "GET" })
@@ -109,7 +113,8 @@ export const extractCvFromFile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { filename: string; dataUrl: string }) => input)
   .handler(async ({ data }) => {
-    const { callGateway, parseJsonResponse } = await import("@/lib/ai-gateway.server");
+    const { callGateway, parseJsonResponse } =
+      await import("@/lib/ai-gateway.server");
     const raw = await callGateway(
       [
         {
@@ -142,7 +147,8 @@ export const translateProfile = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { from: string; to: string }) => input)
   .handler(async ({ data, context }) => {
-    const { callGateway, parseJsonResponse } = await import("@/lib/ai-gateway.server");
+    const { callGateway, parseJsonResponse } =
+      await import("@/lib/ai-gateway.server");
     const from = lang(data.from);
     const to = lang(data.to);
     if (from === to) throw new Error("Pick two different languages.");
@@ -156,7 +162,9 @@ export const translateProfile = createServerFn({ method: "POST" })
     if (error) throw new Error(error.message);
     const source = rowToCv(row as never);
     if (!source.fullName && source.experiences.length === 0) {
-      throw new Error(`Your ${LANGUAGE_NAMES[from]} profile is empty — fill it in first.`);
+      throw new Error(
+        `Your ${LANGUAGE_NAMES[from]} profile is empty — fill it in first.`,
+      );
     }
 
     const raw = await callGateway(

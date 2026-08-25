@@ -44,7 +44,11 @@ describe("appendFact", () => {
   });
 
   it("adds a section when the document has none", () => {
-    const out = appendFact("# Candidate dossier\n\n## Tools\n- Go", "", "Kafka");
+    const out = appendFact(
+      "# Candidate dossier\n\n## Tools\n- Go",
+      "",
+      "Kafka",
+    );
     expect(out).toContain("## Other facts");
     expect(out).toContain("- Kafka");
   });
@@ -70,7 +74,10 @@ describe("dossierToPrompt / isDossierEmpty", () => {
 
 describe("combineDossier / normalizeUploadedContext", () => {
   it("keeps the uploaded text in its own section", () => {
-    const out = combineDossier("# Candidate dossier\n- fact", "- uploaded fact");
+    const out = combineDossier(
+      "# Candidate dossier\n- fact",
+      "- uploaded fact",
+    );
     expect(out).toContain(UPLOADED_HEADING);
     expect(out).toContain("- fact");
     expect(out).toContain("- uploaded fact");

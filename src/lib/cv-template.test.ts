@@ -27,7 +27,11 @@ describe("template lookups", () => {
   });
 
   it("ships three ATS templates and section labels", () => {
-    expect(TEMPLATE_OPTIONS.map((t) => t.id)).toEqual(["classic", "compact", "band"]);
+    expect(TEMPLATE_OPTIONS.map((t) => t.id)).toEqual([
+      "classic",
+      "compact",
+      "band",
+    ]);
     expect(SECTION_LABELS_UI.experience).toBe("Experience");
   });
 });
@@ -35,9 +39,14 @@ describe("template lookups", () => {
 describe("normalizeTemplate", () => {
   it("falls back to the default design for junk input", () => {
     expect(normalizeTemplate(null)).toEqual(DEFAULT_TEMPLATE);
-    expect(normalizeTemplate({ template: "fancy", font: "wingdings", density: "xl", accent: "pink" })).toEqual(
-      DEFAULT_TEMPLATE,
-    );
+    expect(
+      normalizeTemplate({
+        template: "fancy",
+        font: "wingdings",
+        density: "xl",
+        accent: "pink",
+      }),
+    ).toEqual(DEFAULT_TEMPLATE);
   });
 
   it("keeps valid settings", () => {
@@ -60,12 +69,10 @@ describe("normalizeTemplate", () => {
   });
 
   it("respects a custom section order and appends the missing sections", () => {
-    expect(normalizeTemplate({ sectionOrder: ["skills", "nope", "skills"] }).sectionOrder).toEqual([
-      "skills",
-      "summary",
-      "experience",
-      "education",
-    ]);
+    expect(
+      normalizeTemplate({ sectionOrder: ["skills", "nope", "skills"] })
+        .sectionOrder,
+    ).toEqual(["skills", "summary", "experience", "education"]);
   });
 
   it("treats a non-boolean showPhoto as false", () => {

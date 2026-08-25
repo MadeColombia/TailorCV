@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
-import { createAiProvider, CHAT_MODEL, requireApiKey, recordUsage } from "@/lib/ai-gateway.server";
+import {
+  createAiProvider,
+  CHAT_MODEL,
+  requireApiKey,
+  recordUsage,
+} from "@/lib/ai-gateway.server";
 import {
   checkRateLimit,
   pruneRateLimit,
@@ -60,9 +65,8 @@ export const Route = createFileRoute("/api/chat")({
         }
         const token = authHeader.slice("Bearer ".length).trim();
 
-        const { createUserScopedClient } = await import(
-          "@/lib/supabase-user.server"
-        );
+        const { createUserScopedClient } =
+          await import("@/lib/supabase-user.server");
         const { loadSettings } = await import("@/lib/user-settings.server");
 
         const auth = await createUserScopedClient(token);
@@ -91,16 +95,12 @@ export const Route = createFileRoute("/api/chat")({
           );
         }
 
-        const messages = rawMessages
-          .slice(-MAX_MESSAGES)
-          .map((m) => ({
-            ...m,
-            parts: (m.parts ?? []).map((p) =>
-              p.type === "text"
-                ? { ...p, text: p.text.slice(0, MAX_CHARS) }
-                : p,
-            ),
-          }));
+        const messages = rawMessages.slice(-MAX_MESSAGES).map((m) => ({
+          ...m,
+          parts: (m.parts ?? []).map((p) =>
+            p.type === "text" ? { ...p, text: p.text.slice(0, MAX_CHARS) } : p,
+          ),
+        }));
 
         const lastUser = [...messages].reverse().find((m) => m.role === "user");
         const lastText = (lastUser?.parts ?? [])
@@ -118,14 +118,21 @@ export const Route = createFileRoute("/api/chat")({
 
         // Everything the model sees is loaded server-side under the caller's own
         // row-level security, never taken from the request body.
-        const { loadApplication, loadProfileCv, loadKnowledge, knowledgeToText } = await import(
-          "@/lib/applications.server"
-        );
+        const {
+          loadApplication,
+          loadProfileCv,
+          loadKnowledge,
+          knowledgeToText,
+        } = await import("@/lib/applications.server");
         const { normalizeCv, cvToPlainText } = await import("@/lib/cv");
 
         let application;
         try {
-          application = await loadApplication(supabase, userId, body.applicationId);
+          application = await loadApplication(
+            supabase,
+            userId,
+            body.applicationId,
+          );
         } catch {
           return new Response("Application not found", { status: 404 });
         }

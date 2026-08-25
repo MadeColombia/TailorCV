@@ -85,20 +85,24 @@ export function ApplicationTracker({
   const summariseFn = useServerFn(summariseOffer);
   const reviewFn = useServerFn(submitReview);
 
-  const summary = normalizeOfferSummary(application['offer_summary']);
+  const summary = normalizeOfferSummary(application["offer_summary"]);
   const health = pipelineHealth(application as never, windows);
   const stage = health.stage;
 
-  const [interviewAt, setInterviewAt] = useState(toDateInput(application['interview_at']));
-  const [nextActionAt, setNextActionAt] = useState(toDateInput(application['next_action_at']));
+  const [interviewAt, setInterviewAt] = useState(
+    toDateInput(application["interview_at"]),
+  );
+  const [nextActionAt, setNextActionAt] = useState(
+    toDateInput(application["next_action_at"]),
+  );
   const [celebrate, setCelebrate] = useState(false);
   const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState("");
 
   useEffect(() => {
-    setInterviewAt(toDateInput(application['interview_at']));
-    setNextActionAt(toDateInput(application['next_action_at']));
-  }, [application['interview_at'], application['next_action_at']]);
+    setInterviewAt(toDateInput(application["interview_at"]));
+    setNextActionAt(toDateInput(application["next_action_at"]));
+  }, [application["interview_at"], application["next_action_at"]]);
 
   const refresh = () => {
     queryClient.invalidateQueries({ queryKey: ["application", id] });
@@ -132,7 +136,12 @@ export function ApplicationTracker({
   const interviewMutation = useMutation({
     mutationFn: (value: string) =>
       interviewFn({
-        data: { id, interviewAt: value ? new Date(`${value}T09:00:00`).toISOString() : null },
+        data: {
+          id,
+          interviewAt: value
+            ? new Date(`${value}T09:00:00`).toISOString()
+            : null,
+        },
       }),
     onSuccess: () => {
       refresh();
@@ -144,7 +153,12 @@ export function ApplicationTracker({
   const nextActionMutation = useMutation({
     mutationFn: (value: string) =>
       nextActionFn({
-        data: { id, nextActionAt: value ? new Date(`${value}T09:00:00`).toISOString() : null },
+        data: {
+          id,
+          nextActionAt: value
+            ? new Date(`${value}T09:00:00`).toISOString()
+            : null,
+        },
       }),
     onSuccess: () => refresh(),
     onError: (error: Error) => toast.error(error.message),
@@ -163,7 +177,11 @@ export function ApplicationTracker({
     mutationFn: () => summariseFn({ data: { id } }),
     onSuccess: () => {
       refresh();
-      notify("offer_analyzed", "Offer summary ready", "We condensed the job description for you.");
+      notify(
+        "offer_analyzed",
+        "Offer summary ready",
+        "We condensed the job description for you.",
+      );
     },
     onError: (error: Error) => toast.error(error.message),
   });
@@ -171,7 +189,13 @@ export function ApplicationTracker({
   const reviewMutation = useMutation({
     mutationFn: () =>
       reviewFn({
-        data: { rating, message: reviewText, source: "hired", applicationId: id, mayQuote: true },
+        data: {
+          rating,
+          message: reviewText,
+          source: "hired",
+          applicationId: id,
+          mayQuote: true,
+        },
       }),
     onSuccess: () => {
       setCelebrate(false);
@@ -180,9 +204,10 @@ export function ApplicationTracker({
     onError: (error: Error) => toast.error(error.message),
   });
 
-  const appliedOn = typeof application['applied_at'] === "string"
-    ? new Date(application['applied_at'] as string).toLocaleDateString()
-    : null;
+  const appliedOn =
+    typeof application["applied_at"] === "string"
+      ? new Date(application["applied_at"] as string).toLocaleDateString()
+      : null;
 
   return (
     <section className="mt-4 rounded-xl border border-border bg-card">
@@ -196,7 +221,9 @@ export function ApplicationTracker({
               <Button
                 key={item}
                 size="sm"
-                variant={stage === item ? "default" : done ? "secondary" : "outline"}
+                variant={
+                  stage === item ? "default" : done ? "secondary" : "outline"
+                }
                 onClick={() => stageMutation.mutate(item)}
                 disabled={stageMutation.isPending}
               >
@@ -225,12 +252,17 @@ export function ApplicationTracker({
       <div className="grid gap-5 p-4 lg:grid-cols-2">
         <div className="space-y-4">
           <div className="space-y-2">
-            <p className={cn("text-sm font-medium", toneTextClass(health.tone))}>{health.sentence}</p>
+            <p
+              className={cn("text-sm font-medium", toneTextClass(health.tone))}
+            >
+              {health.sentence}
+            </p>
             {health.likelihood !== null && (
               <div className="space-y-1">
                 <Progress value={health.likelihood} />
                 <p className="text-xs text-muted-foreground">
-                  {health.likelihood}% of companies that reply have replied by this point.
+                  {health.likelihood}% of companies that reply have replied by
+                  this point.
                 </p>
               </div>
             )}
@@ -291,7 +323,8 @@ export function ApplicationTracker({
               </p>
             </div>
             <div className="flex shrink-0 items-center gap-1.5">
-              {typeof application["offer_url"] === "string" && application["offer_url"] ? (
+              {typeof application["offer_url"] === "string" &&
+              application["offer_url"] ? (
                 <a
                   href={application["offer_url"] as string}
                   target="_blank"
@@ -307,21 +340,31 @@ export function ApplicationTracker({
                 onClick={() => summaryMutation.mutate()}
                 disabled={summaryMutation.isPending}
               >
-                {summaryMutation.isPending ? <Spinner /> : <RefreshCw className="size-3.5" />}
+                {summaryMutation.isPending ? (
+                  <Spinner />
+                ) : (
+                  <RefreshCw className="size-3.5" />
+                )}
                 {isEmptySummary(summary) ? "Summarize offer" : "Refresh"}
               </Button>
             </div>
           </div>
 
           <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-            {appliedOn && <Badge variant="secondary">Applied {appliedOn}</Badge>}
+            {appliedOn && (
+              <Badge variant="secondary">Applied {appliedOn}</Badge>
+            )}
             {summary.location && (
               <span className="inline-flex items-center gap-1">
                 <MapPin className="size-3" /> {summary.location}
               </span>
             )}
             {(summary.seniority || summary.employmentType) && (
-              <span>{[summary.seniority, summary.employmentType].filter(Boolean).join(" · ")}</span>
+              <span>
+                {[summary.seniority, summary.employmentType]
+                  .filter(Boolean)
+                  .join(" · ")}
+              </span>
             )}
             {summary.salaryText && (
               <span className="inline-flex items-center gap-1">
@@ -331,11 +374,13 @@ export function ApplicationTracker({
           </div>
 
           {summary.summary ? (
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{summary.summary}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {summary.summary}
+            </p>
           ) : (
             <p className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
-              <Sparkles className="size-3.5" /> No recap yet — summarise the offer to get a two-line
-              reminder of what this role is about.
+              <Sparkles className="size-3.5" /> No recap yet — summarise the
+              offer to get a two-line reminder of what this role is about.
             </p>
           )}
 
@@ -353,7 +398,6 @@ export function ApplicationTracker({
           )}
         </div>
       </div>
-
 
       <Dialog open={celebrate} onOpenChange={setCelebrate}>
         <DialogContent>
@@ -375,7 +419,9 @@ export function ApplicationTracker({
                 <Star
                   className={cn(
                     "size-6",
-                    value <= rating ? "fill-primary text-primary" : "text-muted-foreground/40",
+                    value <= rating
+                      ? "fill-primary text-primary"
+                      : "text-muted-foreground/40",
                   )}
                 />
               </button>
@@ -391,7 +437,10 @@ export function ApplicationTracker({
             <Button variant="ghost" onClick={() => setCelebrate(false)}>
               Maybe later
             </Button>
-            <Button onClick={() => reviewMutation.mutate()} disabled={reviewMutation.isPending}>
+            <Button
+              onClick={() => reviewMutation.mutate()}
+              disabled={reviewMutation.isPending}
+            >
               Send review
             </Button>
           </DialogFooter>

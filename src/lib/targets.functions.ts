@@ -7,14 +7,20 @@ import {
   loadKnowledge,
   loadProfileCv,
 } from "@/lib/applications.server";
-import { MAX_TARGETS, targetLanguage as lang, type RoleTargetInput } from "@/lib/targets";
+import {
+  MAX_TARGETS,
+  targetLanguage as lang,
+  type RoleTargetInput,
+} from "@/lib/targets";
 
 export const listRoleTargets = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("role_targets")
-      .select("id, title, seniority, location, industry, language, match_result, generated_cv, updated_at")
+      .select(
+        "id, title, seniority, location, industry, language, match_result, generated_cv, updated_at",
+      )
       .eq("user_id", context.userId)
       .order("created_at", { ascending: true });
     if (error) throw new Error(error.message);
@@ -46,7 +52,9 @@ export const createRoleTarget = createServerFn({ method: "POST" })
       .eq("user_id", context.userId);
     if (countError) throw new Error(countError.message);
     if ((count ?? 0) >= MAX_TARGETS) {
-      throw new Error(`You can keep up to ${MAX_TARGETS} role targets — delete one first.`);
+      throw new Error(
+        `You can keep up to ${MAX_TARGETS} role targets — delete one first.`,
+      );
     }
 
     const { data: row, error } = await context.supabase
@@ -69,17 +77,25 @@ export const createRoleTarget = createServerFn({ method: "POST" })
 
 export const updateRoleTarget = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string } & Partial<RoleTargetInput> & { generatedCv?: unknown }) => input)
+  .inputValidator(
+    (
+      input: { id: string } & Partial<RoleTargetInput> & {
+          generatedCv?: unknown;
+        },
+    ) => input,
+  )
   .handler(async ({ data, context }) => {
     const patch: Record<string, unknown> = {};
-    if (data.title !== undefined) patch['title'] = data.title;
-    if (data.seniority !== undefined) patch['seniority'] = data.seniority;
-    if (data.location !== undefined) patch['location'] = data.location;
-    if (data.industry !== undefined) patch['industry'] = data.industry;
-    if (data.keywords !== undefined) patch['keywords'] = data.keywords;
-    if (data.sampleOffers !== undefined) patch['sample_offers'] = data.sampleOffers;
-    if (data.language !== undefined) patch['language'] = lang(data.language);
-    if (data.generatedCv !== undefined) patch['generated_cv'] = normalizeCv(data.generatedCv);
+    if (data.title !== undefined) patch["title"] = data.title;
+    if (data.seniority !== undefined) patch["seniority"] = data.seniority;
+    if (data.location !== undefined) patch["location"] = data.location;
+    if (data.industry !== undefined) patch["industry"] = data.industry;
+    if (data.keywords !== undefined) patch["keywords"] = data.keywords;
+    if (data.sampleOffers !== undefined)
+      patch["sample_offers"] = data.sampleOffers;
+    if (data.language !== undefined) patch["language"] = lang(data.language);
+    if (data.generatedCv !== undefined)
+      patch["generated_cv"] = normalizeCv(data.generatedCv);
 
     const { error } = await context.supabase
       .from("role_targets")
@@ -108,7 +124,8 @@ export const generateTargetCv = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: { id: string }) => input)
   .handler(async ({ data, context }) => {
-    const { callGateway, parseJsonResponse } = await import("@/lib/ai-gateway.server");
+    const { callGateway, parseJsonResponse } =
+      await import("@/lib/ai-gateway.server");
 
     const { data: row, error: loadError } = await context.supabase
       .from("role_targets")
@@ -120,16 +137,24 @@ export const generateTargetCv = createServerFn({ method: "POST" })
     if (!row) throw new Error("Role target not found");
 
     const target = row as Record<string, any>;
-    const language = lang(target['language']);
-    const profile = await loadProfileCv(context.supabase, context.userId, language);
+    const language = lang(target["language"]);
+    const profile = await loadProfileCv(
+      context.supabase,
+      context.userId,
+      language,
+    );
     if (!profile.fullName && profile.experiences.length === 0) {
-      throw new Error("Add your master profile first — the AI has nothing to tailor.");
+      throw new Error(
+        "Add your master profile first — the AI has nothing to tailor.",
+      );
     }
     const knowledge = await loadKnowledge(context.supabase, context.userId);
     const { loadDossier } = await import("@/lib/dossier.server");
     const { dossierToPrompt } = await import("@/lib/dossier");
     const dossier = await loadDossier(context.supabase, context.userId);
-    const keywords: string[] = Array.isArray(target['keywords']) ? target['keywords'] : [];
+    const keywords: string[] = Array.isArray(target["keywords"])
+      ? target["keywords"]
+      : [];
 
     const raw = await callGateway(
       [
@@ -149,14 +174,14 @@ Return ONLY a JSON object: { "cv": ${CV_SCHEMA_HINT}, "match": { "score": number
         },
         {
           role: "user",
-          content: `TARGET ROLE: ${target['title'] || "unknown"}
-SENIORITY: ${target['seniority'] || "(not specified)"}
-LOCATION / WORK MODE: ${target['location'] || "(not specified)"}
-INDUSTRY: ${target['industry'] || "(not specified)"}
+          content: `TARGET ROLE: ${target["title"] || "unknown"}
+SENIORITY: ${target["seniority"] || "(not specified)"}
+LOCATION / WORK MODE: ${target["location"] || "(not specified)"}
+INDUSTRY: ${target["industry"] || "(not specified)"}
 KEYWORDS TO EMPHASISE: ${keywords.join(", ") || "(none given)"}
 
 SAMPLE JOB ADS FOR THIS ROLE (may be empty):
-${target['sample_offers'] || "(none given)"}
+${target["sample_offers"] || "(none given)"}
 
 CANDIDATE MASTER PROFILE (JSON):
 ${JSON.stringify(profile)}

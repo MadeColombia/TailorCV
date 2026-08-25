@@ -11,7 +11,9 @@ export type NotificationEvent =
   | "offer_analyzed"
   | "errors";
 
-export type NotificationPrefs = Record<NotificationEvent, boolean> & { enabled: boolean };
+export type NotificationPrefs = Record<NotificationEvent, boolean> & {
+  enabled: boolean;
+};
 
 const STORAGE_KEY = "tailorcv.notifications";
 
@@ -20,11 +22,32 @@ export const NOTIFICATION_EVENTS: Array<{
   label: string;
   description: string;
 }> = [
-  { key: "cv_tailored", label: "CV tailored", description: "When a tailored CV finishes generating." },
-  { key: "cover_letter", label: "Cover letter ready", description: "When a cover letter finishes generating." },
-  { key: "interview_prep", label: "Interview prep ready", description: "When screening questions and answers are drafted." },
-  { key: "offer_analyzed", label: "Job offer analysed", description: "When a pasted job link has been read successfully." },
-  { key: "errors", label: "Errors and failures", description: "Unreachable job links, failed generations and other problems." },
+  {
+    key: "cv_tailored",
+    label: "CV tailored",
+    description: "When a tailored CV finishes generating.",
+  },
+  {
+    key: "cover_letter",
+    label: "Cover letter ready",
+    description: "When a cover letter finishes generating.",
+  },
+  {
+    key: "interview_prep",
+    label: "Interview prep ready",
+    description: "When screening questions and answers are drafted.",
+  },
+  {
+    key: "offer_analyzed",
+    label: "Job offer analysed",
+    description: "When a pasted job link has been read successfully.",
+  },
+  {
+    key: "errors",
+    label: "Errors and failures",
+    description:
+      "Unreachable job links, failed generations and other problems.",
+  },
 ];
 
 export const defaultNotificationPrefs: NotificationPrefs = {
@@ -69,8 +92,11 @@ export function notify(event: NotificationEvent, title: string, body?: string) {
   if (!prefs.enabled || !prefs[event]) return;
   if (Notification.permission !== "granted") return;
   try {
-    // eslint-disable-next-line no-new
-    new Notification(title, { body: body ?? "", tag: `tailorcv-${event}`, icon: "/favicon.ico" });
+    new Notification(title, {
+      body: body ?? "",
+      tag: `tailorcv-${event}`,
+      icon: "/favicon.ico",
+    });
   } catch {
     /* notification API can throw on some platforms; ignore */
   }
