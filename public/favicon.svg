@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="tealGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf"/>
+      <stop offset="100%" stop-color="#0ea5e9"/>
+    </linearGradient>
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background container -->
+  <rect width="64" height="64" rx="14" fill="url(#bgGrad)" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Document Body -->
+  <path d="M16 12C16 9.79086 17.7909 8 20 8H36L48 20V52C48 54.2091 46.2091 56 44 56H20C17.7909 56 16 54.2091 16 52V12Z" fill="url(#docGrad)"/>
+  
+  <!-- Folded Corner -->
+  <path d="M36 8V18C36 19.1046 36.8954 20 38 20H48L36 8Z" fill="#94a3b8"/>
+
+  <!-- Resume Content Lines -->
+  <rect x="22" y="24" width="14" height="3" rx="1.5" fill="#64748b"/>
+  <rect x="22" y="31" width="20" height="2.5" rx="1.25" fill="#cbd5e1"/>
+  <rect x="22" y="37" width="16" height="2.5" rx="1.25" fill="#cbd5e1"/>
+  <rect x="22" y="43" width="18" height="2.5" rx="1.25" fill="#cbd5e1"/>
+
+  <!-- AI Spark / Tailoring Accent Badge -->
+  <circle cx="44" cy="44" r="10" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+  <circle cx="44" cy="44" r="8" fill="url(#tealGrad)" filter="url(#glow)"/>
+  
+  <!-- Spark Icon in Badge -->
+  <path d="M44 38.5L45.4 42.6L49.5 44L45.4 45.4L44 49.5L42.6 45.4L38.5 44L42.6 42.6L44 38.5Z" fill="#ffffff"/>
+</svg>

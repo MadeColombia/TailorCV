@@ -6,7 +6,7 @@ import {
   type RateLimitState,
 } from "./chat-guard";
 
-export const CHAT_MODEL = "openai/gpt-5.6-luna";
+export const CHAT_MODEL = process.env["OPENAI_MODEL"] || "gpt-4o";
 
 export const FEATURE_MAX_TOKENS: Record<string, number> = {
   tailor_cv: 3000,
@@ -107,6 +107,8 @@ export async function callGateway(
     options.maxTokens ??
     (options.feature ? (FEATURE_MAX_TOKENS[options.feature] ?? 2000) : 2000);
 
+  const modelName = CHAT_MODEL.replace(/^openai\//, "");
+
   const response = await fetch(`https://api.openai.com/v1/chat/completions`, {
     method: "POST",
     headers: {
@@ -114,7 +116,7 @@ export async function callGateway(
       Authorization: `Bearer ${requireApiKey()}`,
     },
     body: JSON.stringify({
-      model: CHAT_MODEL,
+      model: modelName,
       messages,
       max_tokens: maxTokens,
       ...(options.json ? { response_format: { type: "json_object" } } : {}),
