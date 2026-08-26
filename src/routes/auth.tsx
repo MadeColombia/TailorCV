@@ -72,7 +72,7 @@ function AuthPage() {
     }
   };
 
-  const handleOAuth = async (provider: "google" | "apple") => {
+  const handleOAuth = async (provider: "google") => {
     setLoading(true);
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
@@ -115,15 +115,6 @@ function AuthPage() {
                 disabled={loading}
               >
                 Continue with Google
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full"
-                onClick={() => handleOAuth("apple")}
-                disabled={loading}
-              >
-                Continue with Apple
               </Button>
             </div>
 
